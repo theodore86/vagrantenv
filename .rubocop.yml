@@ -1,0 +1,50 @@
+---
+AllCops:
+  NewCops: enable
+  Exclude:
+    - .tox/**/*
+    - docs/**/*
+    - tools/**/*
+    - provisioners/**/*
+    - site/**/*
+    - .vagrant/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Naming/FileName:
+  Enabled: false
+Security/Eval:
+  Enabled: false
+Style/CaseLikeIf:
+  Enabled: false
+Style/DocumentDynamicEvalDefinition:
+  Enabled: false
+Style/EvalWithLocation:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Metrics/AbcSize:
+  Max: 23
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
+Metrics/MethodLength:
+  Max: 25
+Layout/IndentationWidth:
+  Width: 4
+Metrics/BlockLength:
+  Max: 30
+Naming/MethodParameterName:
+  MinNameLength: 2
+...

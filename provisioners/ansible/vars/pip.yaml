@@ -1,0 +1,23 @@
+---
+
+pip_executable: 'pip'
+
+pip_conf:
+  global:
+    index_url: 'https://pypi.cloud.nsn-rdnet.net/root/pypi/+simple/'
+    extra_index_url:
+      - 'https://pypi.dynamic.nsn-net.net/root/pypi/+simple/'
+      - 'https://pypi.dynamic.nsn-net.net/crl/prod/+simple/'
+      - 'https://pypi.python.org/simple'
+    trusted_host:
+      - 'pypi.dynamic.nsn-net.net'
+      - 'pypi.cloud.nsn-rdnet.net'
+      - 'pypi.python.org'
+    timeout: 3
+    retries: 1
+    respect_virtualenv: true
+    disable_pip_version_check: true
+    verbose: 0
+  search:
+    index: 'https://pypi.cloud.nsn-rdnet.net/crl/prod/'
+...

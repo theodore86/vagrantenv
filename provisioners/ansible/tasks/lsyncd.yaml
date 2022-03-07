@@ -1,0 +1,21 @@
+---
+
+- name: 'Lsyncd | Variables'
+  include_vars: 'vars/lsyncd.yaml'
+
+- name: 'Lsyncd | Install package'
+  apt:
+    name: '{{ lsyncd_pkg_name }}'
+    force_apt_get: 'yes'
+    state: 'present'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Lsyncd | Setup configuration file under ~/.lsyncd.conf.lua'
+  template:
+    src: 'templates/lsyncd.conf.lua.j2'
+    dest: '{{ ansible_env.HOME }}/.lsyncd.conf.lua'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0644
+...

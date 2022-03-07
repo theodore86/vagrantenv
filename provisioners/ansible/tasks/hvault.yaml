@@ -1,0 +1,34 @@
+---
+
+- name: 'Hashicorp Vault | Variables'
+  include_vars: 'vars/hvault.yaml'
+
+- name: 'Hashicorp Vault | Add apt signing key'
+  apt_key:
+    url: '{{ hvault_key_url }}'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Hashicorp Vault | Add apt Repository'
+  apt_repository:
+    repo: 'deb {{ hvault_apt_repository_url }} {{ ansible_distribution_release }} main'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Hashicorp Vault | Install via apt'
+  apt:
+    name: 'vault={{ hvault_version }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Hashicorp Vault | Verify installation'
+  shell: 'vault --version'
+  changed_when: false
+  register: 'hvault_version'
+
+- name: 'Hashicorp Vault | Show version'
+  debug:
+    var: 'hvault_version.stdout'
+...

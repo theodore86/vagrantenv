@@ -1,0 +1,36 @@
+## Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+## Vagrant
+.vagrant
+*.box
+
+## Tox
+*.tox
+
+## Mkdocs documentation
+site/
+
+## Logs
+logs/
+
+## ARCHIVES
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+## Chocolatey
+install.ps1
+
+## Ansible-lint
+.cache/
+
+## Ruby
+.bundle/

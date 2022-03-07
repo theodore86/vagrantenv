@@ -1,0 +1,26 @@
+---
+
+- name: 'PIP | Variables'
+  include_vars: 'vars/pip.yaml'
+
+- name: 'PIP | Setup configuration file'
+  template:
+    src: 'templates/pip.conf.j2'
+    dest: '{{ ansible_env.HOME }}/.pip.conf'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0644
+  notify:
+    - 'PIP | Cleanup configuration file'
+
+- name: 'PIP | Upgrade, if required'
+  pip:
+    name: 'pip'
+    chdir: '{{ ansible_env.HOME }}'
+    state: 'latest'
+    executable: '{{ pip_executable }}'
+  become: 'yes'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/.pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+...

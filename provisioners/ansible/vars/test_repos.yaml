@@ -1,0 +1,31 @@
+---
+
+test_fwk:
+    git:
+        proto: 'git'
+        host: 'gitlab.athmg.eecloud.dynamic.nsn-net.net'
+        group: 'e2e'
+        repos:
+            - name: 'e2e-dockerfiles'
+              version: &branch 'master'
+              pull: &true true
+            - name: 'e2e-waf'
+              version: *branch
+              pull: *true
+            - name: 'e2e-mg-robot'
+              version: 'development'
+              pull: *true
+            - name: 'e2e-ims-robot'
+              version: *branch
+              pull: *true
+            - name: 'e2e-vagrant'
+              version: *branch
+              pull: false
+            - name: 'e2e-ansible'
+              version: *branch
+              pull: *true
+            - name: 'e2e-sandbox'
+              version: *branch
+              pull: *true
+        destination: '{{ ansible_env.HOME }}'
+...

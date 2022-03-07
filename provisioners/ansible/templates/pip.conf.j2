@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+[global]
+verbose={{ pip_conf.global.verbose | int }}
+timeout={{ pip_conf.global.timeout | int }}
+retries={{ pip_conf.global.retries | int }}
+respect-virtualenv={{ pip_conf.global.respect_virtualenv | bool }}
+disable-pip-version-check={{ pip_conf.global.disable_pip_version_check | bool }}
+index-url={{ pip_conf.global.index_url }}
+extra-index-url={{ pip_conf.global.extra_index_url | join (' ')}}
+trusted-host={{ pip_conf.global.trusted_host | join(' ')}}
+
+[search]
+index={{ pip_conf.search.index }}

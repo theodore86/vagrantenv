@@ -1,0 +1,14 @@
+---
+
+- name: 'GitLab | E2E repositories variables'
+  include_vars: 'vars/test_repos.yaml'
+
+- name: 'GitLab | Checkout E2E repositories'
+  git:
+    repo: '{{ test_fwk.git.proto }}@{{ test_fwk.git.host }}:{{ test_fwk.git.group }}/{{ item.name }}.git'
+    dest: '{{ test_fwk.git.destination }}/{{ item.name }}'
+    version: '{{ item.version }}'
+    accept_hostkey: 'yes'
+    update: '{{ item.pull }}'
+  loop: '{{ test_fwk.git.repos }}'
+...

@@ -1,0 +1,6 @@
+---
+
+hvault_version: '1.9.1'
+hvault_key_url: 'https://apt.releases.hashicorp.com/gpg'
+hvault_apt_repository_url: 'https://apt.releases.hashicorp.com'
+...

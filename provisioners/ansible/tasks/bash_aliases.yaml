@@ -1,0 +1,17 @@
+---
+
+- name: 'Bash Aliases | Variables'
+  include_vars: 'vars/bash_aliases.yaml'
+
+- name: 'Bash Aliases | Adding aliases'
+  lineinfile:
+    dest: '{{ bash_aliases_path }}'
+    state: 'present'
+    create: 'yes'
+    mode: 0644
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    line: 'alias {{ item.alias }}="{{ item.command }}"'
+    regexp: '^alias {{ item.alias }}='
+  loop: '{{ bash_aliases }}'
+...

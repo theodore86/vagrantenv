@@ -1,0 +1,27 @@
+# .yamllint -- Overrides the default rules for linting Yaml code
+
+---
+
+extends: default
+
+ignore: |
+  .tox/
+
+rules:
+  braces:
+    min-spaces-inside: 1
+    max-spaces-inside: 1
+  document-end:
+    level: warning
+  empty-values:
+    forbid-in-block-mappings: false
+    forbid-in-flow-mappings: false
+  line-length:
+    max: 140
+    level: warning
+  trailing-spaces:
+    level: warning
+
+...
+
+# vim: ft=yaml

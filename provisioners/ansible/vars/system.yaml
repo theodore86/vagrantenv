@@ -1,0 +1,40 @@
+---
+
+system_locales_present:
+  - 'en_US.UTF-8'
+system_locales_dependencies:
+  - 'tzdata'
+  - 'locales'
+system_locales_language_packs:
+  - 'language-pack-en'
+  - 'language-pack-en-base'
+system_timezone_dependencies:
+  - 'tzdata'
+system_timezone: 'Europe/Athens'
+system_required_packages:
+  - 'build-essential'
+  - 'software-properties-common'
+  - 'git'
+  - 'git-lfs'
+  - 'git-crypt'
+  - 'zip'
+  - 'unzip'
+  - 'ack-grep'
+  - 'python3.8-dev'
+  - 'python3-pip'
+  - 'python3-tk'
+  - 'deborphan'
+  - 'tree'
+  - 'lynx'
+  - 'bash-completion'
+  - 'ldap-utils'
+  - 'python-dev'
+  - 'python-tk'
+  - 'graphviz'
+  - 'xauth'
+  - 'x11-apps'
+  - 'dos2unix'
+  - 'socat'
+  - 'bridge-utils'
+  - 'jq'
+...

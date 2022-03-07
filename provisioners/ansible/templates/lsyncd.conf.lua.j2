@@ -1,0 +1,59 @@
+----
+---- {{ ansible_managed }}
+----
+
+settings {
+    logfile = "/tmp/lsyncd.log",
+    statusFile = "/tmp/lsyncd.status",
+    statusInterval = {{ lsyncd_settings_status_interval }},
+    nodaemon = true
+}
+
+---- Username for SSH ----.
+username = '{{ lsyncd_username }}'
+
+---- Lsyncd hosts ----.
+hosts = {
+{% for key, value in lsyncd_hosts.items() %}
+    ["{{ key }}"] = "{{ value }}"{% if not loop.last %},
+{% endif %}
+{% endfor %}
+}
+
+---- Lsyncd src and remote target dirs ---
+sts = {
+{% for st in lsyncd_sources_and_targets %}
+    ["{{ st['source'] }}"] = "{{ st['target'] }}"{% if not loop.last %},
+{% endif %}
+{% endfor %}
+}
+
+---- Lsyncd/Rsync to remote hosts ----
+for _, host in pairs(hosts) do
+    for source, target in pairs(sts) do
+        sync {
+            default.rsyncssh,
+            source = source,
+            targetdir = target,
+            host = host,
+            exclude = { '.tox/*', '.git/*', 'log/*', '*.swp'},
+            delay = {{ lsyncd_sync_delay }},
+            rsync = {
+                archive = true,
+                compress = true,
+                protect_args = false,
+                owner = true,
+                group = true,
+                perms = true,
+                rsh = "/usr/bin/ssh -l " .. username .. " -o StrictHostKeyChecking=no"
+            },
+            ssh = {
+                options = {
+                    ---- Replace the default SSH username if needed.
+                    User = username,
+                    StrictHostKeyChecking='no'
+                }
+            }
+        }
+    end
+end

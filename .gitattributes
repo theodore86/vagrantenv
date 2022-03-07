@@ -1,0 +1,62 @@
+## Auto detect text files and perform LF normalization
+* text=auto
+
+## DOCUMENTS
+*.md text
+*.rst text
+
+## CONFIG
+*.ini text
+*.config text
+*.conf text
+*.yaml text eof=lf
+*.yml text eof=lf
+*.tpl text
+*.xml text
+*.tmpl text eof=lf
+*.j2 text
+.gitattributes text
+.gitignore text
+.yamllint text eof=lf
+.ansible-lint text eof=lf
+Vagrantfile text diff=ruby
+.mailmap text
+
+## ARCHIVES
+*.7z  binary
+*.gz  binary
+*.jar binary
+*.rar binary
+*.tar binary
+*.zip binary
+
+## GRAPHICS
+*.ai   binary
+*.bmp  binary
+*.eps  binary
+*.gif  binary
+*.ico  binary
+*.jng  binary
+*.jp2  binary
+*.jpg  binary
+*.jpeg binary
+*.jpx  binary
+*.jxr  binary
+*.pdf  binary
+*.png  binary
+*.psb  binary
+*.psd  binary
+*.svgz binary
+*.tif  binary
+*.tiff binary
+*.wbmp binary
+*.webp binary
+
+## PYTHON
+*.py text diff=python
+
+## RUBY
+*.rb text diff=ruby
+
+## SHELL
+*.sh text eof=lf

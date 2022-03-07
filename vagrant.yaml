@@ -1,0 +1,192 @@
+---
+
+# Vagrant minimum required version
+:min_required_version: '2.2.1'
+
+# Project directories
+:directories:
+    :shell_provisioner: &shell_provisioner 'provisioners/shell'
+    :ansible_provisioner: &ansible_provisioner 'provisioners/ansible'
+
+# Required Vagrant plugins
+:plugins:
+    - :name: 'vagrant-vbguest'
+      :version: '0.30.0'
+    - :name: 'sahara'
+      :version: '0.0.17'
+    - :name: 'vagrant-proxyconf'
+      :version: '2.0.10'
+    - :name: 'vagrant-goodhosts'
+      :version: '1.0.15'
+    - :name: 'vagrant-netinfo'
+      :version: '0.0.4'
+
+# Vagrant SSH settings
+:ssh:
+    :forward_agent: true
+    :forward_x11: true
+
+# Vagrant VM & plugins settings
+:host:
+    :name: &hostname 'TestVM'
+    :box_update: false
+    :box: 'bento/ubuntu-20.04'
+    :box_url: null
+    :cpus: null
+    :memory: null
+    :boot_timeout: 60
+    :gui: false
+    :customize:
+        - :command: 'modifyvm'
+          :settings:
+              # https://github.com/mitchellh/vagrant/issues/1807
+              - ['--natdnshostresolver1', 'on']
+              - ['--natdnsproxy1', 'on']
+              - ['--nictype1', 'virtio']
+              - ['--ioapic', 'on']
+        # https://gist.github.com/aboutte/f4adcbfc33cc7309791e0d21102c3d38
+        - :command: 'guestproperty'
+          :actions:
+              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-interval', 10000]
+              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-min-adjust', 100]
+              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-on-restore', 1]
+              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-start', 1]
+              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold', 1000]
+    # https://github.com/goodhosts/vagrant
+    :goodhosts:
+        :aliases: ["testvm.local"]
+        :remove_on_suspend: true
+    # https://github.com/dotless-de/vagrant-vbguest
+    :vbguest:
+        :iso:
+            :path: null
+            :mount_point: null
+            :upload_path: null
+        :no_remote: false
+        :no_install: false
+        :auto_update: true
+        :auto_reboot: true
+        :allow_downgrade: true
+    # https://github.com/tmatilai/vagrant-proxyconf
+    :proxy:
+        :http:
+            :address: &proxy_addr '10.158.100.2'
+            :port: &proxy_port 8080
+        :https:
+            :address: *proxy_addr
+            :port: *proxy_port
+            :is_supported: false
+        :system:
+            :enabled: true
+            :no_proxy:
+                - '127.0.0.1'
+                - 'localhost'
+                - '.alcatel-lucent.com'
+                - '.nokia.com'
+                - '.alcatel.com'
+                - '.nsn-rdnet.net'
+                - '.nsn-net.net'
+            :applications:
+                :apt:
+                    :enabled: false
+                    :skip: false
+                :git:
+                    :enabled: false
+                    :skip: false
+                :docker:
+                    :enabled: false
+                    :skip: false
+    :networks:
+        - :vpn:
+              :type: 'forwarded_port'
+              :disabled: true
+              :options:
+                  - :id: 'mkdocs'
+                    :guest: 8000
+                    :protocol: &tcp 'tcp'
+                    :host_ip: &localhost '127.0.0.1'
+                    :host: 8000
+                    :auto_correct: true
+                  - :id: 'rfdocs'
+                    :guest: 8010
+                    :protocol: *tcp
+                    :host_ip: *localhost
+                    :host: 8010
+                    :auto_correct: true
+                  - :id: 'reports'
+                    :guest: 8080
+                    :protocol: *tcp
+                    :host_ip: *localhost
+                    :host: 8080
+                    :auto_correct: true
+                  - :id: 'vault'
+                    :guest: 8200
+                    :protocol: *tcp
+                    :host_ip: *localhost
+                    :host: 8200
+                    :auto_correct: true
+        - :lan:
+              :type: 'private_network'
+              :disabled: false
+              :options:
+                  - :type: 'static'
+                    :ip: '172.16.0.2'
+                    :netmask: '255.255.255.252'
+                    :nic_type: 'virtio'
+                    :goodhosts: 'no_skip'
+    :synced_folders:
+        - :src: '.'
+          :dest: '/vagrant'
+          :type: 'virtualbox'
+          :options:
+              :disabled: true
+        - :src: '.'
+          :dest: &shared '/shared'
+          :type: 'virtualbox'
+          :options:
+              :create: true
+              :mount_options: ['dmode=774', 'fmode=664']
+              :id: 'testvm-project'
+        - :src: '~/ws'
+          :dest: '/ws'
+          :type: 'virtualbox'
+          :options:
+              :create: true
+              :mount_options: ['dmode=774', 'fmode=774']
+              :id: 'workspace'
+    :provisioners:
+        :ansible:
+            :name: *hostname
+            :options:
+                :type: 'ansible_local'
+                :install: true
+                :install_mode: 'pip_args_only'
+                :pip_install_cmd: 'curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py |sudo python'
+                :pip_args: 'ansible==4.8.0'
+                :verbose: false
+                :compatibility_mode: '2.0'
+                :limit: 'all'
+                :playbook: [*shared, *ansible_provisioner, 'playbook.yaml']
+                :inventory_path: [*shared, *ansible_provisioner, 'inventory.yaml']
+                :provisioning_path: [*shared, *ansible_provisioner]
+                :extra_vars:
+                    :gitconfig_user_name: ''
+                    :gitconfig_user_email: ''
+                :tags:
+                    - 'bash_aliases'
+                    - 'bash_profile'
+                    - 'lsyncd'
+                    - 'ipython'
+                    - 'gitconfig'
+                    - 'tox'
+                    - 'vim'
+                    - 'docker'
+                    - 'tshark'
+                    - 'ansible_extras'
+                    - 'ruby'
+                    - 'vagrant'
+                    - 'hvault'
+                    - 'go'
+                    - 'kind'
+                    - 'kubectl'
+...

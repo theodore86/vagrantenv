@@ -1,0 +1,63 @@
+---
+
+- name: 'KIND | Variables'
+  include_vars: 'vars/kind.yaml'
+
+- name: 'KIND | Check for existing binary'
+  stat:
+    path: "{{ kind_install_dir }}/kind"
+  register: kind_check_existing
+
+- name: 'KIND | Check binary version'
+  shell: '{{ kind_install_dir }}/kind --version'
+  changed_when: false
+  register: kind_check_existing_version
+  when: kind_check_existing.stat.exists
+
+- name: 'KIND | Define existing binary version'
+  set_fact:
+    kind_existing_version: '{{ kind_check_existing_version | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(:?\d{1,}\.){2}\d{1,}'
+
+- name: 'KIND | Download binary'
+  get_url:
+    url: '{{ kind_download_url }}'
+    dest: '/tmp/kind-{{ kind_version }}'
+  when: not kind_check_existing.stat.exists or
+        kind_existing_version != kind_version
+
+- name: 'KIND | Remove any installed binary'
+  file:
+    path: '{{ kind_install_dir }}/kind'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kind_check_existing.stat.exists'
+    - 'kind_existing_version != kind_version'
+
+- name: 'KIND | Ensure install directory exists'
+  file:
+    path: '{{ kind_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'KIND | Copy binary to the installation directory'
+  copy:
+    src: '/tmp/kind-{{ kind_version }}'
+    dest: '{{ kind_install_dir }}/kind'
+    remote_src: true
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: not kind_check_existing.stat.exists or
+        kind_existing_version != kind_version
+  notify:
+    - 'KIND | Check installed binary version'
+    - 'KIND | Define installed binary version'
+    - 'KIND | Verify installed binary version'
+...

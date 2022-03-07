@@ -1,0 +1,48 @@
+---
+
+site_name: 'E2E TestVM Documentation'
+site_author: 'Theodore Georgomanolis@E2E CMG Test Team'
+site_description: 'E2E TestVM Project Documentation'
+repo_url: 'https://gitlab.athmg.eecloud.dynamic.nsn-net.net/e2e/e2e-vagrant'
+edit_uri: 'https://gitlab.athmg.eecloud.dynamic.nsn-net.net/e2e/e2e-vagrant/-/tree/master/docs'
+nav:
+    - Home: 'index.md'
+    - User Guide:
+          - 'Intranet Access': 'intranet/access.md'
+          - 'Vagrant':
+                - 'Overview': 'vagrant/overview.md'
+                - 'Commands': 'vagrant/commands.md'
+                - 'Vagrantfile': 'vagrant/vagrantfile.md'
+                - 'Providers': 'vagrant/providers.md'
+                - 'Networking': 'vagrant/network.md'
+                - 'System': 'vagrant/system.md'
+                - 'Provisioners': 'vagrant/provisioners.md'
+                - 'Synced Folders': 'vagrant/shared.md'
+                - 'Plugins': 'vagrant/plugins.md'
+                - 'Debugging': 'vagrant/debugging.md'
+                - 'Workflow': 'vagrant/workflow.md'
+                - 'Common Issues': 'vagrant/issues.md'
+          - 'Cmder': 'cmder/guide.md'
+          - 'Chocolatey': 'chocolatey/guide.md'
+          - 'Git Bash': 'gitbash/guide.md'
+    - Developer Guide:
+          - 'Ansible': 'dev/ansible.md'
+          - 'Ruby': 'dev/ruby.md'
+          - 'YAML': 'dev/yaml.md'
+          - 'Tox': 'dev/tox.md'
+          - 'Pre-commit': 'dev/hooks.md'
+          - 'MkDocs': 'dev/mkdocs.md'
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_style: 'github'
+    hljs_languages:
+        - 'yaml'
+        - 'ruby'
+markdown_extensions:
+    - 'admonition'
+    - 'pymdownx.superfences'
+copyright: 'Copyright (c) 2018, Nokia Solutions and Networks. All rights reserved.'
+plugins:
+    - 'search'
+...

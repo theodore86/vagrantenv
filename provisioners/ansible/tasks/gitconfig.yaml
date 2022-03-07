@@ -1,0 +1,22 @@
+---
+
+- name: 'Gitconfig | Variables'
+  include_vars: 'vars/gitconfig.yaml'
+
+- name: 'Gitconfig | Ensure {{ ansible_env.HOME }}/.gitconfig file exists'
+  copy:
+    content: ''
+    dest: '{{ ansible_env.HOME }}/.gitconfig'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    force: 'no'
+    mode: 0644
+
+- name: 'Gitconfig | Setup {{ ansible_env.HOME }}/.gitconfig file options'
+  template:
+    src: 'templates/gitconfig.j2'
+    dest: '{{ ansible_env.HOME }}/.gitconfig'
+    mode: 0644
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+...

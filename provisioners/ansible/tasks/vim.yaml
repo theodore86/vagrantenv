@@ -1,0 +1,121 @@
+---
+
+- name: 'VIM | Variables'
+  include_vars: 'vars/vim.yaml'
+
+- name: 'VIM | Remove VIM-tiny package'
+  apt:
+    name: 'vim-tiny'
+    state: 'absent'
+  become: 'yes'
+
+- name: 'VIM | Install package'
+  apt:
+    name: 'vim'
+    force_apt_get: 'yes'
+    state: 'present'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'VIM | Copy configuration file'
+  copy:
+    src: 'files/vimrc'
+    dest: '{{ ansible_env.HOME }}/.vimrc'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    force: 'yes'
+    mode: 0644
+
+- name: 'VIM | Ensure {{ vim_plugin_dir }}'
+  file:
+    path: '{{ vim_plugin_dir }}'
+    state: 'directory'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0755
+
+- name: 'VIM | Cleanup {{ j2vim.git.directory }}/{{ j2vim.git.repo.name }} directory'
+  file:
+    path: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}'
+    state: 'absent'
+  when: 'j2vim_reinstall | bool'
+
+- name: 'VIM | Cleanup {{ rfvim.git.directory }}/{{ rfvim.git.repo.name }} directory'
+  file:
+    path: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}'
+    state: 'absent'
+  when: 'rfvim_reinstall | bool'
+
+- name: 'VIM | Cleanup {{ j2vim.git.repo.name }} files under: {{ vim_plugin_dir }}'
+  file:
+    path: '{{ vim_plugin_dir }}/{{ item }}/jinja.vim'
+    state: 'absent'
+  loop:
+    - 'syntax'
+    - 'ftdetect'
+    - 'ftplugin'
+    - 'indent'
+  when: 'j2vim_reinstall | bool'
+
+- name: 'VIM | Cleanup {{ rfvim.git.repo.name }} files under: {{ vim_plugin_dir }}'
+  file:
+    path: '{{ vim_plugin_dir }}/{{ item }}/robot.vim'
+    state: 'absent'
+  loop:
+    - 'after/syntax'
+    - 'ftdetect'
+  when: 'rfvim_reinstall | bool'
+
+- name: 'VIM | Checkout {{ j2vim.git.repo.name }} plugin'
+  git:
+    repo: '{{ j2vim.git.proto }}://{{ j2vim.git.host }}/{{ j2vim.git.user }}/{{ j2vim.git.repo.name }}.git'
+    dest: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}'
+    version: '{{ j2vim.git.repo.version }}'
+    accept_hostkey: 'yes'
+    update: 'no'
+
+- name: 'VIM | Checkout {{ rfvim.git.repo.name }} plugin'
+  git:
+    repo: '{{ rfvim.git.proto }}://{{ rfvim.git.host }}/{{ rfvim.git.user }}/{{ rfvim.git.repo.name }}.git'
+    dest: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}'
+    version: '{{ rfvim.git.repo.version }}'
+    accept_hostkey: 'yes'
+    update: 'no'
+
+- name: 'VIM | Add {{ rfvim.git.repo.name }} highlighting for .resource file extension'
+  lineinfile:
+    path: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}/ftdetect/robot.vim'
+    regexp: '^au.*?\.robot.*?(?<!\.resource).*?robot$'
+    line: 'au BufNewFile,BufRead *.robot,*.resource setlocal filetype=robot'
+    state: 'present'
+    backup: 'yes'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0644
+
+- name: 'VIM | Copy {{ rfvim.git.repo.name }} plugin contents'
+  copy:
+    src: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}/{{ item }}/'
+    dest: '{{ vim_plugin_dir }}/{{ item }}/'
+    force: 'yes'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 'preserve'
+  loop:
+    - 'after/syntax'
+    - 'ftdetect'
+
+- name: 'VIM | Copy {{ j2vim.git.repo.name }} plugin contents'
+  copy:
+    src: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}/{{ item }}/'
+    dest: '{{ vim_plugin_dir }}/{{ item }}/'
+    force: 'yes'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 'preserve'
+  loop:
+    - 'syntax'
+    - 'ftdetect'
+    - 'ftplugin'
+    - 'indent'
+...

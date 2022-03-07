@@ -1,0 +1,84 @@
+---
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v3.4.0
+      hooks:
+          - id: end-of-file-fixer
+          - id: check-added-large-files
+          - id: trailing-whitespace
+            exclude: README\.md$
+          - id: mixed-line-ending
+            args: ['--fix=auto']
+          - id: check-merge-conflict
+          - id: check-vcs-permalinks
+          - id: check-case-conflict
+          - id: detect-private-key
+          - id: end-of-file-fixer
+          - id: check-xml
+            files: .*\.(xml|config)$
+            types: ['file', 'text']
+          - id: check-executables-have-shebangs
+    - repo: https://github.com/Lucas-C/pre-commit-hooks
+      rev: v1.1.9
+      hooks:
+          - id: forbid-tabs
+    - repo: https://github.com/jumanjihouse/pre-commit-hooks
+      rev: 2.1.5
+      hooks:
+          - id: check-mailmap
+          - id: forbid-binary
+            exclude: >
+                (?x)^(
+                    docs/img/.*?png
+                )$
+    - repo: local
+      hooks:
+          - id: yamllint
+            name: YAML (yamllint) Linter
+            entry: yamllint
+            description: Linter for YAML files
+            language: system
+            args: ['-s', '--format', 'parsable']
+            files: \.(yaml|yml|ansible-lint|yamllint)$
+
+          - id: shellcheck
+            name: Shell (shellcheck) Linter
+            entry: shellcheck
+            description: Linter for Shell scripts
+            language: system
+            args: ['-x', '-e', 'SC2086']
+            types: ['shell']
+
+          - id: ansiblelint
+            name: Ansible (ansible-lint) Linter
+            entry: ansible-lint
+            description: Linter for Ansible roles and playbooks
+            language: system
+            args: ['--force-color', '--parseable-severity', 'provisioners/ansible/playbook.yaml']
+            pass_filenames: false
+
+          - id: mkdocslint
+            name: MkDocs (mkdocs) Linter
+            entry: mkdocs build
+            description: Linter for MkDocs markdown files
+            language: system
+            args: ['--strict']
+            pass_filenames: false
+
+          - id: vagrantlint
+            name: Vagrantfile Linter
+            entry: vagrant validate --ignore-provider Vagrantfile
+            description: Linter for Vagrantfile
+            language: system
+            pass_filenames: false
+            stages: ['manual']
+
+          - id: rubocoplint
+            name: Ruby (rubocop) Linter
+            entry: bin/rubocop
+            description: Linter for Ruby files
+            language: script
+            pass_filenames: false
+            stages: ['manual']
+
+...

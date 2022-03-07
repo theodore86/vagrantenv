@@ -1,0 +1,6 @@
+# .ansible-lint config file for linting Ansible roles and playbooks
+---
+skip_list:
+    - '403'
+    - '305'
+...

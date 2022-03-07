@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+bundle install -j "$(nproc)" &>/dev/null
+bundle exec rubocop "$@"
