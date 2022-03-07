@@ -77,15 +77,10 @@
             :port: *proxy_port
             :is_supported: false
         :system:
-            :enabled: true
+            :enabled: false
             :no_proxy:
                 - '127.0.0.1'
                 - 'localhost'
-                - '.alcatel-lucent.com'
-                - '.nokia.com'
-                - '.alcatel.com'
-                - '.nsn-rdnet.net'
-                - '.nsn-net.net'
             :applications:
                 :apt:
                     :enabled: false
