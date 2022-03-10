@@ -1,9 +1,9 @@
 ---
 
-- name: 'Bash profile | Variables'
+- name: 'BASH profile | Variables'
   include_vars: 'vars/bash_profile.yaml'
 
-- name: 'Bash profile | Ensure file exists'
+- name: 'BASH profile | Ensure file exists'
   copy:
     content: ''
     dest: '{{ bash_profile_path }}'
@@ -12,7 +12,7 @@
     force: 'no'
     mode: 0644
 
-- name: 'Bash profile | Parse Git branch and Add brackets'
+- name: 'BASH profile | Parse Git branch and Add brackets'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK git_command_prompt'
@@ -22,7 +22,7 @@
           git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
       }
 
-- name: 'Bash profile | PIP Bash completion'
+- name: 'BASH profile | PIP Bash completion'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK pip_completion'
@@ -35,7 +35,7 @@
       }
       complete -o default -F pip_completion pip
 
-- name: 'Bash profile | Set global PATH so it includes user private ~/bin'
+- name: 'BASH profile | Set global PATH so it includes user private ~/bin'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK user private ~/bin'
@@ -45,7 +45,7 @@
           PATH="$HOME/bin:$PATH"
       fi
 
-- name: 'Bash profile | Set global PATH to include user ~/.local/bin'
+- name: 'BASH profile | Set global PATH to include user ~/.local/bin'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK PATH ~/.local/bin'
@@ -55,7 +55,7 @@
           PATH="$HOME/.local/bin:$PATH"
       fi
 
-- name: 'Bash_profile | Source .bash_aliases file if exists'
+- name: 'BASH profile | Source .bash_aliases file if exists'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK ~/.bash_aliases'
@@ -65,7 +65,7 @@
           . ~/.bash_aliases
       fi
 
-- name: 'Bash profile | Add user ENV variables'
+- name: 'BASH profile | Add user ENV variables'
   lineinfile:
     dest: '{{ bash_profile_path }}'
     state: 'present'
@@ -73,7 +73,7 @@
     regexp: '^export {{ item.name }}='
   loop: '{{ bash_profile_env_vars }}'
 
-- name: 'Bash profile | Set global PATH to include user installed rubygems'
+- name: 'BASH profile | Set global PATH to include user installed rubygems'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK ~/.gem/ruby'
@@ -83,7 +83,7 @@
           PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
       fi
 
-- name: 'Bash Profile | Vault Bash Completion'
+- name: 'BASH Profile | Vault Bash Completion'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK vault completion'
@@ -93,7 +93,7 @@
           complete -C $(which vault) vault
       fi
 
-- name: 'Bash Profile | Set global PATH to include Go binary'
+- name: 'BASH Profile | Set global PATH to include Go binary'
   blockinfile:
     path: '{{ bash_profile_path }}'
     marker: '# {mark} ANSIBLE MANAGED BLOCK PATH /usr/local/go/bin/go'
@@ -102,4 +102,12 @@
       if [ -d "/usr/local/go/bin" ]; then
           PATH="/usr/local/go/bin:$PATH"
       fi
+
+- name: 'BASH Profile | Kubectl Bash completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK kubectl completion'
+    state: 'present'
+    block: |
+      source <(kubectl completion bash)
 ...

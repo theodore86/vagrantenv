@@ -1,10 +1,10 @@
 ---
 
-site_name: 'E2E TestVM Documentation'
-site_author: 'Theodore Georgomanolis@E2E CMG Test Team'
-site_description: 'E2E TestVM Project Documentation'
-repo_url: 'https://gitlab.athmg.eecloud.dynamic.nsn-net.net/e2e/e2e-vagrant'
-edit_uri: 'https://gitlab.athmg.eecloud.dynamic.nsn-net.net/e2e/e2e-vagrant/-/tree/master/docs'
+site_name: 'Vagrant TestVM Documentation'
+site_author: 'Theodore Georgomanolis'
+site_description: 'Vagrant TestVM Project Documentation'
+repo_url: 'https://github.com/theodore86/vagrantenv'
+edit_uri: 'https://github.com/theodore86/vagrantenv/tree/main/docs'
 nav:
     - Home: 'index.md'
     - User Guide:
@@ -33,7 +33,7 @@ nav:
           - 'Pre-commit': 'dev/hooks.md'
           - 'MkDocs': 'dev/mkdocs.md'
 theme:
-    name: readthedocs
+    name: 'readthedocs'
     highlightjs: true
     hljs_style: 'github'
     hljs_languages:
@@ -42,7 +42,7 @@ theme:
 markdown_extensions:
     - 'admonition'
     - 'pymdownx.superfences'
-copyright: 'Copyright (c) 2018, Nokia Solutions and Networks. All rights reserved.'
+copyright: 'Copyright (c) 2018, Theodore Georgomanolis. All rights reserved.'
 plugins:
     - 'search'
 ...

@@ -1,4 +1,4 @@
-# E2E Vagrant Box for Testing and Developing
+# Vagrant Box for Testing and Developing
 Vagrant box for testing and developing using Python 2.7.x and 3.x.
 Fully managed and provisioned through [Ansible](https://www.ansible.com) playbooks.
 
@@ -20,11 +20,11 @@ turned off by default, which can cause issues with many Vagrant boxes. Enable VT
 ### Git
 Install the [Git](https://git-scm.com/book/en/v1/Getting-Started-Installing-Git) command line tool.
 
-- On *Linux OS* use your distribution package manager.
+- On *Linux OS/Mac OS X* use your distribution package manager.
 - On *Windows OS* download and install [Git](https://git-scm.com/download/win).
   - Don't forget to include the **Git BASH** during installation.
 
-#### Linux OS
+#### Linux OS/Mac OS X
 Use your distribution package manager and install the following `mandatory` packages:
 
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) `mandatory`
@@ -106,20 +106,20 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 ## Accessing the Project Source Code
 In order to *clone* the project source code you need:
 
-1. Request membership to [vagrant-e2e](https://gitlab.athmg.eecloud.dynamic.nsn-net.net/e2e/e2e-vagrant) project.
+1. Request membership to [vagrantenv](git@github.com:theodore86/vagrantenv.git) project.
 
 ## Windows Host Provisioning
 Open Git BASH as **Administrator**:
 ```console
-git clone git@gitlab.athmg.eecloud.dynamic.nsn-net.net:e2e/e2e-vagrant.git
-cd vagrant-e2e/tools
+git clone git@github.com:theodore86/vagrantenv.git
+cd vagrantenv/tools/windows
 cmd "/C provision.bat"
 shutdown /r (Reboot Windows PC)
 ```
 
 ## Bringing Up the Virtual Machine
 ```console
-cd vagrant-e2e
+cd vagrantenv
 export HTTP(S)_PROXY=x.x.x.x:8080 (if behind proxy)
 vagrant up
 vagrant ssh
@@ -127,7 +127,7 @@ vagrant ssh
 
 ## Updating the Virtual Machine
 ```console
-cd vagrant-e2e
+cd vagrantenv
 git pull
 vagrant box update
 vagrant up or reload
@@ -136,7 +136,7 @@ vagrant ssh
 
 ## Project Structure
 ```bash
-vagrant-e2e
+vagrantenv
 ├── AUTHORS.md
 ├── bin (d)
 ├── CHANGELOG.md

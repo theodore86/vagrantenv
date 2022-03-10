@@ -624,4 +624,4 @@
 
 ## [1.0.0] - 2019-02-25
 ### Added
-- The first release of E2E Vagrant development & test environment.
+- The first release of the Vagrant development & testing environment.
