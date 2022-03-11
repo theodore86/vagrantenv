@@ -1,3 +1,5 @@
+[![BuildStatus](https://travis-ci.org/theodore86/vagrantenv.svg?branch=main)](https://travis-ci.org/theodore86/vagrantenv)
+
 # Vagrant Box for Testing and Developing
 Vagrant box for testing and developing using Python 2.7.x and 3.x.
 Fully managed and provisioned through [Ansible](https://www.ansible.com) playbooks.
