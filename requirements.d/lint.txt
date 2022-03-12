@@ -1,5 +1,5 @@
 # Requirements for base linting tools
 
 yamllint==1.26.0
-shellcheck-py==0.7.1.1
+shellcheck-py==0.8.0.4
 ansible-lint[community]==5.4.0
