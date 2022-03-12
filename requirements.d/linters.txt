@@ -1,0 +1,5 @@
+# Requirements for [testenv:linters] virtualenv
+
+-r precommit.txt
+-r lint.txt
+-r docs.txt
