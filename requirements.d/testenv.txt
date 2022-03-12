@@ -1,0 +1,4 @@
+# Requirements for the base [testenv] virtualenv
+
+-r lint.txt
+-r docs.txt

@@ -1,0 +1,3 @@
+# Requirements for [testenv:rubocoplint] virtualenv
+
+-r precommit.txt

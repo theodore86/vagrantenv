@@ -1,0 +1,3 @@
+# Requirements for [testenv:vagrantlint] virtualenv
+
+-r precommit.txt
