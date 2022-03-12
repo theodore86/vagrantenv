@@ -9,4 +9,6 @@ updates:
     labels:
       - 'enhancement'
       - 'dependabot'
+    ignore:
+      - dependency-name: 'shellcheck'
 ...
