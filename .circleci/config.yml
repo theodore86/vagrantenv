@@ -1,0 +1,33 @@
+---
+version: 2.1
+orbs:
+  python: circleci/python@2.0.2
+jobs:
+  execute_tests:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - 'checkout'
+      - python/install-packages:
+          app-dir: './requirements.d'
+          pkg-manager: 'pip'
+          pip-dependency-file: 'tox.txt'
+      - run:
+          name: 'Run continuous integration tests'
+          command: |
+            python -m tox -e py3,linters
+workflows:
+  on_commit:
+    jobs:
+      - 'execute_tests'
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - 'main'
+    jobs:
+      - 'execute_tests'
+...

@@ -1,0 +1,3 @@
+# Requirements for Tox automation tool
+
+tox==3.24.5
