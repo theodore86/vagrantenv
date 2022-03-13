@@ -11,4 +11,11 @@ updates:
       - 'dependabot'
     ignore:
       - dependency-name: 'shellcheck'
+  - package-ecosystem: 'bundler'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'enhancement'
+      - 'dependabot'
 ...
