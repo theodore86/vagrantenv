@@ -1,4 +1,4 @@
-[![BuildStatus](https://travis-ci.org/theodore86/vagrantenv.svg?branch=main)](https://travis-ci.org/theodore86/vagrantenv)
+[![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=svg&circle-token=bc7666e0b5736f67b6a4fdda6f244782d2062375)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
 
 # Vagrant Box for Testing and Developing
 Vagrant box for testing and developing using Python 2.7.x and 3.x.
