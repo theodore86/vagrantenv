@@ -119,6 +119,15 @@ cmd "/C provision.bat"
 shutdown /r (Reboot Windows PC)
 ```
 
+## Linux Host Provisioning
+Open your terminal:
+```console
+git clone git@github.com:theodore86/vagrantenv.git
+cd vagrantenv/tools/linux
+bash provision.sh
+sudo shutdown -r (Reboot your Linux PC)
+```
+
 ## Bringing Up the Virtual Machine
 ```console
 cd vagrantenv
