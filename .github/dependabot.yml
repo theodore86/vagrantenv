@@ -11,6 +11,9 @@ updates:
       - 'dependabot'
     ignore:
       - dependency-name: 'shellcheck'
+      - dependency-name: 'ansible-lint[community]'
+        versions:
+          - '>5.4.0'
   - package-ecosystem: 'bundler'
     directory: '/'
     schedule:
