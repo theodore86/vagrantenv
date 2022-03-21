@@ -8,7 +8,7 @@ source ../helpers/system.sh
 # shellcheck source=tools/helpers/pacapt.sh
 source ../helpers/pacapt.sh
 
-VAGRANT_VERSION='2.2.16'
+VAGRANT_VERSION='2.2.19'
 VAGRANT_VIRTUALBOX_VERSION='virtualbox'
 VAGRANT_TMP_DIR='/tmp/downloads'
 VAGRANT_TMP_DEB="${VAGRANT_TMP_DIR}/vagrant_${VAGRANT_VERSION}.deb"

@@ -1,6 +1,6 @@
 ---
 
-vagrant_version: '2.2.16'
+vagrant_version: '2.2.19'
 vagrant_package: 'vagrant_{{ vagrant_version }}_{{ ansible_machine }}.deb'
 vagrant_download_url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/{{ vagrant_package }}'
 vagrant_download_dest: '/tmp/{{ vagrant_package }}'
