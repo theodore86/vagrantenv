@@ -11,14 +11,11 @@ updates:
       - 'dependabot'
     ignore:
       - dependency-name: 'shellcheck'
-        versions:
-          - '==0.8.0.3'
       - dependency-name: 'pymdown-extensions'
-        versions:
-          - '==9.1'
       - dependency-name: 'ansible-lint[community]'
         versions:
           - '>5.4.0'
+      - dependency-name: 'jinja2'
   - package-ecosystem: 'bundler'
     directory: '/'
     schedule:
