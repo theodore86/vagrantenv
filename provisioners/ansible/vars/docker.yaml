@@ -19,13 +19,9 @@ docker_apt_repository: 'deb [arch=amd64] {{ docker_download_url }} {{ ansible_di
 docker_group: 'docker'
 docker_pkg_name: "docker-ce"
 
-docker_insecure_registries:
-  - 'registry.athmg.eecloud.dynamic.nsn-net.net:5000'
+docker_insecure_registries: []
 
-docker_registries_mirror:
-  - 'https://registry.athmg.eecloud.dynamic.nsn-net.net:5000'
-  - 'https://docker-registry-remote.artifactory-espoo1.int.net.nokia.com'
-  - 'https://docker-registry-remote.artifactory-espoo2.int.net.nokia.com'
+docker_registries_mirror: []
 
 docker_config:
   insecure-registries: '{{ docker_insecure_registries }}'

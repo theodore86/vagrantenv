@@ -26,9 +26,6 @@ logs/
 *.tar
 *.zip
 
-## Chocolatey
-install.ps1
-
 ## Ansible-lint
 .cache/
 

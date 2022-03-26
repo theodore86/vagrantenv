@@ -57,12 +57,18 @@ repos:
             args: ['--force-color', '--parseable-severity', 'provisioners/ansible/playbook.yaml']
             pass_filenames: false
 
-          - id: mkdocslint
-            name: MkDocs (mkdocs) Linter
-            entry: mkdocs build
-            description: Linter for MkDocs markdown files
+          - id: rubocoplint
+            name: Ruby (rubocop) Linter
+            entry: bin/rubocop
+            description: Linter for Ruby files
+            language: script
+            pass_filenames: false
+
+          - id: hadolint
+            name: Dockerfile (hadolint) Linter
+            entry: hadolint Dockerfile
+            description: Linter for Dockerfiles
             language: system
-            args: ['--strict']
             pass_filenames: false
 
           - id: vagrantlint
@@ -71,14 +77,12 @@ repos:
             description: Linter for Vagrantfile
             language: system
             pass_filenames: false
-            stages: ['manual']
 
-          - id: rubocoplint
-            name: Ruby (rubocop) Linter
-            entry: bin/rubocop
-            description: Linter for Ruby files
-            language: script
+          - id: mkdocslint
+            name: MkDocs (mkdocs) Linter
+            entry: mkdocs build
+            description: Linter for MkDocs markdown files
+            language: system
+            args: ['--strict']
             pass_filenames: false
-            stages: ['manual']
-
 ...

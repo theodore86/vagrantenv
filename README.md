@@ -152,6 +152,7 @@ vagrantenv
 ├── bin (d)
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
+├── Dockerfile
 ├── docs (d)
 ├── Gemfile
 ├── Gemfile.lock
@@ -160,6 +161,7 @@ vagrantenv
 ├── mkdocs.yml
 ├── provisioners (d)
 ├── README.md
+├── requirements.d (d)
 ├── tools (d)
 ├── tox.ini
 ├── Vagrantfile
@@ -167,9 +169,11 @@ vagrantenv
 ```
 
 * ``bin``: Project executables
+* ``Dockerfile``: File to build project CI docker containers
 * ``docs``: Project documentation
 * ``lib``:  Vagrant ruby helper modules
 * ``provisioners``: Vagrant (shell, ansible) provisioners
+* ``requirements.d``: Python project dependencies
 * ``tools``: Generic project tools
 * ``tox.ini``: Test automation command line tool
 * ``vagrant.yaml``: Vagrant central configuration file
