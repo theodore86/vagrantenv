@@ -1,26 +1,24 @@
 ---
 version: 2.1
-orbs:
-  python: circleci/python@2.0.2
 jobs:
   execute_tests:
     docker:
-      - image: cimg/python:3.8
-    resource_class: medium
+      - image: 'theodore86/vagrantenv-ci:0.0.1'
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    resource_class: 'medium'
     steps:
       - 'checkout'
-      - python/install-packages:
-          app-dir: './requirements.d'
-          pkg-manager: 'pip'
-          pip-dependency-file: 'tox.txt'
       - run:
           name: 'Run continuous integration tests'
           command: |
-            python -m tox -e py3,linters
+            tox -e linters
 workflows:
   on_commit:
     jobs:
-      - 'execute_tests'
+      - execute_tests:
+          context: 'docker-hub-creds'
   nightly:
     triggers:
       - schedule:

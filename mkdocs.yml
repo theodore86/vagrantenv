@@ -27,6 +27,7 @@ nav:
           - 'Git Bash': 'gitbash/guide.md'
     - Developer Guide:
           - 'Ansible': 'dev/ansible.md'
+          - 'CI/CD': 'dev/cicd.md'
           - 'Ruby': 'dev/ruby.md'
           - 'YAML': 'dev/yaml.md'
           - 'Tox': 'dev/tox.md'

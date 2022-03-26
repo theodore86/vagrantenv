@@ -17,6 +17,7 @@
 *.j2 text
 .gitattributes text
 .gitignore text
+.dockerignore text
 .yamllint text eof=lf
 .ansible-lint text eof=lf
 Vagrantfile text diff=ruby
