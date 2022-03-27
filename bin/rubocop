@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-[[ $(command -v 'bundle' >/dev/null) ]] || \
-    { echo "Executable \`bundle\` not found"; exit 1; }
+if ! command -v 'bundle' >/dev/null; then
+  echo "Executable \`bundle\` not found"
+  exit 1
+fi
 
 bundle install -j "$(nproc)" &>/dev/null
 bundle exec rubocop "$@"
