@@ -11,7 +11,7 @@
     `git add .`
 4. Lint your changes
 
-    `tox`
+    `tox` or `docker run -v $PWD:/app/ theodore86/vagrantenv-ci:0.0.1`
 5. Commit your changes
 
     `git commit -m 'Add some feature'`
