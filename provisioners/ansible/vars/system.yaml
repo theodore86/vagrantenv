@@ -37,4 +37,5 @@ system_required_packages:
   - 'socat'
   - 'bridge-utils'
   - 'jq'
+system_inotify_filewatchers: '131072'
 ...

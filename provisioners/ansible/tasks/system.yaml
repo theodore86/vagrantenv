@@ -75,4 +75,12 @@
     force_apt_get: 'yes'
     install_recommends: 'no'
   become: 'yes'
+
+- name: 'Increase filewatcher capability'
+  sysctl:
+    name: 'fs.inotify.max_user_watches'
+    value: '{{ system_inotify_filewatchers }}'
+    reload: 'yes'
+    state: 'present'
+  become: 'yes'
 ...
