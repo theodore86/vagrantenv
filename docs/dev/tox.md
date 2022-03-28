@@ -52,9 +52,9 @@ pip3 install tox
     as development environments are supported.
 
 !!! tip
-    There is no need to use the host machine as your main development environment, alternative **you can use the guest machine**
+    There is no need to use the host machine as your main development environment, alternative *you can use the guest machine*
     which is already provisioned with all the required development tools, either you can take advantage of vagrant [synced folders](../vagrant/shared.md)
-    functionality or just clone the source code inside the guest machine after the provisioning process.
+    functionality or just clone the source code inside the guest machine after the completion of *ansible provisioning process*.
 
 # Basic example
 
@@ -63,39 +63,61 @@ Put the basic information about your project and the test environments you want 
 ```ini
 # content of: tox.ini
 [tox]
-project = Vagrant
-minversion = 3.2.1
+project = Vagrantenv (TestVM)
+minversion = 3.7.0
 skipsdist = true
-envlist = py{2,3}
+envlist = py3,linters
 skip_missing_interpreters = true
 
+
 [testenv]
-# set environment variables
+changedir = {toxinidir}
+basepython = python3
 setenv =
-    LANG = en_US.UTF-8
     VIRTUAL_ENV = {envdir}
     PYTHONDONTWRITEBYTECODE = 1
+    PYTHONWARNINGS = ignore
     VIRTUALENV_NO_DOWNLOAD = 1
     PIP_CONFIG_FILE = .pip.conf
-# pass environment variables
 passenv =
-    HTTP_PROXY
-    HTTPS_PROXY
+    USERPROFILE
+    USER
+    HOME
+    PRE_COMMIT_HOME
+    TERM
 sitepackages = False
-# allow any external command line tool
 whitelist_externals =
     find
-# install mkdocs in the virtualenv where commands will be executed
-deps =
-    mkdocs>=1.0.4
+deps = -r requirements.d/testenv.txt
+parallel_show_output = true
 commands =
-    # NOTE: you can run any command line tool here - not just tests
     - find . -type f -name "*.pyc" -delete
     - find . -type d -name "__pycache__" -delete
     {envpython} -m pip check
+
+
+[testenv:linters]
+description = Execute all project linters
+deps = -r requirements.d/linters.txt
+commands =
+    {envpython} -m pre_commit run {posargs:--all-files --verbose}
+
+
+[testenv:docs]
+description = Project documentation
+deps = -r requirements.d/docs.txt
+commands =
+    {envpython} -m mkdocs serve {posargs}
+
+
+[testenv:venv]
+description = Any local command in virtualenv
+commands = {posargs}
 ```
 
-You can also try generating a ``tox.ini`` file automatically, by running ``tox-quickstart`` and then answering a few simple questions. Install and test your project against Python2.7 and Python3.6, just type:
+You can also try generating a ``tox.ini`` file automatically, by running ``tox-quickstart`` and then answering a few simple questions.
+
+Install and test your project, just type:
 
 ```console
 tox
@@ -107,7 +129,7 @@ and watch things happening. When you run ``tox`` a second time you’ll note tha
 
 The main purpose of using ``tox`` in this project is to automate and encapsulate most of the test operations during the development of the project source code. The default ``tox`` test environment is the ``[testenv]``. This environment will be triggered when we are calling the ``tox`` command without any command line option. Despite of the ``[testenv]`` it is possible to override the global settings and create more virtual environments based on your project needs.
 
-Test environments are defined by a:
+Test environments are defined by:
 ```ini
 [testenv:NAME]
 commands = ...
@@ -119,34 +141,24 @@ commands = ...
 ```
 ``testenv`` default section. Complete list of settings can be found at [tox configuration section](https://tox.readthedocs.io/en/latest/config.html)
 
-Currently the supported test environments are:
+The supported test environments are:
 
 - ``[testenv]``
 
-Default test environment, will check the python dependencies in python 2 and 3.<br>
+Default test environment, will check the python dependencies in python3.<br>
 
 Just type:
 ```console
 tox
 ```
 
-- ``[testenv:lint]``
+- ``[testenv:linters]``
 
-Will execute the ``pre-commit`` framework in order to perform code validation, linting and formating.<br>
-
-Just type:
-```console
-tox -e lint
-```
-
-- ``[testenv:vagrantlint]``
-
-Will execute the vagrant command: ``vagrant validate Vagrantfile``.<br>
-It performs an dry-run on the [Vagrantfile](../../vagrant/vagrantfile/#Introduction).<br>
+Will execute the [pre-commit](./hooks.md) framework in order to perform code validation, linting and formating.<br>
 
 Just type:
 ```console
-tox -e vagrantlint
+tox -e linters
 ```
 
 - ``[testenv:docs]``
@@ -156,17 +168,6 @@ Project documentation using the [mkdocs](./mkdocs.md). It will spawn an http ser
 Just type:
 ```console
 tox -e docs
-```
-
-- ``[testenv:jenkins]``
-
-Jenkins test environment **should not** be executed manually. It will be triggered whenever an commit is pushed to the remote repository. After each commit (except of ``[ci-skip]`` in commit message) Jenkins will perform code validation and will permantly generate and serve the project documentation.
-
-In brief this environment is being used for [CI/CD](https://www.infoworld.com/article/3271126/what-is-cicd-continuous-integration-and-continuous-delivery-explained.html) purposes.<br>
-
-Just type:
-```console
-tox -e jenkins
 ```
 
 # References
