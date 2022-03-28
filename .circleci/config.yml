@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   execute_tests:
     docker:
-      - image: 'theodore86/vagrantenv-ci:0.0.1'
+      - image: 'theodore86/vagrantenv-ci:0.0.2'
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
@@ -12,8 +12,7 @@ jobs:
       - 'checkout'
       - run:
           name: 'Run continuous integration tests'
-          command: |
-            tox -e linters
+          command: 'tox'
 workflows:
   on_commit:
     jobs:

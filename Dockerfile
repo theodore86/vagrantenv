@@ -49,7 +49,6 @@ ARG PIP_VERSION="22.0.4" \
 RUN python3 -m pip install --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
     python3 -m pip install --no-cache-dir tox=="${TOX_VERSION}"
 
-ENV PRE_COMMIT_HOME="/app/.cache/pre-commit" \
-    TERM="xterm-256color"
+ENV PRE_COMMIT_HOME="/app/.cache/pre-commit"
 
-CMD ["tox", "-e", "linters"]
+CMD ["tox"]

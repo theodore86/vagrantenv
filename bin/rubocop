@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if ! command -v 'bundle' >/dev/null; then
-  echo "Executable \`bundle\` not found"
+  echo "Executable \`bundle\` not found" >&2
   exit 1
 fi
 
