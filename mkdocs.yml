@@ -3,8 +3,10 @@
 site_name: 'Vagrant TestVM Documentation'
 site_author: 'Theodore Georgomanolis'
 site_description: 'Vagrant TestVM Project Documentation'
+site_url: 'https://github.com/theodore86/vagrantenv'
 repo_url: 'https://github.com/theodore86/vagrantenv'
 edit_uri: 'https://github.com/theodore86/vagrantenv/tree/main/docs'
+docs_dir: 'docs'
 nav:
     - Home: 'index.md'
     - User Guide:
@@ -41,6 +43,20 @@ theme:
         - 'yaml'
         - 'ruby'
 markdown_extensions:
+    - 'abbr'
+    - 'admonition'
+    - 'attr_list'
+    - 'def_list'
+    - 'footnotes'
+    - 'meta'
+    - 'md_in_html'
+    - toc:
+          permalink: true
+    - pymdownx.arithmatex:
+          generic: true
+    - pymdownx.betterem:
+          smart_enable: 'all'
+    - 'pymdownx.caret'
     - 'admonition'
     - 'pymdownx.superfences'
 copyright: 'Copyright (c) 2018, Theodore Georgomanolis. All rights reserved.'
