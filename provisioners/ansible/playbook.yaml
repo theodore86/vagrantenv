@@ -41,6 +41,8 @@
       tags: 'kind'
     - import_tasks: 'tasks/kubectl.yaml'
       tags: 'kubectl'
+    - import_tasks: 'tasks/hadolint.yaml'
+      tags: 'hadolint'
   handlers:
     - import_tasks: 'handlers.yaml'
 ...
