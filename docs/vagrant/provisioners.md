@@ -165,6 +165,7 @@ Provisioner is customisable through ``:ansible:`` section in ``vagrant.yaml``, t
                 - 'go'
                 - 'kind'
                 - 'kubectl'
+                - 'hadolint'
 ```
 
 Supported options are:
@@ -230,6 +231,7 @@ Supported options are:
             - [go](https://go.dev/) - Go programming language.
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
+            - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter
 
 !!! info "More details on local ansible provisioner can be found at:"
       - [Ansible on TestVM](../dev/ansible.md)
