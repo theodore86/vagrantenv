@@ -168,5 +168,5 @@
                     :gitconfig_user_name: 'Theodoros Georgomanolis'
                     :gitconfig_user_email: 'tgeorgomanolis@gmail.com'
                 :skip_tags:
-                  - 'repos'
+                    - 'repos'
 ...
