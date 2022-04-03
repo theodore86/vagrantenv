@@ -152,20 +152,6 @@ Provisioner is customisable through ``:ansible:`` section in ``vagrant.yaml``, t
             :tags:
                 - 'bash_aliases'
                 - 'bash_profile'
-                - 'lsyncd'
-                - 'ipython'
-                - 'gitconfig'
-                - 'tox'
-                - 'vim'
-                - 'docker'
-                - 'tshark'
-                - 'ruby'
-                - 'vagrant'
-                - 'hvault'
-                - 'go'
-                - 'kind'
-                - 'kubectl'
-                - 'hadolint'
 ```
 
 Supported options are:
@@ -211,9 +197,9 @@ Supported options are:
     - ``:provisioning_path:`` Absolute path on the guest machine where the Ansible files are stored.
     - ``:extra_vars:`` Pass additional variables (with highest priority) to the playbook.
         - Same as ``ansible-playbook --extra-vars`` command line option.
-        - This parameter can be a path to a JSON or YAML file, or a hash.
-    - ``:tags:`` Only tasks tagged with this value in playbook will be executed:
-        - By default all tasks which are defined in the ``playbook.yaml`` will executed.
+        - This parameter can be a path to *a JSON or YAML file*, or a hash.
+    - ``:tags:`` Only plays, roles and tasks tagged with this value will be executed:
+        - This parameter can be *string or list* of tags.
         - The following tasks are automatically triggered during the guest machine build process:
 
             - [bash_aliases](https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/) - Tasks to setup user workspace ```.bash_aliases```.
@@ -232,6 +218,9 @@ Supported options are:
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter
+
+    - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
+        - This parameter can be *string or list* of tags.
 
 !!! info "More details on local ansible provisioner can be found at:"
       - [Ansible on TestVM](../dev/ansible.md)

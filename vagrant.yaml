@@ -165,24 +165,8 @@
                 :inventory_path: [*shared, *ansible_provisioner, 'inventory.yaml']
                 :provisioning_path: [*shared, *ansible_provisioner]
                 :extra_vars:
-                    :gitconfig_user_name: ''
-                    :gitconfig_user_email: ''
-                :tags:
-                    - 'bash_aliases'
-                    - 'bash_profile'
-                    - 'lsyncd'
-                    - 'ipython'
-                    - 'gitconfig'
-                    - 'tox'
-                    - 'vim'
-                    - 'docker'
-                    - 'tshark'
-                    - 'ansible_extras'
-                    - 'ruby'
-                    - 'vagrant'
-                    - 'hvault'
-                    - 'go'
-                    - 'kind'
-                    - 'kubectl'
-                    - 'hadolint'
+                    :gitconfig_user_name: 'Theodoros Georgomanolis'
+                    :gitconfig_user_email: 'tgeorgomanolis@gmail.com'
+                :skip_tags:
+                  - 'repos'
 ...
