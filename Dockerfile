@@ -53,6 +53,7 @@ ARG BUNDLER_VERSION="2.2.22"
 ENV BUNDLE_PATH="/home/${USERNAME}" \
     PATH="/home/${USERNAME}/.gem/ruby/2.7.0/bin:${PATH}"
 
-RUN gem install --user-install bundler -v "${BUNDLER_VERSION}"
+RUN gem install --user-install bundler -v "${BUNDLER_VERSION}" && \
+    bundle config set without "development test"
 
 CMD ["bash"]
