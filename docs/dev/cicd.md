@@ -15,10 +15,16 @@ CircleCI can be configured to run very complex pipelines efficiently with cachin
 
 Whenever an commit is pushed to the [remote repository](https://github.com/theodore86/vagrantenv) or an pull request is performed the **CI pipeline** (*outer loop* - push change, CI build, CI test, deployment) is being triggered. The CI pipeline has been configured to automate all the necessary steps in order to validate any new software changes. The CI pipeline feedback will be used by the PR reviewer in order to merge the software changes in the main branch.
 
-Sometimes it is necessary to quickly validate any software changes without waiting for the remote CI pipeline, in such case the same automated steps can be executed locally (*inner loop* - code, build, run, test) inside the development environment:
+Sometimes it is necessary to quickly validate any software changes without waiting for the remote CI pipeline, in such case the same automated steps can be executed locally (*inner loop* - code, build, run, test) inside the (Vagrant) development environment:
 
 ```bash
 tox -e linters
+```
+
+or if *docker* container is available:
+
+```bash
+cd tools/docker && bash lint.sh
 ```
 
 # References
