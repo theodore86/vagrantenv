@@ -5,6 +5,7 @@ __pycache__/
 
 ## Vagrant
 .vagrant
+.vagrant.d
 *.box
 
 ## Tox
