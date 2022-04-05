@@ -31,4 +31,9 @@ logs/
 .cache/
 
 ## Ruby
+*.gem
+*.rbc
 .bundle/
+ruby/
+vendor/bundle
+lib/bundler/man

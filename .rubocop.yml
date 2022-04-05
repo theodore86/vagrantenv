@@ -8,6 +8,9 @@ AllCops:
     - provisioners/**/*
     - site/**/*
     - .vagrant/**/*
+    - .vagrant.d/**/*
+    - ruby/**/*
+    - .bundle/**/*
 
 Style/FrozenStringLiteralComment:
   Enabled: false
