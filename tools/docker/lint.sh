@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -o pipefail
 
+CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # shellcheck source=tools/helpers/system.sh
-source ../helpers/system.sh
+source ${CWD}/../helpers/system.sh
 # shellcheck source=tools/helpers/log.sh
-source ../helpers/log.sh
+source ${CWD}/../helpers/log.sh
 
 IMAGE="${1:-theodore86/vagrantenv-ci}"
 TAG="${2:-0.0.4}"
@@ -25,7 +27,7 @@ _linux_linter() {
     is_program_installed docker || error 'Docker is required to be installed'
     cuid=$(docker run --platform linux/amd64 --rm ${IMAGE}:${TAG} id -u) || error 'Docker run command failed'
     cgid=$(docker run --platform linux/amd64 --rm ${IMAGE}:${TAG} id -g) || error 'Docker run command failed'
-    { cd ../../ && repo="$(basename $PWD)" && \
+    { cd $CWD && cd ../../ && repo="$(basename $PWD)" && \
       cd ../ && sudo chown -R "$cuid:$cgid" "${repo}" 2>/dev/null;
     } || error "Cannot change $repo permissions"
     cd $repo && _linter
@@ -34,7 +36,7 @@ _linux_linter() {
 }
 
 _darwin_linter() {
-    cd ../../ && _linter
+    cd $CWD && cd ../../ && _linter
 }
 
 docker_linter() {

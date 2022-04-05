@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -o pipefail
 
+CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # shellcheck source=tools/helpers/log.sh
-source ../helpers/log.sh
+source ${CWD}/../helpers/log.sh
 # shellcheck source=tools/helpers/system.sh
-source ../helpers/system.sh
+source ${CWD}/../helpers/system.sh
 # shellcheck source=tools/helpers/pacapt.sh
-source ../helpers/pacapt.sh
+source ${CWD}/../helpers/pacapt.sh
 
 VAGRANT_VERSION='2.2.19'
 VAGRANT_VIRTUALBOX_VERSION='virtualbox'
