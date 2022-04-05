@@ -21,10 +21,10 @@ Sometimes it is necessary to quickly validate any software changes without waiti
 tox -e linters
 ```
 
-or if *docker* container is available:
+or if *docker* container is available (Linux or Darwin):
 
 ```bash
-cd tools/docker && bash lint.sh
+bash tools/docker/lint.sh
 ```
 
 # References
