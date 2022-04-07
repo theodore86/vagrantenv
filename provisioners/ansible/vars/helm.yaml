@@ -1,0 +1,11 @@
+---
+
+helm_version: '3.8.1'
+helm_checksum: 'd643f48fe28eeb47ff68a1a7a26fc5142f348d02c8bc38d699674016716f61cd'
+helm_arch: 'amd64'
+helm_os: '{{ ansible_system | lower }}'
+helm_base_download_url: 'https://get.helm.sh'
+helm_tarball: 'helm-v{{ helm_version }}-{{ helm_os }}-{{ helm_arch }}.tar.gz'
+helm_download_url: '{{ helm_base_download_url }}/{{ helm_tarball }}'
+helm_install_dir: '/usr/local/bin'
+...

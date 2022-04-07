@@ -217,6 +217,7 @@ Supported options are:
             - [go](https://go.dev/) - Go programming language.
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
+            - [helm](https://helm.sh/) - The package manager for Kubernetes.
             - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
