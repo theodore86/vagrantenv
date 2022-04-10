@@ -110,4 +110,14 @@
     state: 'present'
     block: |
       source <(kubectl completion bash)
+
+- name: 'BASH Profile | Set global PATH to include Groovy binary'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK PATH /usr/local/groovy/bin/groovy'
+    state: 'present'
+    block: |
+      if [ -d "/usr/local/groovy/bin" ]; then
+        PATH="/usr/local/groovy/bin:$PATH"
+      fi
 ...

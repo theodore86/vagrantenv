@@ -18,7 +18,7 @@
   set_fact:
     kind_existing_version: '{{ kind_check_existing_version | default("") | regex_search(version_re) }}'
   vars:
-    version_re: '(:?\d{1,}\.){2}\d{1,}'
+    version_re: '(?:\d{1,}\.){2}\d{1,}'
 
 - name: 'KIND | Download binary'
   get_url:

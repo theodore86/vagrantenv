@@ -38,9 +38,9 @@
     path: '{{ helm_install_dir }}/helm'
     state: 'absent'
   become: 'yes'
-  when: >
-    not helm_check_existing.stat.exists
-    or helm_version not in helm_existing_version.stdout
+  when:
+    - 'helm_check_existing.stat.exists'
+    - 'helm_version not in helm_existing_version.stdout'
 
 - name: 'HELM | Copy binary to installation directory'
   copy:
@@ -48,7 +48,7 @@
     dest: '{{ helm_install_dir }}'
     mode: 0755
     remote_src: 'yes'
-  become: true
+  become: 'yes'
   when: >
     not helm_check_existing.stat.exists
     or helm_version not in helm_existing_version.stdout
