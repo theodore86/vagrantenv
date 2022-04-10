@@ -219,6 +219,7 @@ Supported options are:
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [helm](https://helm.sh/) - The package manager for Kubernetes.
             - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter
+            - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.

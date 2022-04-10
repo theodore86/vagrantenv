@@ -45,6 +45,8 @@
       tags: 'hadolint'
     - import_tasks: 'tasks/helm.yaml'
       tags: 'helm'
+    - import_tasks: 'tasks/groovy.yaml'
+      tags: 'groovy'
   handlers:
     - import_tasks: 'handlers.yaml'
 ...

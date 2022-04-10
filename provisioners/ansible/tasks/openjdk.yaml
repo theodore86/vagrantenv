@@ -1,0 +1,28 @@
+---
+
+- name: 'OpenJDK | Variables'
+  include_vars: 'vars/openjdk.yaml'
+
+- name: 'OpenJDK | Install dependencies'
+  apt:
+    name: '{{ openjdk_dependencies }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'OpenJDK | Update java alternatives'
+  alternatives:
+    name: 'java'
+    path: '{{ openjdk_java_bin }}'
+  become: 'yes'
+
+- name: 'OpenJDK | Set JAVA_HOME'
+  template:
+    src: 'templates/java_home.sh.j2'
+    dest: '/etc/profile.d/java_home.sh'
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+...
