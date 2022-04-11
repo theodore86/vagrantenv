@@ -1,0 +1,10 @@
+---
+lsyncd_username: '{{ ansible_env.USER }}'
+lsyncd_pkg_name: 'lsyncd'
+lsyncd_hosts: { }
+lsyncd_sources_and_targets:
+    - source: '{{ ansible_env.HOME }}/waf/'
+      target: '~/waf/'
+lsyncd_settings_status_interval: 10
+lsyncd_sync_delay: 3
+...

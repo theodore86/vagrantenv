@@ -1,0 +1,7 @@
+---
+tox_pip_dependencies:
+    - name: 'virtualenv'
+      version: '16.7.10'
+    - name: 'tox'
+      version: '3.25.0'
+...

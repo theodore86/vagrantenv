@@ -1,0 +1,5 @@
+---
+helm_version: '3.8.1'
+helm_checksum: 'd643f48fe28eeb47ff68a1a7a26fc5142f348d02c8bc38d699674016716f61cd'
+helm_install_dir: '/usr/local/bin'
+...

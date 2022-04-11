@@ -161,8 +161,8 @@
                 :verbose: false
                 :compatibility_mode: '2.0'
                 :limit: 'all'
-                :playbook: [*shared, *ansible_provisioner, 'playbook.yaml']
-                :inventory_path: [*shared, *ansible_provisioner, 'inventory.yaml']
+                :playbook: [*shared, *ansible_provisioner, 'playbook.yml']
+                :inventory_path: [*shared, *ansible_provisioner, 'inventory.yml']
                 :provisioning_path: [*shared, *ansible_provisioner]
                 :extra_vars:
                     :gitconfig_user_name: 'Theodoros Georgomanolis'

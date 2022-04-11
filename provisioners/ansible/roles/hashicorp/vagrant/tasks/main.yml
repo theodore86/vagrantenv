@@ -1,0 +1,26 @@
+---
+- name: 'Download version:{{ vagrant_version }}'
+  get_url:
+    url: '{{ vagrant_download_url }}'
+    dest: '{{ vagrant_download_dest }}'
+    validate_certs: 'yes'
+    force: 'no'
+    mode: '0775'
+
+- name: 'Install {{ vagrant_package }} package'
+  apt:
+    deb: '{{ vagrant_download_dest }}'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Verify installation'
+  shell: 'vagrant --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'vagrant_version'
+
+- name: 'Show version'
+  debug:
+    var: 'vagrant_version.stdout'
+...

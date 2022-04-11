@@ -143,8 +143,8 @@ Provisioner is customisable through ``:ansible:`` section in ``vagrant.yaml``, t
             :verbose: false
             :compatibility_mode: '2.0'
             :limit: 'all'
-            :playbook: [*shared, *ansible_provisioner, 'playbook.yaml']
-            :inventory_path: [*shared, *ansible_provisioner, 'inventory.ini']
+            :playbook: [*shared, *ansible_provisioner, 'playbook.yml']
+            :inventory_path: [*shared, *ansible_provisioner, 'inventory.yml']
             :provisioning_path: [*shared, *ansible_provisioner]
             :extra_vars:
                 :gitconfig_user_name: ''
@@ -192,7 +192,7 @@ Supported options are:
     - ``:verbose:`` Set Ansible's verbosity to obtain detailed logging.
     - ``:compatibility:`` Set the minimal version of Ansible to be supported.
     - ``:limit:`` Used to make Ansible connect to all machines from the inventory file.
-    - ``:playbook:`` The playbook file (actual tasks) on the guest machine.
+    - ``:playbook:`` The playbook file (include roles) on the guest machine.
     - ``:inventory_path:`` Absolute path to inventory file on the guest machine.
     - ``:provisioning_path:`` Absolute path on the guest machine where the Ansible files are stored.
     - ``:extra_vars:`` Pass additional variables (with highest priority) to the playbook.

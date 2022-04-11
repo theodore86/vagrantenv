@@ -35,5 +35,6 @@ logs/
 *.rbc
 .bundle/
 ruby/
+!roles/ruby
 vendor/bundle
 lib/bundler/man

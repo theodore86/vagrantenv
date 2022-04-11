@@ -1,0 +1,153 @@
+---
+- name: 'Remove older docker packages'
+  apt:
+    name: '{{ docker_older_packages }}'
+    state: 'absent'
+  become: 'yes'
+
+- name: 'Install docker-ce dependencies'
+  apt:
+    name: '{{ docker_dependencies }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Add docker apt signing key'
+  apt_key:
+    url: '{{ docker_download_url }}/gpg'
+    id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Add docker apt repository'
+  apt_repository:
+    repo: '{{ docker_apt_repository }}'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Install docker-ce package'
+  apt:
+    name: '{{ docker_pkg_name }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Start docker service'
+  systemd:
+    name: 'docker'
+    state: 'started'
+    enabled: 'yes'
+  become: 'yes'
+
+- name: 'Create docker config directory'
+  file:
+    path: '/etc/docker'
+    state: 'directory'
+    mode: 0600
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Configure docker daemon.json'
+  template:
+    src: 'daemon.json.j2'
+    dest: '/etc/docker/daemon.json'
+    mode: 0400
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  notify:
+    - 'Restart systemd docker'
+
+- name: 'Add {{ ansible_env.USER }} user to docker group'
+  user:
+    name: '{{ ansible_env.USER }}'
+    groups: '{{ docker_group }}'
+    append: 'yes'
+  become: 'yes'
+  when: 'docker_group is defined'
+
+- name: 'Ensure handlers are notified now, required to apply the private registries'
+  meta: 'flush_handlers'
+
+- name: 'Get docker version'
+  shell: 'docker --version'
+  args:
+    executable: '/bin/bash'
+  register: 'docker_client_version'
+  changed_when: false
+  when: 'docker_group is defined'
+
+- name: 'Display docker version'
+  debug:
+    var: 'docker_client_version.stdout'
+  when: 'docker_group is defined'
+
+- name: 'Import PIP role'
+  import_role:
+    name: 'python/pip'
+  when: 'docker_sdk_install | bool'
+
+- name: 'Install Docker Compose'
+  pip:
+    name: 'docker-compose=={{ docker_compose_version }}'
+    extra_args: '--user'
+    state: 'present'
+    executable: '{{ pip_executable }}'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  when: 'docker_compose_install | bool'
+
+- name: 'Verify Docker Compose installation'
+  shell: 'docker-compose --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'docker_compose_version'
+  when: 'docker_compose_install | bool'
+
+- name: 'Display Docker Compose version'
+  debug:
+    var: 'docker_compose_version.stdout'
+  when: 'docker_compose_install | bool'
+
+- name: 'Install Docker SDK'
+  pip:
+    name: 'docker=={{ docker_sdk_version }}'
+    chdir: '{{ ansible_env.HOME }}'
+    extra_args: '--user'
+    state: 'present'
+    executable: '{{ pip_executable }}'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/.pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  when: 'docker_sdk_install | bool'
+
+- name: 'Verify Docker SDK installation'
+  shell: 'python -c "import docker; print(docker.__version__)"'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'docker_sdk_version'
+  when: 'docker_sdk_install | bool'
+
+- name: 'Display Docker SDK version'
+  debug:
+    var: 'docker_sdk_version.stdout'
+  when: 'docker_sdk_install | bool'
+
+- name: 'Verify installation, run "{{ docker_sdk_container_name }}" container'  # noqa ignore-errors
+  docker_container:
+    name: '{{ docker_sdk_container_name }}'
+    image: '{{ docker_sdk_container_image }}'
+    state: 'present'
+    detach: 'no'
+    container_default_behavior: 'no_defaults'
+  when:
+    - 'docker_group is defined'
+    - 'docker_sdk_install | bool'
+  ignore_errors: true
+...

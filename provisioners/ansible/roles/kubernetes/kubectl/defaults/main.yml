@@ -1,0 +1,4 @@
+---
+kubectl_version: '1.21.0'
+kubectl_install_dir: '/usr/local/bin'
+...

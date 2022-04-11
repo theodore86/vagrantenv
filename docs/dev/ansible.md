@@ -57,26 +57,21 @@ All the required ansible files and directories resides under: ``provisioners/ans
 
 ```console
 .
-├── ansible.cfg -> main ansible configuration file
-├── files
-│   └── vimrc -> regular files
-├── handlers.yaml -> ansible handlers
-├── inventory.ini -> inventory file
-├── playbook.yaml -> the ansible playbook, aggregates all task files into an single file
-├── tasks
-│   └── vim.yaml -> task files
-├── templates
-│   └── timezone.j2 -> ansible Jinja2 template files
-└── vars
-    └── vim.yaml -> ansible variable files
+├── ansible.cfg -- The main ansible configuration file
+├── extra_vars.yml -- Override any variable from any role
+├── inventory.yml -- Set it to localhost
+├── playbook.yml -- Entrypoint for all roles
+└── roles -- The actual roles (re-usable configuration tasks)
+
+1 directory, 4 files
 ```
 
 Ansible operations are [idempotent](https://en.wikipedia.org/wiki/Idempotence), performing the necessary changes only if it is required.<br>
 You can manually repeat all tasks or an subset of tasks (using [tags](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html)) without affecting the guest machine:
 
 ```bash
-ansible-playbook -i inventory playbook.yml # execute all provisioning tasks
-ansible-playbook -i inventory playbook --tags vim # repeat only the vim related tasks
+ansible-playbook -i inventory.yml playbook.yml # execute all provisioning tasks
+ansible-playbook -i inventory.yml playbook.yml --tags vim # repeat only the vim related tasks
 ```
 
 !!! info "Provisioning path"
@@ -104,18 +99,16 @@ In your development environment you can trigger the linting process (including a
 tox -e lint
 ```
 
-Under the hood the ansible-linter is being triggered through the *local* pre-commit hook:
+Under the hood, the ansible-linter is being triggered through an *local* pre-commit hook:
 
 ```yaml
-    - repo: local
-      hooks:
-          - id: ansible-lint
-            name: Ansible Linter
-            entry: ansible-lint
-            description: Linter for Ansible roles and playbooks
-            language: python
-            args: ['--force-color']
-            pass_filenames: false
+- id: ansiblelint
+  name: Ansible (ansible-lint) Linter
+  entry: ansible-lint
+  description: Linter for Ansible roles and playbooks
+  language: system
+  args: ['--force-color', '--parseable-severity', 'provisioners/ansible/playbook.yml']
+  pass_filenames: false
 ```
 
 As you many other linting tools, ansible-lint supports local configuration via a [.ansible-lint](https://ansible-lint.readthedocs.io/en/latest/configuring.html#configuration-file) configuration file. Ansible-lint checks the working directory for the presence of this file and applies any configuration found there.
@@ -135,10 +128,10 @@ skip_list:
 
 Despite the ansible-lint, ansible-playbook command has an built-in syntax checker and dry run mode but it may not catch everything:
 
-- ``--syntax-check`` - Syntax checking
+- ``--syntax-check`` -- *Syntax checking*
     - Performs an syntax check on the playbook, but do not execute it.
-- ``--check`` - dryrun mode
-    - Playbook tasks are executed without making any modification on the target hosts
+- ``--check`` -- *dryrun mode*
+    - Playbook tasks/roles are executed without making any modification on the target hosts
 
 # References
 

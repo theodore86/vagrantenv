@@ -1,0 +1,4 @@
+---
+mvn_version: '3.8.5'
+mvn_install_dir: '/usr/local/maven'
+...

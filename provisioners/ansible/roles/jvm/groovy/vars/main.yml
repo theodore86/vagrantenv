@@ -1,0 +1,4 @@
+---
+groovy_distribution_url: 'https://archive.apache.org/dist/groovy/{{ groovy_version }}/distribution'
+groovy_binary_url: '{{ groovy_distribution_url }}/apache-groovy-binary-{{ groovy_version }}.zip'
+...

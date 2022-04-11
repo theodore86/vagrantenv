@@ -1,0 +1,82 @@
+---
+- name: 'Update apt cache if required'
+  apt:
+    update_cache: 'yes'
+    cache_valid_time: 86400
+  become: 'yes'
+
+- name: 'Install locale dependencies'
+  apt:
+    name: '{{ system_locales_dependencies }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Install locale language packages'
+  apt:
+    name: '{{ system_locales_language_packs }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+  notify:
+    - 'Update locales'
+
+- name: 'Ensure (specified) locale exists'
+  locale_gen:
+    name: '{{ item }}'
+    state: 'present'
+  become: 'yes'
+  loop: '{{ system_locales_present }}'
+  notify:
+    - 'Update locales'
+
+- name: 'Install timezone dependencies'
+  apt:
+    name: '{{ system_timezone_dependencies }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Set timezone configuration'
+  template:
+    src: 'timezone.j2'
+    dest: '/etc/timezone'
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Set ({{ system_timezone }}) timezone link to localtime'
+  file:
+    state: 'link'
+    src: '/usr/share/zoneinfo/{{ system_timezone }}'
+    dest: '/etc/localtime'
+    force: 'yes'
+  become: 'yes'
+
+- name: 'Disable timesyncd service'
+  systemd:
+    name: 'systemd-timesyncd.service'
+    state: 'stopped'
+    enabled: 'no'
+  become: 'yes'
+
+- name: 'Install required system packages'
+  apt:
+    name: '{{ system_required_packages }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Increase filewatcher capability'
+  sysctl:
+    name: 'fs.inotify.max_user_watches'
+    value: '{{ system_inotify_filewatchers }}'
+    reload: 'yes'
+    state: 'present'
+  become: 'yes'
+...

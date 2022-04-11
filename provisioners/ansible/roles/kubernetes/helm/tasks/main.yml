@@ -1,0 +1,65 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ helm_install_dir }}/helm'
+  register: 'helm_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ helm_install_dir }}/helm version --short"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'helm_existing_version'
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ helm_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Extract tarball'
+  unarchive:
+    src: '{{ helm_download_url }}'
+    dest: '/tmp'
+    remote_src: 'yes'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not helm_check_existing.stat.exists
+    or helm_version not in helm_existing_version.stdout
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ helm_install_dir }}/helm'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'helm_check_existing.stat.exists'
+    - 'helm_version not in helm_existing_version.stdout'
+
+- name: 'Copy binary to installation directory'
+  copy:
+    src: '/tmp/{{ helm_os }}-{{ helm_arch }}/helm'
+    dest: '{{ helm_install_dir }}'
+    mode: 0755
+    remote_src: 'yes'
+  become: 'yes'
+  when: >
+    not helm_check_existing.stat.exists
+    or helm_version not in helm_existing_version.stdout
+
+- name: 'Get version'
+  shell: '{{ helm_install_dir }}/helm version --short'
+  args:
+    executable: '/bin/bash'
+  register: 'helm_version_result'
+  changed_when: false
+
+- name: 'Show version'
+  debug:
+    var: 'helm_version_result.stdout'
+...

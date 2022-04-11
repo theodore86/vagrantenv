@@ -1,0 +1,32 @@
+---
+- name: 'Add apt signing key'
+  apt_key:
+    url: '{{ hvault_key_url }}'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Add apt Repository'
+  apt_repository:
+    repo: 'deb {{ hvault_apt_repository_url }} {{ ansible_distribution_release }} main'
+    state: 'present'
+  become: 'yes'
+
+- name: 'Install via apt package manager'
+  apt:
+    name: 'vault={{ hvault_version }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Verify installation'
+  shell: 'vault --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'hvault_version'
+
+- name: 'Show version'
+  debug:
+    var: 'hvault_version.stdout'
+...

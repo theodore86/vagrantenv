@@ -1,0 +1,15 @@
+---
+repositories:
+  - name: 'vagrantenv'
+    src: 'git@github.com:theodore86/vagrantenv.git'
+    dest: '{{ ansible_env.HOME }}'
+    version: 'main'
+    pull: true
+    remote: 'origin'
+  - name: 'sublime'
+    src: 'git@github.com:theodore86/sublime.git'
+    dest: '{{ ansible_env.HOME }}'
+    version: 'main'
+    pull: true
+    remote: 'origin'
+...

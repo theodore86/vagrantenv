@@ -1,0 +1,11 @@
+---
+go_version: '1.18.1'
+go_checksum: 'b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334'
+go_install_dir: '/usr/local/go'
+go_path: '{{ ansible_env.HOME }}/.go'
+go_modules:
+  - name: 'github.com/nektos/act'
+    version: 'v0.2.26'
+  - name: 'golang.org/x/lint/golint'
+    version: 'latest'
+...

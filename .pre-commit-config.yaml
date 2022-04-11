@@ -54,7 +54,7 @@ repos:
             entry: ansible-lint
             description: Linter for Ansible roles and playbooks
             language: system
-            args: ['--force-color', '--parseable-severity', 'provisioners/ansible/playbook.yaml']
+            args: ['--force-color', '--parseable-severity', 'provisioners/ansible/playbook.yml']
             pass_filenames: false
 
           - id: rubocoplint

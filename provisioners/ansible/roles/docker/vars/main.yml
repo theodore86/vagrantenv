@@ -1,0 +1,18 @@
+---
+docker_older_packages:
+  - 'docker'
+  - 'docker-engine'
+  - 'docker.io'
+  - 'containerd'
+  - 'runc'
+
+docker_dependencies:
+  - 'apt-transport-https'
+  - 'ca-certificates'
+  - 'curl'
+  - 'gnupg-agent'
+  - 'software-properties-common'
+
+docker_download_url: 'https://download.docker.com/{{ ansible_system|lower }}/{{ ansible_distribution|lower }}'
+docker_apt_repository: 'deb [arch=amd64] {{ docker_download_url }} {{ ansible_distribution_release }} stable'
+...

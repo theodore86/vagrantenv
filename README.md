@@ -1,8 +1,9 @@
 [![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=svg&circle-token=bc7666e0b5736f67b6a4fdda6f244782d2062375)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Vagrant Box for Testing and Developing
-Vagrant box for testing and developing using Python 2.7.x and 3.x.
-Fully managed and provisioned through [Ansible](https://www.ansible.com) playbooks.
+# Vagrant Box for Testing and Developing as a code
+Instant testing and developing environment as a code.  
+Fully managed and provisioned through [Ansible](https://www.ansible.com) roles.
 
 ## What is Vagrant
 [Vagrant](https://www.vagrantup.com/docs/index.html) is an tool for building and managing virtual machine environments in an sigle workflow.
@@ -56,39 +57,43 @@ The following `mandatory` packages must be installed through Chocolatey:
 ### Base Box
 Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.vagrantup.com/ubuntu/boxes/focal64)
 
-### Ubuntu Packages
-- build-essential
-- software-properties-common
-- language-pack-en
+### Hashicorp
+- vagrant
+- vault
+
+### Containerization
+- docker
+- docker-compose
+- kubectl
+- helm
+- kind
+
+### Network Protocol Analyzers
+- tshark
+
+### Git
 - git-core
 - git-lfs
 - git-crypt
-- zip unzip
-- vim
-- ack-grep
-- deborphan
-- tree
-- bash-completion
-- libldap-2.4.2 ldap-utils
-- lynx
-- python-tk python3-tk
-- python3-pip
-- python-dev python3.8-dev
-- graphviz
-- xauth
-- x11-apps
-- dos2unix
-- lsyncd
-- docker
-- sshpass
-- socat
-- bridge-utils
-- jq
 
-### Wireshark Network Protocol Analyzer
-- tshark
+### JVM
+- openjdk
+- groovy
+- maven
 
-### Python Package Manager (``pip``)
+### Ruby
+- Gem
+- Bundle
+
+### GO
+- go
+  - github.com/nektos/act
+  - golang.org/x/lint/golint
+
+### Python
+- python-dev
+- python3.8-dev
+- pip
 - tox
 - ansible
   - paramiko
@@ -97,13 +102,25 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - Robot Framework
 - Jinja2
 
-### Preconfigured User Workspace Settings
+### Linters
+- hadolint
+
+### User Workspace Settings
 - .vimrc
 - .gitconfig
 - .bash_profile
 - .bash_aliases
 - ipython_config.py
 - .lsyncd.config.lua
+
+### Other
+- lynx
+- socat
+- sshpass
+- jq
+- bridge-utils
+- x11-apps
+- lsyncd
 
 ## Accessing the Project Source Code
 In order to *clone* the project source code you need:

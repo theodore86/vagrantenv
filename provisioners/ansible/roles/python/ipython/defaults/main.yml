@@ -1,0 +1,3 @@
+---
+ipython_conf_dir: '{{ ansible_env.HOME }}/.ipython/profile_default'
+...
