@@ -1,0 +1,63 @@
+---
+- name: 'Check for existing binary'
+  stat:
+    path: '{{ hadolint_install_dir }}/hadolint'
+  register: 'hadolint_check_existing'
+
+- name: 'Check binary version'
+  shell: '{{ hadolint_install_dir }}/hadolint --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'hadolint_existing_version'
+  when: 'hadolint_check_existing.stat.exists'
+
+- name: 'Set binary version'
+  set_fact:
+    hadolint_existing_version: '{{ hadolint_existing_version | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(:?\d{1,}\.){2}\d{1,}'
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ hadolint_binary_download_url }}'
+    dest: '/tmp/hadolint-{{ hadolint_version }}'
+  when: not hadolint_check_existing.stat.exists or
+        (hadolint_check_existing.stat.exists and
+         hadolint_existing_version != hadolint_version)
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ hadolint_install_dir }}/hadolint'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'hadolint_check_existing.stat.exists'
+    - 'hadolint_existing_version != hadolint_version'
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ hadolint_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Copy binary to the installation directory'
+  copy:
+    src: '/tmp/hadolint-{{ hadolint_version }}'
+    dest: '{{ hadolint_install_dir }}/hadolint'
+    remote_src: true
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: not hadolint_check_existing.stat.exists or
+        (hadolint_check_existing.stat.exists and
+         hadolint_existing_version != hadolint_version)
+  notify:
+    - 'Check installed binary version'
+    - 'Set installed binary version'
+    - 'Verify installed binary version'
+...

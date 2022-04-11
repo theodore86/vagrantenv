@@ -1,0 +1,19 @@
+---
+- name: 'Get build version'
+  command: '{{ tshark_build_dir }}/bin/tshark --version'
+  changed_when: false
+  register: 'tshark_installed_version'
+  become: 'yes'
+
+- name: 'Define build version'
+  set_fact:
+    tshark_build_version: "{{ tshark_installed_version.stdout | regex_search('(\\d+?\\.\\d+?\\.\\d+?)', '\\1') | first }}"
+
+- name: 'Verify build version'
+  assert:
+    that:
+      - 'tshark_build_version == tshark_version'
+    fail_msg: >
+      'Tshark installed {{ tshark_build_version }} version different than requested {{ tshark_version }}'
+    success_msg: 'Installed Tshark version is: {{ tshark_installed_version }}'
+...

@@ -1,0 +1,87 @@
+---
+- name: 'Import openjdk role (dependency)'
+  import_role:
+    name: 'jvm/openjdk'
+
+- name: 'Get installed version'
+  command: 'groovy --version'
+  changed_when: false
+  failed_when: false
+  register: 'groovy_installed_version'
+
+- name: 'Set existing version'
+  set_fact:
+    groovy_current_version: '{{ groovy_installed_version.stdout | regex_search(version_re, "\1") | first }}'
+  vars:
+    version_re: '^Groovy Version: ((?:\d{1,}\.){2}\d{1,})'
+  when: 'groovy_installed_version.rc == 0'
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ groovy_binary_url }}'
+    dest: '/tmp/groovy-{{ groovy_version }}.zip'
+    checksum: 'sha256:{{ groovy_checksum }}'
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+
+- name: 'Extract binary distribution'
+  unarchive:
+    src: '/tmp/groovy-{{ groovy_version }}.zip'
+    dest: '/tmp'
+    mode: 0755
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ groovy_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+
+- name: 'Remove any installed distribution'
+  file:
+    path: '{{ groovy_install_dir }}'
+    state: 'absent'
+  become: 'yes'
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+
+- name: 'Copy distribution to installation directory'
+  copy:
+    src: '/tmp/groovy-{{ groovy_version }}/'
+    dest: '{{ groovy_install_dir }}'
+    directory_mode: 'yes'
+    remote_src: 'yes'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+  notify:
+    - 'Check installed version'
+    - 'Set installed version'
+    - 'Verify installed version'
+
+- name: 'Set GROOVY_HOME variable'
+  template:
+    src: 'groovy_home.sh.j2'
+    dest: '/etc/profile.d/groovy_home.sh'
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    groovy_installed_version.rc != 0
+    or groovy_version != groovy_current_version
+...

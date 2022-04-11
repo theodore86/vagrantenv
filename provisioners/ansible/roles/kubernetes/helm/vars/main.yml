@@ -1,0 +1,7 @@
+---
+helm_arch: 'amd64'
+helm_os: '{{ ansible_system | lower }}'
+helm_base_download_url: 'https://get.helm.sh'
+helm_tarball: 'helm-v{{ helm_version }}-{{ helm_os }}-{{ helm_arch }}.tar.gz'
+helm_download_url: '{{ helm_base_download_url }}/{{ helm_tarball }}'
+...

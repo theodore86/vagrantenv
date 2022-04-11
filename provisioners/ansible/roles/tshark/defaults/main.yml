@@ -1,0 +1,8 @@
+---
+tshark_workspace: '/ws'
+tshark_version: '3.4.2'
+tshark_source: 'wireshark-org-master-ba-3.4.tar.gz'
+tshark_build_dir: '/opt/wireshark'
+tshark_reinstall_from_source: false
+tshark_group: 'wireshark'
+...

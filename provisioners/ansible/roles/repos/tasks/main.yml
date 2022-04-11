@@ -1,0 +1,11 @@
+---
+- name: 'Clone requested repositories'
+  git:
+    repo: '{{ item.src }}'
+    dest: '{{ item.dest }}/{{ item.name }}'
+    version: '{{ item.version }}'
+    accept_hostkey: 'yes'
+    update: '{{ item.pull }}'
+    remote: '{{ item.remote }}'
+  loop: '{{ repositories }}'
+...

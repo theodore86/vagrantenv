@@ -1,0 +1,6 @@
+---
+- name: 'Cleanup configuration file'
+  file:
+    path: '{{ ansible_env.HOME }}/.pip.conf'
+    state: 'absent'
+...

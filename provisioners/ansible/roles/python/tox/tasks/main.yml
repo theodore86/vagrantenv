@@ -1,0 +1,29 @@
+---
+- name: 'Import PIP role'
+  import_role:
+    name: 'python/pip'
+
+- name: 'Install automation tool'
+  pip:
+    name: '{{ item.name | default(item) }}'
+    version: '{{ item.version | default("omit") }}'
+    chdir: ' {{ ansible_env.HOME }}'
+    extra_args: '--user'
+    state: '{{ item.state | default("present") }}'
+    executable: '{{ pip_executable }}'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  loop: '{{ tox_pip_dependencies }}'
+
+- name: 'Verify installation'
+  shell: 'python -m tox --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'tox_version_result'
+
+- name: 'Show version'
+  debug:
+    var: 'tox_version_result.stdout'
+...

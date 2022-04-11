@@ -1,0 +1,7 @@
+---
+ruby_dependencies:
+    - 'ruby-full'
+ruby_install_bundler: true
+ruby_bundler_version: '2.2.22'
+ruby_install_user_gems: []
+...

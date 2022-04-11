@@ -1,0 +1,82 @@
+---
+- name: 'Import openjdk role (dependency)'
+  import_role:
+    name: 'jvm/openjdk'
+
+- name: 'Get installed version'
+  command: 'mvn --version'
+  changed_when: false
+  failed_when: false
+  register: 'mvn_installed_version'
+
+- name: 'Set existing version'
+  set_fact:
+    mvn_current_version: '{{ mvn_installed_version.stdout | regex_search(version_re, "\1") | first }}'
+  vars:
+    version_re: '^Apache Maven ((?:\d{1,}\.){2}\d{1,})'
+  when: 'mvn_installed_version.rc == 0'
+
+- name: 'Retrieve binary checksum'
+  set_fact:
+    mvn_checksum: '{{ lookup("url", mvn_checksum_url) }}'
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ mvn_download_url }}'
+    dest: '/tmp/maven-{{ mvn_version }}.tar.gz'
+    checksum: '{{ mvn_hash }}:{{  mvn_checksum }}'
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+
+- name: 'Extract binary distribution'
+  unarchive:
+    src: '/tmp/maven-{{ mvn_version }}.tar.gz'
+    dest: '/tmp'
+    mode: 0755
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ mvn_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+
+- name: 'Remove any installed distribution'
+  file:
+    path: '{{ mvn_install_dir }}'
+    state: 'absent'
+  become: 'yes'
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+
+- name: 'Copy distribution to installation directory'
+  copy:
+    src: '/tmp/apache-maven-{{ mvn_version }}/'
+    dest: '{{ mvn_install_dir }}'
+    directory_mode: 'yes'
+    remote_src: 'yes'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    mvn_installed_version.rc != 0
+    or mvn_version != mvn_current_version
+  notify:
+    - 'Check installed version'
+    - 'Set installed version'
+    - 'Verify installed version'
+...

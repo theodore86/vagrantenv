@@ -1,0 +1,131 @@
+---
+- name: 'Ensure file exists'
+  copy:
+    content: ''
+    dest: '{{ bash_profile_path }}'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    force: 'no'
+    mode: 0644
+
+- name: 'Parse GIT branch and add brackets'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK git_command_prompt'
+    state: 'present'
+    block: |
+      parse_git_branch_and_add_brackets() {
+          git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
+      }
+
+- name: 'PIP BASH completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK pip_completion'
+    state: 'present'
+    block: |
+      pip_completion() {
+          COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+          COMP_CWORD=$COMP_CWORD \
+          PIP_AUTO_COMPLETE=1 $1 ) )
+      }
+      complete -o default -F pip_completion pip
+
+- name: 'Set global PATH so it includes user private ~/bin'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK user private ~/bin'
+    state: 'present'
+    block: |
+      if [ -d "$HOME/bin" ]; then
+          PATH="$HOME/bin:$PATH"
+      fi
+
+- name: 'Set global PATH to include user ~/.local/bin'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK PATH ~/.local/bin'
+    state: 'present'
+    block: |
+      if [ -d "$HOME/.local/bin" ]; then
+          PATH="$HOME/.local/bin:$PATH"
+      fi
+
+- name: 'Source .bash_aliases file if exists'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK ~/.bash_aliases'
+    state: 'present'
+    block: |
+      if [ -f ~/.bash_aliases ]; then
+          . ~/.bash_aliases
+      fi
+
+- name: 'Add user ENV variables'
+  lineinfile:
+    dest: '{{ bash_profile_path }}'
+    state: 'present'
+    line: 'export {{ item.name }}="{{ item.value }}"'
+    regexp: '^export {{ item.name }}='
+  loop: '{{ bash_profile_env_vars }}'
+
+- name: 'Set global PATH to include user installed rubygems'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK ~/.gem/ruby'
+    state: 'present'
+    block: |
+      if which ruby >/dev/null && which gem >/dev/null; then
+          PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+      fi
+
+- name: 'Vault BASH completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK vault completion'
+    state: 'present'
+    block: |
+      if which vault > /dev/null; then
+          complete -C $(which vault) vault
+      fi
+
+- name: 'Kubectl BASH completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK kubectl completion'
+    state: 'present'
+    block: |
+      if which kubectl > /dev/null; then
+        source <(kubectl completion bash)
+      fi
+
+- name: 'KIND BASH completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK kind completion'
+    state: 'present'
+    block: |
+      if which kind > /dev/null; then
+        source <(kind completion bash)
+      fi
+
+- name: 'Set global PATH to include Groovy binary'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK PATH /usr/local/groovy/bin/groovy'
+    state: 'present'
+    block: |
+      if [ -d "/usr/local/groovy/bin" ]; then
+        PATH="/usr/local/groovy/bin:$PATH"
+      fi
+
+- name: 'Set global PATH to include Maven binary'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK PATH /usr/local/maven/bin/mvn'
+    state: 'present'
+    block: |
+      if [ -d "/usr/local/maven/bin" ]; then
+        PATH="/usr/local/maven/bin:$PATH"
+      fi
+...

@@ -1,0 +1,6 @@
+---
+- name: 'Update locales'
+  command: >
+    dpkg-reconfigure --frontend noninteractive locales
+  become: 'yes'
+...

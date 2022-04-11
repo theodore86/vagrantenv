@@ -1,0 +1,57 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ go_install_dir }}/bin/go'
+  register: 'go_check_existing'
+
+- name: 'Download tarball'
+  become: 'yes'
+  get_url:
+    url: '{{ go_download_url }}'
+    dest: '{{ go_src_tarball }}'
+    checksum: 'sha256:{{ go_checksum }}'
+  when: 'not go_check_existing.stat.exists'
+
+- name: 'Extract tarball'
+  become: 'yes'
+  unarchive:
+    src: '{{ go_src_tarball }}'
+    dest: '/usr/local'
+    copy: 'no'
+  when: 'not go_check_existing.stat.exists'
+
+- name: 'Get version'
+  shell: '{{ go_install_dir }}/bin/go version'
+  register: 'go_version_result'
+  changed_when: false
+
+- name: 'Show version'
+  debug:
+    var: 'go_version_result.stdout'
+
+- name: 'Setup environment variables'
+  template:
+    src: 'go_path.sh.j2'
+    dest: '/etc/profile.d/go_path.sh'
+    mode: 0644
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Ensure GOPATH directory'
+  file:
+    path: '{{ go_path }}'
+    state: 'directory'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0775
+
+- name: 'Install modules'
+  shell: '{{ go_install_dir }}/bin/go install {{ item.name }}@{{ item.version | default("latest", "latest") }}'
+  environment:
+    GOPATH: '{{ go_path }}'
+  args:
+    executable: '/bin/bash'
+  loop: '{{ go_modules }}'
+  changed_when: false
+...

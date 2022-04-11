@@ -1,0 +1,8 @@
+---
+mvn_archive_url: 'https://archive.apache.org/dist/maven'
+mvn_binaries_url: '{{ mvn_archive_url }}/maven-{{ mvn_version.split(".")[0] }}/{{ mvn_version }}/binaries'
+mvn_tarball: 'apache-maven-{{ mvn_version }}-bin.tar.gz'
+mvn_download_url: '{{ mvn_binaries_url }}/{{ mvn_tarball }}'
+mvn_hash: '{{ "sha512" if mvn_version is version("3.5.2", ">") else "sha1" }}'
+mvn_checksum_url: '{{ mvn_download_url }}.{{ mvn_hash }}'
+...

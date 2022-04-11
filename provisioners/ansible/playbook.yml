@@ -1,0 +1,33 @@
+---
+
+- name: 'TestVM (Vagrant) Ansible Provisioning'
+  hosts: 'all'
+  connection: 'local'
+  pre_tasks:
+  - name: 'Install prerequisites'
+    import_role:
+      name: 'common/system'
+    tags: 'always'
+  roles:
+    - { role: 'system/bash_aliases', tags: 'bash_aliases' }
+    - { role: 'system/bash_profile', tags: 'bash_profile' }
+    - { role: 'python/ipython', tags: 'ipython' }
+    - { role: 'python/tox', tags: 'tox' }
+    - { role: 'kubernetes/kind', tags: 'kind' }
+    - { role: 'kubernetes/kubectl', tags: 'kubectl' }
+    - { role: 'kubernetes/helm', tags: 'helm' }
+    - { role: 'hashicorp/vagrant', tags: 'vagrant' }
+    - { role: 'hashicorp/vault', tags: 'hvault' }
+    - { role: 'jvm/groovy', tags: 'groovy' }
+    - { role: 'jvm/maven', tags: 'maven' }
+    - { role: 'tshark', tags: 'tshark' }
+    - { role: 'hadolint', tags: 'hadolint' }
+    - { role: 'go', tags: 'go' }
+    - { role: 'ruby', tags: 'ruby' }
+    - { role: 'docker', tags: 'docker' }
+    - { role: 'ansible', tags: 'ansible' }
+    - { role: 'lsyncd', tags: 'lsyncd' }
+    - { role: 'gitconfig', tags: 'gitconfig' }
+    - { role: 'vim', tags: 'vim' }
+    - { role: 'repos', tags: 'repos' }
+...

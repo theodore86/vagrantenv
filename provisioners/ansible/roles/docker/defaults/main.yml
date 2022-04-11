@@ -1,0 +1,17 @@
+---
+docker_group: 'docker'
+docker_pkg_name: "docker-ce"
+docker_insecure_registries: []
+docker_registries_mirror: []
+docker_dns_servers: ['8.8.8.8']
+docker_config:
+  dns: '{{ docker_dns_servers }}'
+  insecure-registries: '{{ docker_insecure_registries }}'
+  registry-mirrors: '{{ docker_registries_mirror }}'
+docker_sdk_install: true
+docker_sdk_version: '4.4.4'
+docker_sdk_container_name: 'hello-world'
+docker_sdk_container_image: 'hello-world:latest'
+docker_compose_install: false
+docker_compose_version: '1.26.2'
+...

@@ -1,0 +1,23 @@
+---
+- name: 'Check installed kubectl version'
+  shell: '{{ kubectl_install_dir }}/kubectl version --client --output=yaml'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'kubectl_installed_version'
+
+- name: 'Serialize installed kubectl version'
+  set_fact:
+    kubectl_installed_version: '{{ kubectl_installed_version.stdout | from_yaml }}'
+
+- name: 'Set installed kubectl version'
+  set_fact:
+    kubectl_installed_version: '{{ kubectl_installed_version.clientVersion.gitVersion.strip("v") }}'
+
+- name: 'Verify installed kubectl version'
+  assert:
+    that:
+      - 'kubectl_installed_version == kubectl_version'
+    fail_msg: 'Kubectl installation failed, {{ kubectl_version }} != {{ kubectl_installed_version }}'
+    success_msg: 'Installed Kubectl version is: {{ kubectl_version }}'
+...

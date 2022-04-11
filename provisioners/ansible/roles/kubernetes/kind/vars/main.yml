@@ -1,0 +1,6 @@
+---
+kind_arch: 'amd64'
+kind_os: '{{ ansible_system | lower }}'
+kind_binary: 'kind-{{ kind_os }}-{{ kind_arch }}'
+kind_download_url: 'https://kind.sigs.k8s.io/dl/v{{ kind_version }}/{{ kind_binary }}'
+...

@@ -1,0 +1,7 @@
+---
+hadolint_arch: '{{ ansible_architecture }}'
+hadolint_os: '{{ ansible_system | title }}'
+hadolint_base_download_url: 'https://github.com/hadolint/hadolint/releases/download'
+hadolint_download_url: '{{ hadolint_base_download_url }}/v{{ hadolint_version }}'
+hadolint_binary_download_url: '{{ hadolint_download_url }}/hadolint-{{ hadolint_os }}-{{ hadolint_arch}}'
+...
