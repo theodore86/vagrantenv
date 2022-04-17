@@ -16,6 +16,8 @@
     - { role: 'kubernetes/kind', tags: 'kind' }
     - { role: 'kubernetes/kubectl', tags: 'kubectl' }
     - { role: 'kubernetes/helm', tags: 'helm' }
+    - { role: 'kubernetes/k9s', tags: 'k9s' }
+    - { role: 'kubernetes/kubectx', tags: 'kubectx' }
     - { role: 'hashicorp/vagrant', tags: 'vagrant' }
     - { role: 'hashicorp/vault', tags: 'hvault' }
     - { role: 'jvm/groovy', tags: 'groovy' }
@@ -30,4 +32,5 @@
     - { role: 'gitconfig', tags: 'gitconfig' }
     - { role: 'vim', tags: 'vim' }
     - { role: 'repos', tags: 'repos' }
+    - { role: 'fzf', tags: 'fzf' }
 ...

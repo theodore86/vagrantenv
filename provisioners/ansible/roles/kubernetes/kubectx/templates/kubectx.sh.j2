@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+{% if kubectx_fgcolor is defined and
+      kubectx_fgcolor is string and
+      kubectx_fgcolor.lower() in kubectx_colors %}
+export KUBECTX_CURRENT_FGCOLOR=$(tput setaf {{ kubectx_colors[kubectx_fgcolor] }})
+{% endif %}
+{% if kubectx_bgcolor is defined and
+      kubectx_bgcolor is string and
+      kubectx_bgcolor.lower() in kubectx_colors %}
+export KUBECTX_CURRENT_BGCOLOR=$(tput setab {{ kubectx_colors[kubectx_bgcolor] }})
+{% endif %}
+{% if kubectx_ignore_fzf %}
+export KUBECTX_IGNORE_FZF=1
+{% endif %}

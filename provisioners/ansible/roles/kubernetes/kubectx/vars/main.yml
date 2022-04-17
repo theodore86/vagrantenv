@@ -1,0 +1,14 @@
+---
+kubectx_ns_base_url: 'https://github.com/ahmetb/kubectx/releases/download'
+kubectx_download_url: '{{ kubectx_ns_base_url }}/v{{ kubectx_version }}/kubectx'
+kubens_download_url: '{{ kubectx_ns_base_url }}/v{{ kubens_version }}/kubens'
+kubectx_colors:
+  black: 0
+  red: 1
+  green: 2
+  yellow: 3
+  blue: 4
+  magenta: 5
+  cyan: 6
+  white: 7
+...

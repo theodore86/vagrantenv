@@ -1,0 +1,7 @@
+---
+fzf_version: '0.30.0'
+fzf_install_dir: '{{ ansible_env.HOME }}/.fzf'
+fzf_key_bindings: true
+fzf_auto_completion: true
+fzf_update_rc: true
+...
