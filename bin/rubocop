@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+[[ -n $DEBUG ]] && set -x
+
 set -euo pipefail
 
 if ! command -v 'bundle' >/dev/null; then

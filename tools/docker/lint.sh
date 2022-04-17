@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+[[ -n $DEBUG ]] && set -x
+
 set -o pipefail
 
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
