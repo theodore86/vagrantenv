@@ -9,7 +9,7 @@ repositories:
   - name: 'sublime'
     src: 'git@github.com:theodore86/sublime.git'
     dest: '{{ ansible_env.HOME }}'
-    version: 'main'
+    version: 'master'
     pull: true
     remote: 'origin'
 ...

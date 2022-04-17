@@ -1,0 +1,10 @@
+---
+kubectx_version: &kubectx_v '0.9.4'
+kubectx_ignore_fzf: false
+kubectx_install_dir: &kubectx_dir '/usr/local/bin'
+kubectx_fgcolor: 'blue'
+kubectx_bgcolor: 'white'
+kubens_version: *kubectx_v
+kubens_enabled: true
+kubens_install_dir: *kubectx_dir
+...

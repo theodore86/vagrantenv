@@ -1,0 +1,59 @@
+---
+- name: 'Download kubectx executable'
+  get_url:
+    url: '{{ kubectx_download_url }}'
+    dest: '/tmp/kubectx-{{ kubectx_version }}'
+
+- name: 'Download kubens executable'
+  get_url:
+    url: '{{ kubens_download_url }}'
+    dest: '/tmp/kubens-{{ kubens_version }}'
+  when: 'kubens_enabled'
+
+- name: 'Ensure kubectx install directory exists'
+  file:
+    path: '{{ kubectx_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Ensure kubens install directory exists'
+  file:
+    path: '{{ kubens_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: 'kubens_enabled'
+
+- name: 'Copy kubectx to the installation directory'
+  copy:
+    src: '/tmp/kubectx-{{ kubectx_version }}'
+    dest: '{{ kubectx_install_dir }}/kubectx'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+
+- name: 'Copy kubens to the installation directory'
+  copy:
+    src: '/tmp/kubens-{{ kubens_version }}'
+    dest: '{{ kubens_install_dir }}/kubens'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: 'kubens_enabled'
+
+- name: 'Setup required environment variables'
+  template:
+    src: 'kubectx.sh.j2'
+    dest: '/etc/profile.d/kubectx.sh'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  become: 'yes'
+...

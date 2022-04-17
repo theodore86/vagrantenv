@@ -128,4 +128,14 @@
       if [ -d "/usr/local/maven/bin" ]; then
         PATH="/usr/local/maven/bin:$PATH"
       fi
+
+- name: 'Set FZF (fuzzy finder) PATH, completion'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK FZF PATH and completion'
+    state: 'present'
+    block: |
+      if [ -f ~/.fzf.bash ]; then
+        . ~/.fzf.bash
+      fi
 ...

@@ -1,0 +1,94 @@
+---
+- name: 'Import GO role (dependency)'
+  import_role:
+    name: 'go'
+
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ k9s_install_dir }}/k9s'
+  register: 'k9s_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ k9s_install_dir }}/k9s version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'k9s_existing_version'
+  when: 'k9s_check_existing.stat.exists'
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ k9s_install_dir }}/k9s'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'k9s_check_existing.stat.exists'
+    - 'k9s_version not in k9s_existing_version.stdout'
+
+- name: 'Remove any existing checkout directory'
+  file:
+    path: '{{ k9s_checkout_dir }}'
+    state: 'absent'
+  when:
+    - 'k9s_check_existing.stat.exists'
+    - 'k9s_version not in k9s_existing_version.stdout'
+
+- name: 'Ensure checkout directory'
+  file:
+    path: '{{ k9s_checkout_dir }}'
+    state: 'directory'
+    mode: 0775
+  when: >
+    not k9s_check_existing.stat.exists
+    or k9s_version not in k9s_existing_version.stdout
+
+- name: 'Checkout repository'
+  git:
+    repo: '{{ k9s_repository }}'
+    dest: '{{ k9s_checkout_dir }}'
+    version: 'v{{ k9s_version }}'
+    accept_hostkey: 'yes'
+    update: 'no'
+    force: 'yes'
+    clone: 'yes'
+  when: >
+    not k9s_check_existing.stat.exists
+    or k9s_version not in k9s_existing_version.stdout
+
+- name: 'Build from source'
+  shell: 'make build -j $(nproc)'
+  args:
+    chdir: '{{ k9s_checkout_dir }}'
+    executable: '/bin/bash'
+  when: >
+    not k9s_check_existing.stat.exists
+    or k9s_version not in k9s_existing_version.stdout
+
+- name: 'Copy binary to the installation directory'
+  copy:
+    src: '{{ k9s_binary_dir }}/k9s'
+    dest: '{{ k9s_install_dir }}/'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not k9s_check_existing.stat.exists
+    or k9s_version not in k9s_existing_version.stdout
+  notify:
+    - 'Check installed k9s version'
+    - 'Verify installed k9s version'
+
+- name: 'Setup required environment variables'
+  template:
+    src: 'k9s.sh.j2'
+    dest: '/etc/profile.d/k9s.sh'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  become: 'yes'
+  when: >
+    not k9s_check_existing.stat.exists
+    or k9s_version not in k9s_existing_version.stdout
+...

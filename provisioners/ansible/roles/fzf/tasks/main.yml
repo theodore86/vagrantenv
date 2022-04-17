@@ -1,0 +1,40 @@
+---
+- name: 'Clone repository'
+  git:
+    repo: '{{ fzf_repository_url }}'
+    dest: '{{ fzf_install_dir }}'
+    version: '{{ fzf_version }}'
+    accept_hostkey: 'yes'
+    update: 'yes'
+    remote: 'origin'
+    depth: 1
+
+- name: 'Define key bindings feature'
+  set_fact:
+    key_bindings: '{{ "--key-bindings" if fzf_key_bindings else "--no-key-bindings" }}'
+
+- name: 'Define auto completion feature'
+  set_fact:
+    auto_completion: '{{ "--completion" if fzf_auto_completion else "--no-completion" }}'
+
+- name: 'Define update configuration feature'
+  set_fact:
+    update_rc: '{{ "--update-rc" if fzf_update_rc else "--no-update-rc" }}'
+
+- name: 'Install the binary'
+  shell:
+    cmd: >
+      ./install
+      {{ key_bindings }}
+      {{ auto_completion }}
+      {{ update_rc }}
+    chdir: '{{ fzf_install_dir }}'
+  register: 'result'
+  changed_when: '"Already exists" not in result.stdout'
+  args:
+    executable: '/bin/bash'
+  notify:
+    - 'Check installed FZF version'
+    - 'Define installed FZF version'
+    - 'Verify installed FZF version'
+...

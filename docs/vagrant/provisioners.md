@@ -218,8 +218,11 @@ Supported options are:
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [helm](https://helm.sh/) - The package manager for Kubernetes.
-            - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter
-            - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language
+            - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter.
+            - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language.
+            - [k9s](https://github.com/derailed/k9s) - Kubernetes CLI to manager your clusters.
+            - [kubectx](https://github.com/ahmetb/kubectx) - Tool to switch between kubernetes contexts (clusters).
+            - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.
