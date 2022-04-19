@@ -8,4 +8,6 @@ go_modules:
     version: 'v0.2.26'
   - name: 'golang.org/x/lint/golint'
     version: 'latest'
+  - name: 'github.com/rhysd/actionlint/cmd/actionlint'
+    version: 'v1.6.12'
 ...
