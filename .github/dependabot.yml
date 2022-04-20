@@ -23,4 +23,8 @@ updates:
     labels:
       - 'enhancement'
       - 'dependabot'
+  - package-ecosystem: 'docker'
+    directory: '/'
+    schedule:
+      interval: 'daily'
 ...
