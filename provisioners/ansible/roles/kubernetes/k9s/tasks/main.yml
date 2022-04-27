@@ -61,6 +61,8 @@
   args:
     chdir: '{{ k9s_checkout_dir }}'
     executable: '/bin/bash'
+  environment:
+    PATH: '{{ go_install_dir }}/bin:{{ ansible_env.PATH }}'
   when: >
     not k9s_check_existing.stat.exists
     or k9s_version not in k9s_existing_version.stdout
