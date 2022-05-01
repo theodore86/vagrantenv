@@ -12,6 +12,9 @@ updates:
     ignore:
       - dependency-name: 'shellcheck'
       - dependency-name: 'pymdown-extensions'
+      - dependency-name: 'Pygments'
+        versions:
+          - '>2.11.2'
       - dependency-name: 'ansible-lint[community]'
         versions:
           - '>5.4.0'
