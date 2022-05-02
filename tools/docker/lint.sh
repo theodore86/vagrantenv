@@ -11,8 +11,8 @@ source ${CWD}/../helpers/system.sh
 # shellcheck source=tools/helpers/log.sh
 source ${CWD}/../helpers/log.sh
 
-IMAGE="${1:-theodore86/vagrantenv-ci}"
-TAG="${2:-0.0.4}"
+IMAGE="${IMAGE:-theodore86/vagrantenv-ci}"
+TAG="${TAG:-0.1.5}"
 
 _linter() {
     docker run --platform linux/amd64 \
@@ -40,10 +40,11 @@ _linux_linter() {
 }
 
 _darwin_linter() {
+    is_program_installed docker || error 'Docker is required to be installed'
     cd $CWD && cd ../../ && _linter
 }
 
-docker_linter() {
+main() {
     if [[ $(get_ostype) == 'linux' ]]; then
         _linux_linter
     elif [[ $(get_ostype) == 'darwin' ]]; then
@@ -53,4 +54,4 @@ docker_linter() {
     fi
 }
 
-docker_linter
+main
