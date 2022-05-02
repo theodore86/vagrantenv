@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=svg&circle-token=bc7666e0b5736f67b6a4fdda6f244782d2062375)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/theodore86/vagrantenv.svg)](https://github.com/theodore86/vagrantenv/releases)
 
 # SandBox for Testing and Developing as a code
 Provisioning of the sandbox using the Vagrant automation tool (IaC).  

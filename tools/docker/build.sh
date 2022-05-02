@@ -32,7 +32,7 @@ _build() {
   tag="$2"
   info "Building docker image: $image:$tag"
   { cd $CWD && cd ../../ && \
-    docker image build --pull -t ${image}:${tag} . && \
+    DOCKER_BUILDKIT=1 docker image build --pull -t ${image}:${tag} . && \
     docker image tag ${image}:${tag} ${image}:latest
   } || error "Fail to build docker image: $image:$tag"
 }
