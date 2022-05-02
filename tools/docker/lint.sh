@@ -22,6 +22,7 @@ _linter() {
     -e BUNDLE_PATH=/app/ \
     -e PRE_COMMIT_HOME=/app/.cache \
     -e VAGRANT_HOME=/app/.vagrant.d \
+    -e DEBUG="${DEBUG}" \
     "${IMAGE}:${TAG}" tox
 }
 
