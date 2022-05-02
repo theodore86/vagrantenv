@@ -1,8 +1,8 @@
 [![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=svg&circle-token=bc7666e0b5736f67b6a4fdda6f244782d2062375)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Vagrant Box for Testing and Developing as a code
-Instant testing and developing environment as a code.  
+# SandBox for Testing and Developing as a code
+Provisioning of the sandbox using the Vagrant automation tool (IaC).  
 Fully managed and provisioned through [Ansible](https://www.ansible.com) roles.
 
 ## What is Vagrant
