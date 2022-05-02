@@ -27,6 +27,10 @@ RUN curl -OLs https://releases.hashicorp.com/vagrant/"${VAGRANT_VERSION}"/vagran
     dpkg -i vagrant_"${VAGRANT_VERSION}"_x86_64.deb && \
     rm vagrant_"${VAGRANT_VERSION}"_x86_64.deb
 
+ARG BUNDLER_VERSION="2.2.22"
+
+RUN gem install bundler --version "${BUNDLER_VERSION}"
+
 ARG USERNAME="ci" \
     USERGROUP="ci"
 
@@ -48,12 +52,10 @@ ARG PIP_VERSION="22.0.4" \
 RUN python3 -m pip install --user --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
     python3 -m pip install --user --no-cache-dir tox=="${TOX_VERSION}"
 
-ARG BUNDLER_VERSION="2.2.22"
+ENV BUNDLE_PATH="/home/${USERNAME}"
+ENV BUNDLE_BIN="${BUNDLE_PATH}/bin"
+ENV PATH="${BUNDLE_BIN}:${PATH}"
 
-ENV BUNDLE_PATH="/home/${USERNAME}" \
-    PATH="/home/${USERNAME}/.gem/ruby/2.7.0/bin:${PATH}"
-
-RUN gem install --user-install bundler -v "${BUNDLER_VERSION}" && \
-    bundle config set without "development test"
+RUN bundle config set without "development test"
 
 CMD ["bash"]
