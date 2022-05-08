@@ -222,6 +222,7 @@ Supported options are:
             - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language.
             - [k9s](https://github.com/derailed/k9s) - Kubernetes CLI to manager your clusters.
             - [kubectx](https://github.com/ahmetb/kubectx) - Tool to switch between kubernetes contexts (clusters).
+            - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.

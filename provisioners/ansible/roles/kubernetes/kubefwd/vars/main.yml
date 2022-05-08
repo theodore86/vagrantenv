@@ -1,0 +1,7 @@
+---
+kubefwd_base_url: 'https://github.com/txn2/kubefwd/releases/download'
+kubefwd_os: '{{ ansible_system | title }}'
+kubefwd_tarball: 'kubefwd_{{ kubefwd_os }}_{{ ansible_architecture }}.tar.gz'
+kubefwd_download_url: '{{ kubefwd_base_url }}/{{ kubefwd_version }}/{{ kubefwd_tarball }}'
+kubefwd_checksum_url: '{{ kubefwd_base_url }}/{{ kubefwd_version}}/kubefwd_checksums.txt'
+...

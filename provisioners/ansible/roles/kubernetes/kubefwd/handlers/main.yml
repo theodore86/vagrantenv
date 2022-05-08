@@ -1,0 +1,15 @@
+---
+- name: 'Check installed kubefwd version'
+  shell: '{{ kubefwd_install_dir }}/kubefwd version quiet'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'kubefwd_installed_version'
+
+- name: 'Verify installed kubefwd version'
+  assert:
+    that:
+      - 'kubefwd_version == kubefwd_installed_version.stdout'
+    fail_msg: 'kubefwd installation failed, v{{ kubefwd_version }} != {{ kubefwd_installed_version.stdout }}'
+    success_msg: 'Installed kubefwd version is: v{{ kubefwd_version }}'
+...

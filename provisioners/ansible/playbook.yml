@@ -13,10 +13,12 @@
     - { role: 'system/bash_profile', tags: 'bash_profile' }
     - { role: 'python/ipython', tags: 'ipython' }
     - { role: 'python/tox', tags: 'tox' }
+    - { role: 'docker', tags: 'docker' }
     - { role: 'kubernetes/kind', tags: 'kind' }
     - { role: 'kubernetes/kubectl', tags: 'kubectl' }
     - { role: 'kubernetes/helm', tags: 'helm' }
     - { role: 'kubernetes/k9s', tags: 'k9s' }
+    - { role: 'kubernetes/kubefwd', tags: 'kubefwd' }
     - { role: 'kubernetes/kubectx', tags: 'kubectx' }
     - { role: 'hashicorp/vagrant', tags: 'vagrant' }
     - { role: 'hashicorp/vault', tags: 'hvault' }
@@ -26,7 +28,6 @@
     - { role: 'hadolint', tags: 'hadolint' }
     - { role: 'go', tags: 'go' }
     - { role: 'ruby', tags: 'ruby' }
-    - { role: 'docker', tags: 'docker' }
     - { role: 'ansible', tags: 'ansible' }
     - { role: 'lsyncd', tags: 'lsyncd' }
     - { role: 'gitconfig', tags: 'gitconfig' }

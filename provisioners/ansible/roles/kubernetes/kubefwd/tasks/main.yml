@@ -1,0 +1,89 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ kubefwd_install_dir }}/kubefwd'
+  register: 'kubefwd_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ kubefwd_install_dir }}/kubefwd version quiet"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'kubefwd_existing_version'
+
+- name: 'Retrieve checksums'
+  set_fact:
+    kubefwd_checksums: '{{ lookup("url", kubefwd_checksum_url) }}'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+
+- name: 'Convert checksums to dictionary'
+  set_fact:
+    kubefwd_checksum_dict: '{{ kubefwd_checksums | content_to_dict(",") }}'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+
+- name: 'Set checksum'
+  set_fact:
+    kubefwd_checksum: '{{ kubefwd_checksum_dict | get_dict_key(kubefwd_tarball) }}'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+
+- name: 'Download tarball'
+  get_url:
+    url: '{{ kubefwd_download_url }}'
+    dest: '/tmp/{{ kubefwd_tarball }}'
+    checksum: 'sha256:{{ kubefwd_checksum }}'
+  become: 'yes'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+
+- name: 'Extract tarball'
+  unarchive:
+    src: '/tmp/{{ kubefwd_tarball }}'
+    dest: '/tmp'
+    remote_src: 'yes'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ kubefwd_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ kubefwd_install_dir }}/kubefwd'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kubefwd_check_existing.stat.exists'
+    - 'kubefwd_existing_version.stdout != kubefwd_version'
+
+- name: 'Copy kubefwd to the installation directory'
+  copy:
+    src: '/tmp/kubefwd'
+    dest: '{{ kubens_install_dir }}/kubefwd'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubefwd_check_existing.stat.exists
+    or kubefwd_existing_version.stdout != kubefwd_version
+  notify:
+    - 'Check installed kubefwd version'
+    - 'Verify installed kubefwd version'
+...

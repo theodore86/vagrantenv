@@ -59,11 +59,12 @@ All the required ansible files and directories resides under: ``provisioners/ans
 .
 ├── ansible.cfg -- The main ansible configuration file
 ├── extra_vars.yml -- Override any variable from any role
+├── filter_plugins (d) -- Custom jinja2 ansible filters (written in python)
 ├── inventory.yml -- Set it to localhost
 ├── playbook.yml -- Entrypoint for all roles
-└── roles -- The actual roles (re-usable configuration tasks)
+└── roles (d) -- The actual roles (re-usable configuration tasks
 
-1 directory, 4 files
+2 directories, 4 files
 ```
 
 Ansible operations are [idempotent](https://en.wikipedia.org/wiki/Idempotence), performing the necessary changes only if it is required.<br>
