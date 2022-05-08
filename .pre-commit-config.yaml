@@ -41,6 +41,14 @@ repos:
             args: ['-s', '--format', 'parsable']
             files: \.(yaml|yml|ansible-lint|yamllint)$
 
+          - id: pylint
+            name: Python (pylint) Linter
+            entry: pylint
+            description: Linter for Python files
+            language: system
+            args: ['-rn', '-sn', '--errors-only', '--output-format=parseable']
+            types: ['python']
+
           - id: shellcheck
             name: Shell (shellcheck) Linter
             entry: shellcheck

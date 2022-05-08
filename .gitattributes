@@ -19,6 +19,7 @@
 .gitignore text
 .dockerignore text
 .yamllint text eof=lf
+.pylintrc text eof=lf
 .ansible-lint text eof=lf
 Vagrantfile text diff=ruby
 .mailmap text
