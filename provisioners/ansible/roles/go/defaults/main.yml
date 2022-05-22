@@ -10,4 +10,8 @@ go_modules:
     version: 'latest'
   - name: 'github.com/rhysd/actionlint/cmd/actionlint'
     version: 'v1.6.12'
+  - name: 'golang.org/x/tools/cmd/goimports'
+    version: 'v0.1.10'
+  - name: 'github.com/mkouhei/gosh'
+    version: 'v0.2.3'
 ...
