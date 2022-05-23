@@ -72,7 +72,7 @@ To generate (build) and build the project documentation locally in your test vir
 tox -e docs -- --dev-addr 0.0.0.0:8000
 ```
 
-by default Mkdocs will build the Markdown files into HTML and starts a development server inside the virtual machine exposing the internal service port (``::8000``) to your host machine at [http://TestVM/8000](http://TestVM:8000) in order to browse your documentation.
+by default Mkdocs will build the Markdown files into HTML and starts a development server inside the virtual machine exposing the internal service port (``::8000``) to your host machine at [http://sandbox/8000](http://sandbox:8000) in order to browse your documentation.
 
 Depending on your selected [network](../vagrant/network.md) setup from the ``vagrant.yaml``:
 

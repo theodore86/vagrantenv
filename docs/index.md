@@ -1,6 +1,6 @@
-## Vagrant TestVM (IaC)
+## Vagrant Sandbox (IaC)
 
-This part of the site documents the *Vagrant (TestVM) instant testing and development environment*.
+This part of the site documents the *Vagrant (Sandbox) instant testing and development environment*.
 
 It is split in two major parts:
 

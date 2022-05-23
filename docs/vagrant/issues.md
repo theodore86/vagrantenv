@@ -44,7 +44,7 @@ Using Ubuntu bash under Windows 10 *can* make this easier, but there are still i
 ### "Authentication failure" on vagrant up
 ------------------------------------------
 
-On **Windows** you may encounter authentication failure once the VM is booted (e.g. *TestVM: Warning: Authentication failure. Retrying...*).
+On **Windows** you may encounter authentication failure once the VM is booted (e.g. *Sandbox: Warning: Authentication failure. Retrying...*).
 
 To fix this, do the following:
 

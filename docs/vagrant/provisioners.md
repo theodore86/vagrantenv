@@ -229,6 +229,6 @@ Supported options are:
         - This parameter can be *string or list* of tags.
 
 !!! info "More details on local ansible provisioner can be found at:"
-      - [Ansible on TestVM](../dev/ansible.md)
+      - [Ansible on Sandbox](../dev/ansible.md)
       - [Local Ansible Options](https://www.vagrantup.com/docs/provisioning/ansible_local)
       - [Asible Common Options](https://www.vagrantup.com/docs/provisioning/ansible_common)

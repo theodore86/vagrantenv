@@ -2,7 +2,7 @@
 
 ## Accessing the project source code
 
-Before you begin working with the (*vagrant*) TestVM it is **mandatory** to authenticate yourself in order to *clone* the project source code.
+Before you begin working with the (*vagrant*) Sandbox it is **mandatory** to authenticate yourself in order to *clone* the project source code.
 
 1. Request membership to [vagrantenv](https://github.com/theodore86/vagrantenv) project.
 
@@ -19,7 +19,7 @@ If you have already clone the project source code and your laptop has internet a
             :enabled: false
 ```
 
-2. Build and provision the (*vagrant*) TestVM.
+2. Build and provision the (*vagrant*) Sandbox.
 
 ```console
 vagrant up

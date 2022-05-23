@@ -147,7 +147,7 @@ http://localhost:8440
 
 ```yaml
 :host:
-    :name: 'TestVM'
+    :name: 'sandbox'
 ```
 
 The boolean value of the ``:disabled:`` key controls which of the two networks will be active. Only **one network** could be active in any given time. If for example the ``:disabled:`` key value is being set to ``true`` for both networks then only the first network from the YAML list will be active.

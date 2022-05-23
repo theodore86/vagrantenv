@@ -28,7 +28,7 @@
 
 # Vagrant VM & plugins settings
 :host:
-    :name: &hostname 'TestVM'
+    :name: &hostname 'sandbox'
     :box_update: false
     :box: 'bento/ubuntu-20.04'
     :box_url: null
@@ -54,7 +54,7 @@
               - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold', 1000]
     # https://github.com/goodhosts/vagrant
     :goodhosts:
-        :aliases: ["testvm.local"]
+        :aliases: ["sandbox.local"]
         :remove_on_suspend: true
     # https://github.com/dotless-de/vagrant-vbguest
     :vbguest:
@@ -141,7 +141,7 @@
           :options:
               :create: true
               :mount_options: ['dmode=774', 'fmode=664']
-              :id: 'testvm-project'
+              :id: 'sandbox-project'
         - :src: '~/ws'
           :dest: '/ws'
           :type: 'virtualbox'

@@ -63,7 +63,7 @@ Put the basic information about your project and the test environments you want 
 ```ini
 # content of: tox.ini
 [tox]
-project = Vagrantenv (TestVM)
+project = Vagrantenv (Sandbox)
 minversion = 3.7.0
 skipsdist = true
 envlist = py3,linters
