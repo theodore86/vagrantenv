@@ -1,0 +1,22 @@
+---
+name: 'Repo branches and tags Housekeeping'
+on:
+  schedule:
+    - cron: "0 15 * * 1-5"
+
+jobs:
+  housekeeping:
+    name: 'Cleanup old branches and tags'
+    runs-on: 'ubuntu-22.04'
+    steps:
+      - name: 'Checkout repository'
+        uses: 'actions/checkout@v3.0.2'
+
+      - name: 'Run delete-old-branches-action'
+        uses: 'beatlabs/delete-old-branches-action@v0.0.9'
+        with:
+          repo_token: ${{ github.token }}
+          date: '3 months ago'
+          dry_run: false
+          delete_tags: false
+...

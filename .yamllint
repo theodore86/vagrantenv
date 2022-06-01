@@ -8,6 +8,9 @@ ignore: |
   .tox/
 
 rules:
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: false
   braces:
     min-spaces-inside: 1
     max-spaces-inside: 1
