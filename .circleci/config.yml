@@ -18,6 +18,10 @@ workflows:
     jobs:
       - execute_tests:
           context: 'docker-hub-creds'
+          filters:
+            branches:
+              ignore:
+                - 'main'
   nightly:
     triggers:
       - schedule:
