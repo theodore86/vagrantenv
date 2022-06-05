@@ -49,7 +49,7 @@ _push() {
 }
 
 main() {
-  [[ $TAG =~ ^([0-9]+\.){2}[0-9]+ ]] || error 'Docker image tag of semantic version is required'
+  [[ -n $TAG ]] || error 'Docker image tag is required'
   is_program_installed docker || error 'Docker is required to be installed'
   _login ${REGISTRY_USER} ${REGISTRY_PASS}
   _build ${IMAGE} ${TAG}
