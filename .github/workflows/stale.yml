@@ -14,5 +14,5 @@ jobs:
           stale-pr-message: 'This PR has been marked as stale due to inactivity'
           days-before-stale: 7
           days-before-close: 30
-          exempt-pr-label: 'on-hold'
+          exempt-pr-labels: 'on-hold'
 ...
