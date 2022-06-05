@@ -15,7 +15,7 @@ RUN apt-get update && \
     python3-dev && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-ARG HADOLINT_VERSION="2.9.3"
+ARG HADOLINT_VERSION="2.10.0"
 
 RUN curl -OLs https://github.com/hadolint/hadolint/releases/download/v"${HADOLINT_VERSION}"/hadolint-Linux-x86_64 && \
     mv hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
@@ -46,8 +46,8 @@ USER "${USERNAME}"
 ENV LANG="C.UTF-8" \
     PATH="/home/${USERNAME}/.local/bin:${PATH}"
 
-ARG PIP_VERSION="22.0.4" \
-    TOX_VERSION="3.24.5"
+ARG PIP_VERSION="22.1.1" \
+    TOX_VERSION="3.25.0"
 
 RUN python3 -m pip install --user --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
     python3 -m pip install --user --no-cache-dir tox=="${TOX_VERSION}"
