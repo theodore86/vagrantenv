@@ -18,6 +18,11 @@ workflows:
     jobs:
       - execute_tests:
           context: 'docker-hub-creds'
+          filters:
+            branches:
+              ignore:
+                - 'main'
+                - 'create-pull-request/patch'
   nightly:
     triggers:
       - schedule:
