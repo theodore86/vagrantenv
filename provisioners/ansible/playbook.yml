@@ -34,4 +34,5 @@
     - { role: 'vim', tags: 'vim' }
     - { role: 'repos', tags: 'repos' }
     - { role: 'fzf', tags: 'fzf' }
+    - { role: 'yq', tags: 'yq' }
 ...

@@ -1,0 +1,10 @@
+---
+yq_arch: 'amd64'
+yq_os: '{{ ansible_system | lower }}'
+yq_binary_name: 'yq_{{ yq_os }}_{{ yq_arch }}'
+yq_download_url: 'https://github.com/mikefarah/yq/releases/download'
+yq_binary_url: '{{ yq_download_url }}/v{{ yq_version }}/{{ yq_binary_name }}'
+yq_checksums_url: '{{ yq_download_url }}/v{{ yq_version }}/checksums'
+yq_checksums_hash_order_url: '{{ yq_download_url }}/v{{ yq_version }}/checksums_hashes_order'
+yq_extract_checksum_url: '{{ yq_download_url }}/v{{ yq_version }}/extract-checksum.sh'
+...

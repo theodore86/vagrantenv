@@ -1,0 +1,109 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ yq_install_dir }}/yq'
+  register: 'yq_check_existing'
+
+- name: 'Check for existing version'
+  shell: "{{ yq_install_dir }}/yq --version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'yq_show_version'
+
+- name: 'Define existing binary version'
+  set_fact:
+    yq_existing_version: '{{ yq_show_version.stdout | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(?:\d{1,}\.){2}\d{1,}'
+
+- name: 'Download the required checksum files'
+  get_url:
+    url: '{{ item }}'
+    dest: '/tmp/{{ item.split("/")[-1] }}'
+    force: 'yes'
+  loop:
+    - '{{ yq_checksums_url }}'
+    - '{{ yq_checksums_hash_order_url }}'
+    - '{{ yq_extract_checksum_url }}'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Set file as executable'
+  file:
+    path: '/tmp/extract-checksum.sh'
+    state: 'file'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0755
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Extract binary checksum'
+  shell:
+    cmd: '/tmp/extract-checksum.sh SHA-256 {{ yq_binary_name }}'
+    chdir: '/tmp'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'yq_extract_checksum_output'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Convert checksum to dictionary'
+  set_fact:
+    yq_binary_checksum: '{{ yq_extract_checksum_output.stdout | content_to_dict }}'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ yq_binary_url }}'
+    dest: '/tmp/{{ yq_binary_name }}-{{ yq_version }}'
+    checksum: 'sha256:{{ yq_binary_checksum[yq_binary_name] }}'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ yq_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ yq_install_dir }}/yq'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'yq_check_existing.stat.exists'
+    - 'yq_existing_version != yq_version'
+
+- name: 'Copy binary to installation directory'
+  copy:
+    src: '/tmp/{{ yq_binary_name }}-{{ yq_version }}'
+    dest: '{{ yq_install_dir }}/yq'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  notify:
+    - 'Check for installed yq version'
+    - 'Define installed yq version'
+    - 'Verify installed yq version'
+  when: >
+    not yq_check_existing.stat.exists
+    or yq_existing_version != yq_version
+...

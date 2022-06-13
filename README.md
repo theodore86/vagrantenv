@@ -121,6 +121,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - socat
 - sshpass
 - jq
+- yq
 - bridge-utils
 - x11-apps
 - lsyncd
