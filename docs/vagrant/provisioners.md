@@ -224,6 +224,7 @@ Supported options are:
             - [kubectx](https://github.com/ahmetb/kubectx) - Tool to switch between kubernetes contexts (clusters).
             - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
+            - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.
