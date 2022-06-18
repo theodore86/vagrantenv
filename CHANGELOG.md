@@ -1,3 +1,70 @@
+## [2.14.0] - 2022-06-20
+### Changed
+- Update README.md
+- Update CONTRIBUTING.md
+- Update LICENSE
+- Update project dependencies
+  - Update ``mkdocs==1.2.3``.
+  - Update ``shellcheck==0.8.04``.
+  - Update ``yamllint==1.26.3``.
+  - Update ``paygments==2.11.2``.
+  - Update ``pre-commit==2.19.0``.
+  - Update ``rubocop==1.30.1``.
+  - Update ``pydown-extensions==9.3``.
+  - Update ``jinja2==3.0.3``.
+  - Update ``pylint==2.14.2``.
+- Update ansible provisioner.
+  - Add filewatcher task in ``system.yml`` task file.
+  - Add support for ansible roles.
+  - Add support of *buildkit* for docker role.
+- Update ``vagrant.yaml``.
+  - Update vagrant-goodhosts plugin to version *1.1.4*.
+  - Update local ansible provisioner ``:extra_vars:``.
+    - Add ``:skip_tags:`` to exclude ansible roles.
+  - Update *testvm* name to *sandbox* in configuration file.
+  - Update vbguest plugin configuration.
+    - Update ``:no_install`` from *true* to *false*.
+- Update ``chocolatey.config``.
+  - Update vagrant to *2.2.19*.
+  - Add under ``tools/windows`` subfolder.
+- Update ``rubocop`` shell wrapper.
+  - Add check for *bundle* installation.
+- Update ``mkdocs.yml``.
+  - Add markdown extensions.
+- Update ``tox.ini``.
+  - Add environment variables:
+    - ``BUNDLE_PATH``
+    - ``SKIP``
+    - ``PRE_COMMIT_HOME``
+- Update ``provision.bat`` script.
+  - Add under ``tools/windows`` subfolder.
+
+### Added
+- Add ``Dockerfile`` for project CI purposes.
+- Add ``hadolint`` linter ansible role.
+- Add ``helm`` package manager ansible role.
+- Add ``jvm`` related ansible roles.
+  - ``maven``
+  - ``groovy``
+  - ``openjdk``
+- Add ``kubernetes`` ansible roles.
+  - ``k9s``
+  - ``kubectx``
+  - ``kubefwd``
+- Add ``fzf`` tool ansible role.
+- Add ``GO`` programing language ansible role.
+- Add ``yq`` tool ansible role.
+- Add support of local docker linter.
+  - Add shell script ``lint.sh`` under ``tools/docker``.
+- Add support of local docker builder.
+  - Add shell script ``build.sh`` under ``tools/docker``.
+
+### Removed
+- Gitlab templates (*moved project to Github*).
+- Ansible provisioner.
+  - Delete ``test_repos.yaml`` task file.
+- Ansible tasks and variable files.
+
 ## [2.0.4] - 2022-03-04
 ### Changed
 - Update README.md
