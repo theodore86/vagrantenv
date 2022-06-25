@@ -124,6 +124,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - yq
 - bridge-utils
 - x11-apps
+- xdg-utils
 - lsyncd
 
 ## Accessing the Project Source Code

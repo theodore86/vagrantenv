@@ -36,6 +36,7 @@ system_required_packages:
   - 'dos2unix'
   - 'socat'
   - 'bridge-utils'
+  - 'xdg-utils'
   - 'jq'
 system_inotify_filewatchers: '131072'
 ...
