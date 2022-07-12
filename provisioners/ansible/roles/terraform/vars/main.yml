@@ -1,0 +1,9 @@
+---
+tf_arch: 'amd64'
+tf_os: '{{ ansible_system | lower }}'
+tf_binary_name: 'tf_{{ tf_os }}_{{ tf_arch }}'
+tf_download_url: 'https://releases.hashicorp.com/terraform'
+tf_zip_name: 'terraform_{{ tf_version }}_{{ tf_os }}_{{ tf_arch }}.zip'
+tf_zip_url: '{{ tf_download_url }}/{{ tf_version }}/{{ tf_zip_name }}'
+tf_checksums_url: '{{ tf_download_url }}/{{ tf_version }}/terraform_{{ tf_version }}_SHA256SUMS'
+...

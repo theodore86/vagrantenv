@@ -1,0 +1,79 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ tf_install_dir }}/terraform'
+  register: 'tf_path'
+
+- name: 'Check for existing version'
+  shell: '{{ tf_install_dir }}/terraform version -json'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  failed_when: false
+  register: 'tf_existing_version'
+  when: 'tf_path.stat.exists'
+
+- name: 'Define existing version'
+  set_fact:
+    tf_current_version: '{{ tf_existing_version.stdout | from_json }}'
+  when: 'tf_path.stat.exists'
+
+- name: 'Retrieve zip checksums'
+  set_fact:
+    tf_zip_checksums: '{{ lookup("url", tf_checksums_url) }}'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+
+- name: 'Convert zip checksums to dictionary'
+  set_fact:
+    tf_zip_checksum_dict: '{{ tf_zip_checksums | content_to_dict(",") }}'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+
+- name: 'Set zip checksum'
+  set_fact:
+    tf_zip_checksum: '{{ tf_zip_checksum_dict | get_dict_key(tf_zip_name) }}'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+
+- name: 'Download zip'
+  get_url:
+    url: '{{ tf_zip_url }}'
+    dest: '/tmp/{{ tf_zip_name }}'
+    checksum: 'sha256:{{ tf_zip_checksum }}'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ tf_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+
+- name: 'Extract {{ tf_zip_name }}'
+  unarchive:
+    src: '/tmp/{{ tf_zip_name }}'
+    dest: '{{ tf_install_dir }}'
+    remote_src: 'yes'
+    mode: 0755
+    owner: root
+    group: root
+  become: 'yes'
+  notify:
+    - 'Check for existing terraform version'
+    - 'Define existing terraform version'
+    - 'Verify installed terraform version'
+  when: >
+    not tf_path.stat.exists
+    or tf_current_version.terraform_version != tf_version
+...
