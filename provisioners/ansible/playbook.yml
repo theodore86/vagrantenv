@@ -35,4 +35,5 @@
     - { role: 'repos', tags: 'repos' }
     - { role: 'fzf', tags: 'fzf' }
     - { role: 'yq', tags: 'yq' }
+    - { role: 'terraform', tags: 'terraform' }
 ...

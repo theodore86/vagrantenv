@@ -1,0 +1,20 @@
+---
+- name: 'Check for existing terraform version'
+  shell: '{{ tf_install_dir }}/terraform version -json'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  failed_when: false
+  register: 'tf_existing_version'
+
+- name: 'Define existing terraform version'
+  set_fact:
+    tf_installed_version: '{{ tf_existing_version.stdout | from_json }}'
+
+- name: 'Verify installed terraform version'
+  assert:
+    that:
+      - 'tf_installed_version.terraform_version == tf_version'
+    fail_msg: 'terraform installation failed, {{ tf_version }} != {{ tf_installed_version.terraform_version }}'
+    success_msg: 'Installed terraform version is: {{ tf_version }}'
+...
