@@ -1,0 +1,89 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ tgrunt_install_dir }}/terragrunt'
+  register: 'tgrunt_check_existing'
+
+- name: 'Check for existing version'
+  shell: "{{ tgrunt_install_dir }}/terragrunt --version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'tgrunt_show_version'
+  when:
+    - 'tgrunt_check_existing.stat.exists'
+
+- name: 'Define existing binary version'
+  set_fact:
+    tgrunt_existing_version: '{{ tgrunt_show_version.stdout | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(?:\d{1,}\.){2}\d{1,}'
+
+- name: 'Retrieve binary checksums'
+  set_fact:
+    tgrunt_checksums: '{{ lookup("url", tgrunt_checksums_url) }}'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+
+- name: 'Convert binary checksums to dictionary'
+  set_fact:
+    tgrunt_checksum_dict: '{{ tgrunt_checksums | content_to_dict(",") }}'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+
+- name: 'Set binary checksum'
+  set_fact:
+    tgrunt_checksum: '{{ tgrunt_checksum_dict | get_dict_key(tgrunt_binary_name) }}'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ tgrunt_download_url }}'
+    dest: '/tmp/{{ tgrunt_binary_name }}'
+    checksum: 'sha256:{{ tgrunt_checksum }}'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ tgrunt_install_dir }}/terragrunt'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'tgrunt_check_existing.stat.exists'
+    - 'tgrunt_existing_version != tgrunt_version'
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ tgrunt_install_dir }}'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+
+- name: 'Copy binary to installation directory'
+  copy:
+    src: '/tmp/{{ tgrunt_binary_name }}'
+    dest: '{{ tgrunt_install_dir }}/terragrunt'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  notify:
+    - 'Check for installed terragrunt version'
+    - 'Define installed terragrunt version'
+    - 'Verify installed terragrunt version'
+  when: >
+    not tgrunt_check_existing.stat.exists
+    or tgrunt_existing_version != tgrunt_version
+...

@@ -1,0 +1,8 @@
+---
+tgrunt_arch: 'amd64'
+tgrunt_os: '{{ ansible_system | lower }}'
+tgrunt_binary_name: 'terragrunt_{{ tgrunt_os }}_{{ tgrunt_arch }}'
+tgrunt_base_download_url: 'https://github.com/gruntwork-io/terragrunt/releases/download'
+tgrunt_download_url: '{{ tgrunt_base_download_url }}/v{{ tgrunt_version }}/{{ tgrunt_binary_name }}'
+tgrunt_checksums_url: '{{ tgrunt_base_download_url }}/v{{ tgrunt_version }}/SHA256SUMS'
+...
