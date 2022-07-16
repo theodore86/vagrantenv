@@ -214,6 +214,7 @@ Supported options are:
             - [ruby](https://www.ruby-lang.org/en/) - Ruby programming language.
             - [vagrant](https://www.vagrantup.com/) - The Hashicorp Vagrant command line tool.
             - [hvault](https://www.vaultproject.io/docs/what-is-vault) - The Hashicorp Vault client, secrets management tool.
+            - [terraform](https://www.terraform.io/) - The Hashicorp IaC command line tool
             - [go](https://go.dev/) - Go programming language.
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
@@ -225,7 +226,7 @@ Supported options are:
             - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
             - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
-            - [terraform](https://www.terraform.io/) - The Hashicorp IaC command line tool.
+            - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*)
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.

@@ -1,0 +1,22 @@
+---
+- name: 'Check for installed terragrunt version'
+  shell: "{{ yq_install_dir }}/terragrunt --version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'tgrunt_show_version'
+
+- name: 'Define installed terragrunt version'
+  set_fact:
+    tgrunt_installed_version: '{{ tgrunt_show_version.stdout | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(?:\d{1,}\.){2}\d{1,}'
+
+- name: 'Verify installed terragrunt version'
+  assert:
+    that:
+      - 'tgrunt_installed_version == tgrunt_version'
+    fail_msg: 'terragrunt installation failed, {{ tgrunt_version }} != {{ tgrunt_installed_version }}'
+    success_msg: 'Installed terragrunt version is: {{ tgrunt_version }}'
+...
