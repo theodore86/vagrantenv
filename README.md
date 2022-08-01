@@ -108,6 +108,9 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 ### Linters
 - hadolint
 
+### Browsers
+- midori
+
 ### User Workspace Settings
 - .vimrc
 - .gitconfig

@@ -38,5 +38,6 @@ system_required_packages:
   - 'bridge-utils'
   - 'xdg-utils'
   - 'jq'
+  - 'midori'
 system_inotify_filewatchers: '131072'
 ...
