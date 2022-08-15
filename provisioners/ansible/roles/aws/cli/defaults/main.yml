@@ -1,0 +1,5 @@
+---
+awscli_package_name: 'awscli'
+awscli_package_version: '1.25.52'
+awscli_package_state: 'present'
+...

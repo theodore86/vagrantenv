@@ -1,6 +1,6 @@
 ---
 
-- name: 'TestVM (Vagrant) Ansible Provisioning'
+- name: 'Sandbox (Vagrant) Ansible Provisioning'
   hosts: 'all'
   connection: 'local'
   pre_tasks:
@@ -37,4 +37,5 @@
     - { role: 'fzf', tags: 'fzf' }
     - { role: 'yq', tags: 'yq' }
     - { role: 'terragrunt', tags: 'terragrunt' }
+    - { role: 'aws/cli', tags: 'aws' }
 ...

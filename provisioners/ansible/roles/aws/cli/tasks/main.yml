@@ -1,0 +1,22 @@
+---
+- name: 'Import PIP role'
+  import_role:
+    name: 'python/pip'
+
+- name: 'Install AWS CLI'
+  pip:
+    name: '{{ awscli_package_name }}'
+    version: '{{ awscli_package_version | default("omit") }}'
+    chdir: ' {{ ansible_env.HOME }}'
+    extra_args: '--user'
+    state: '{{ awscli_package_state | default("present") }}'
+    executable: '{{ pip_executable }}'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  notify:
+    - 'Get path of user-specific site-packages'
+    - 'Get installed AWS CLI version'
+    - 'Set installed AWS CLI version'
+    - 'Verify installed AWS CLI version'
+...
