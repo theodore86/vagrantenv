@@ -17,7 +17,7 @@
   loop: '{{ tox_pip_dependencies }}'
 
 - name: 'Verify installation'
-  shell: 'python -m tox --version'
+  shell: 'python3 -m tox --version'
   args:
     executable: '/bin/bash'
   changed_when: false

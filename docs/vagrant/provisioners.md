@@ -226,7 +226,8 @@ Supported options are:
             - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
             - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
-            - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*)
+            - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*).
+            - [awscli](https://pypi.org/project/awscli) - Universal command line environment for AWS.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.

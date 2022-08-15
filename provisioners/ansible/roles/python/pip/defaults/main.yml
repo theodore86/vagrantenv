@@ -1,5 +1,5 @@
 ---
-pip_executable: 'pip'
+pip_executable: 'pip3'
 pip_conf:
   global:
     index_url: 'https://pypi.python.org/simple'
