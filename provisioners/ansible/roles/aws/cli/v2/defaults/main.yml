@@ -1,0 +1,5 @@
+---
+awscliv2_package_download_dir: '/tmp'
+awscliv2_package_install_dir: '/usr/local/aws-cli'
+awscliv2_package_bin_dir: '/usr/local/bin'
+...
