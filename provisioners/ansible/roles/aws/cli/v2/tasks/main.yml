@@ -1,0 +1,35 @@
+---
+- name: 'Download AWS CLIv2 installer'
+  unarchive:
+    src: '{{  awscliv2_package_download_url }}'
+    dest: '{{ awscliv2_package_download_dir }}'
+    remote_src: true
+    creates: '{{ awscliv2_package_download_dir }}/aws'
+    mode: 0755
+
+- name: 'Run the AWS CLIv2 installer'
+  shell: >
+    {{ awscliv2_package_download_dir }}/aws/install
+    --update
+    --install-dir {{ awscliv2_package_install_dir }}
+    --bin-dir {{ awscliv2_package_bin_dir }}
+  args:
+    executable: '/bin/bash'
+    creates: '{{ awscliv2_package_bin_dir }}/aws'
+  register: 'aws_install'
+  changed_when:
+    - '"skipped" not in aws_install.stdout'
+    - '"Found same AWS CLI version" not in aws_install.stdout'
+  become: 'yes'
+
+- name: 'Verify AWS CLIv2 installation'
+  shell: 'aws --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'awscliv2_version_result'
+
+- name: 'Show AWS CLIv2 version'
+  debug:
+    var: 'awscliv2_version_result.stdout'
+...

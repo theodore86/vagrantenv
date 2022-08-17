@@ -1,0 +1,5 @@
+---
+awscliv2_package_base_url: 'https://awscli.amazonaws.com'
+awscliv2_package_os: '{{ ansible_system | lower }}'
+awscliv2_package_download_url: '{{ awscliv2_package_base_url }}/awscli-exe-{{ awscliv2_package_os }}-{{ ansible_architecture }}.zip'
+...

@@ -37,5 +37,5 @@
     - { role: 'fzf', tags: 'fzf' }
     - { role: 'yq', tags: 'yq' }
     - { role: 'terragrunt', tags: 'terragrunt' }
-    - { role: 'aws/cli', tags: 'aws' }
+    - { role: 'aws/cli/v2', tags: 'aws' }
 ...
