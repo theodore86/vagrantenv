@@ -102,7 +102,7 @@
   when: 'docker_compose_install | bool'
 
 - name: 'Verify Docker Compose installation'
-  shell: 'docker-compose --version'
+  shell: 'python3 -c "import compose; print(compose.__version__)"'
   args:
     executable: '/bin/bash'
   changed_when: false
