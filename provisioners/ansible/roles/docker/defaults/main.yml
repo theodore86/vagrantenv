@@ -11,9 +11,9 @@ docker_config:
   features:
     buildkit: true
 docker_sdk_install: true
-docker_sdk_version: '4.4.4'
+docker_sdk_version: '5.0.3'
 docker_sdk_container_name: 'hello-world'
-docker_sdk_container_image: 'hello-world:latest'
-docker_compose_install: false
-docker_compose_version: '1.26.2'
+docker_sdk_container_image: '{{ docker_sdk_container_name }}:latest'
+docker_compose_install: true
+docker_compose_version: '1.29.2'
 ...

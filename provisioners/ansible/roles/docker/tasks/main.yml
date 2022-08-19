@@ -127,7 +127,7 @@
   when: 'docker_sdk_install | bool'
 
 - name: 'Verify Docker SDK installation'
-  shell: 'python -c "import docker; print(docker.__version__)"'
+  shell: 'python3 -c "import docker; print(docker.__version__)"'
   args:
     executable: '/bin/bash'
   changed_when: false
