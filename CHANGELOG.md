@@ -1,8 +1,41 @@
+## [2.18.2] - 2022-08-20
+### Changed
+- Update project dependencies.
+  - Update ``mkdocs==1.3.1``.
+  - Update ``pylint==2.14.5``.
+  - Update ``pre-commit==2.20.0``.
+  - Update ``yamllint==1.27.1``.
+- Update ansible-provisioner.
+  - Update docker role ``docker-compose==1.29.1``.
+  - Update docker role the ``docker==5.0.3`` SDK.
+  - Update common system role.
+    - Add *midori* lightweight web-browser.
+    - Add *xdg-utils* - desktop integration utilities.
+- Update ``ansible.cfg``.
+  - Update python interpreter to python3.
+- Update ``Gemfile/Gemfile.lock``.
+  - Update ``rubocop==1.35.0``.
+
+### Added
+- Hashicorp ansible role.
+  - Terraform IaC binary.
+- Terragrunt (IaC) ansible role.
+- AWS CLI ansible roles.
+  - ``awscliv2``.
+  - ``awscli (version 1)``.
+- Github action ``release.yml`` workflow.
+  - Add Github release on git tag push events.
+
+### Fixed
+- Ansible provisioner.
+  - Docker-compose (display) version output.
+  - Docker SDK (display) version output.
+
 ## [2.14.0] - 2022-06-20
 ### Changed
-- Update README.md
-- Update CONTRIBUTING.md
-- Update LICENSE
+- Update README.md.
+- Update CONTRIBUTING.md.
+- Update LICENSE.
 - Update project dependencies
   - Update ``mkdocs==1.2.3``.
   - Update ``shellcheck==0.8.04``.
@@ -33,9 +66,9 @@
   - Add markdown extensions.
 - Update ``tox.ini``.
   - Add environment variables:
-    - ``BUNDLE_PATH``
-    - ``SKIP``
-    - ``PRE_COMMIT_HOME``
+    - ``BUNDLE_PATH``.
+    - ``SKIP``.
+    - ``PRE_COMMIT_HOME``.
 - Update ``provision.bat`` script.
   - Add under ``tools/windows`` subfolder.
 
@@ -44,13 +77,13 @@
 - Add ``hadolint`` linter ansible role.
 - Add ``helm`` package manager ansible role.
 - Add ``jvm`` related ansible roles.
-  - ``maven``
-  - ``groovy``
-  - ``openjdk``
+  - ``maven``.
+  - ``groovy``.
+  - ``openjdk``.
 - Add ``kubernetes`` ansible roles.
-  - ``k9s``
-  - ``kubectx``
-  - ``kubefwd``
+  - ``k9s``.
+  - ``kubectx``.
+  - ``kubefwd``.
 - Add ``fzf`` tool ansible role.
 - Add ``GO`` programing language ansible role.
 - Add ``yq`` tool ansible role.
@@ -67,8 +100,8 @@
 
 ## [2.0.4] - 2022-03-04
 ### Changed
-- Update README.md
-- Update project documentation
+- Update README.md.
+- Update project documentation.
   - Update ``provisioners.md``.
   - Update ``network.md``.
 - Update ansible provisioner
