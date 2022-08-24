@@ -102,18 +102,6 @@
                     :host_ip: &localhost '127.0.0.1'
                     :host: 8000
                     :auto_correct: true
-                  - :id: 'rfdocs'
-                    :guest: 8010
-                    :protocol: *tcp
-                    :host_ip: *localhost
-                    :host: 8010
-                    :auto_correct: true
-                  - :id: 'reports'
-                    :guest: 8080
-                    :protocol: *tcp
-                    :host_ip: *localhost
-                    :host: 8080
-                    :auto_correct: true
                   - :id: 'vault'
                     :guest: 8200
                     :protocol: *tcp
