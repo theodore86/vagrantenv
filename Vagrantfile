@@ -56,14 +56,14 @@ Vagrant.configure('2') do |config|
         #-- Shared Folders --#
         Host.synced_folders(node.vm, HOST)
 
-        #-- Local Ansible Provisioner -- ##
-        Host.ansible_provision(node.vm, HOST)
-
         #-- File Provisioners --#
         Host.file_provision(node.vm, HOST)
 
         #-- Shell Provisioners --#
         Host.shell_provision(node.vm, HOST)
+
+        #-- Local Ansible Provisioner -- ##
+        Host.ansible_provision(node.vm, HOST)
 
         #-- Post up message --#
         Host.post_up_message(node.vm, HOST)

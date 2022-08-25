@@ -13,36 +13,13 @@ Ansible task is a unit of action, an group of tasks is organized in an file know
 
 Ansible requires the following software to be installed on the hosts:
 
-- Python interpreter (control & managed nodes)
+- **Python interpreter** (*control & managed nodes*)
     - supported out-of-the-box by most of the Unix-like systems.
-- OpenSSH server (only on managed nodes).
+- **OpenSSH server** (*only on managed nodes*).
 
-Depending on the ``:install_mode:`` (defaults: **pip_args_only**) vagrant will try to automatically install the ansible on the control node.
+Local ansible provisioner provides some [configuration options](https://www.vagrantup.com/docs/provisioning/ansible_local) to install the required ansible dependencies either by the *system package manager (e.g. apt)* or through *python PIP package manager* but this option does not scale and it is not actively maintained by the core Vagrant team.
 
-In our case (**pip_args_only** is the default mode) vagrant will perform the following actions:
-
-- Update the system through the system package manager.
-```bash
-apt-get update -y -qq
-```
-- Install the python interpreter (*defaults to python2.7*).
-```bash
-apt-get install -y -qq build-essential curl git libssl-dev libffi-dev python-dev
-```
-- Install the pip via *:pip_install_cmd* option value:
-```bash
-curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py |sudo python
-```
-- Install the specified ansible version as defined in *:pip_args* or *:version* option value:
-```bash
-pip install --upgrade ansible(==2.10.5)
-```
-
-!!! info "Default python version"
-    Ansible local provisioner pre-installs the python2.7 interpreter (even if python2 is **EOL**) as default system python,
-    this step cannot be overriden when the selected ``:install_mode`` is **pip** or **pip_args_only**. If the ``:install_mode``
-    option value is set to **default** then ansible will be installed via system package manager but the ansible installed version
-    is tied coupled on the distribution repositories.
+In such case, the installation of the ansible package and any other required ansible dependency is handled by a separate vagrant [shell provisioner](../vagrant/provisioners.md#shell-provisioner) which is defined inside the ``vagrant.yaml`` and is executed prior to vagrant [ansible_local provisioner](../vagrant/provisioners.md#local-ansible-provisioner).
 
 !!! note "Proxy settings"
     If you are behind an proxy you need to setup the (system-wide at least) proxy environment variables on the guest machine,
@@ -79,9 +56,6 @@ ansible-playbook -i inventory.yml playbook.yml --tags vim # repeat only the vim 
     The Ansible Local provisioner requires that all the Ansible playbook files are available on the guest machine,
     at the location referred by the ``:provisioning_path:`` option. Those files are present on the host machine (as part of your Vagrant project) but
     in the case of local ansible provisioner those files **must be shared** on the guest machine also. This can be achieved by the [synced folders](../vagrant/shared.md) functionality of vagrant. Vagrant will then change directory to the value provided by ``:provisioning_path:`` option and then will execute the playbook.
-
-!!! note "[Ansible Galaxy/Roles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html)"
-    Currently are not supported, will be supported in the upcoming releases.
 
 # Linting your playbook tasks
 

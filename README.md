@@ -2,8 +2,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # SandBox for Testing and Developing as a code
-Provisioning of the sandbox using the Vagrant automation tool (IaC).  
-Fully managed and provisioned through [Ansible](https://www.ansible.com) roles.
+Provisioning of the sandbox using the Hashicorp Vagrant automation tool (IaC).  
+Fully managed and configured through [Ansible roles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html).
 
 ## What is Vagrant
 [Vagrant](https://www.vagrantup.com/docs/index.html) is an tool for building and managing virtual machine environments in an sigle workflow.
@@ -93,9 +93,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
   - golang.org/x/lint/golint
   - github.com/rhysd/actionlint
 
-### Python
-- python-dev
-- python3.8-dev
+### Python3
 - pip
 - tox
 - ansible
@@ -108,9 +106,6 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 ### Linters
 - hadolint
 
-### Browsers
-- midori
-
 ### User Workspace Settings
 - .vimrc
 - .gitconfig
@@ -119,7 +114,10 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - ipython_config.py
 - .lsyncd.config.lua
 
-### Other
+### Browsers
+- midori
+
+### Others
 - lynx
 - socat
 - sshpass

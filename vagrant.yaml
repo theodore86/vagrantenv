@@ -138,14 +138,20 @@
               :mount_options: ['dmode=774', 'fmode=774']
               :id: 'workspace'
     :provisioners:
+        :shell:
+            - :name: 'ansible'
+              :options:
+                  :type: 'shell'
+                  :path: [*shell_provisioner, 'ansible.sh']
+                  :binary: true
+                  :args: [*shared, 'requirements.d/ansible.txt']
+                  :privileged: true
+                  :run: null
         :ansible:
             :name: *hostname
             :options:
                 :type: 'ansible_local'
-                :install: true
-                :install_mode: 'pip_args_only'
-                :pip_install_cmd: 'curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py |sudo python'
-                :pip_args: 'ansible==4.8.0'
+                :install: false
                 :verbose: false
                 :compatibility_mode: '2.0'
                 :limit: 'all'
