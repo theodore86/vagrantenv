@@ -12,6 +12,7 @@
     name: 'bundler'
     state: 'present'
     version: '{{ ruby_bundler_version }}'
+    norc: 'yes'
     user_install: 'yes'
   when: 'ruby_install_bundler | bool'
 
@@ -20,6 +21,7 @@
     name: '{{ item.name | default("item") }}'
     version: '{{ item.version | default("omit") }}'
     state: '{{ item.state | default("present") }}'
+    norc: 'yes'
     user_install: 'yes'
   loop: '{{ ruby_install_user_gems }}'
 

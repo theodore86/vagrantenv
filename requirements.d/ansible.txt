@@ -1,0 +1,3 @@
+# Requirements for bootstrapping shell provisioner
+
+ansible==6.3.0

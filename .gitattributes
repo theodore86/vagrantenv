@@ -62,3 +62,4 @@ Vagrantfile text diff=ruby
 
 ## SHELL
 *.sh text eof=lf
+rubocop text eof=lf

@@ -1,6 +1,6 @@
 ---
 
-site_name: 'Vagrant TestVM Documentation'
+site_name: 'Vagrant Sandbox Documentation'
 site_author: 'Theodore Georgomanolis'
 site_description: 'Vagrant TestVM Project Documentation'
 site_url: 'https://github.com/theodore86/vagrantenv'
