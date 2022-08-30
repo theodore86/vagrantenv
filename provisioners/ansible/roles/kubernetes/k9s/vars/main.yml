@@ -1,5 +1,5 @@
 ---
-k9s_repository: 'git@github.com:derailed/k9s.git'
+k9s_repository: 'https://github.com/derailed/k9s.git'
 k9s_checkout_dir: '/tmp/k9s'
 k9s_binary_dir: '{{ k9s_checkout_dir }}/execs'
 k9s_editor: 'vim'
