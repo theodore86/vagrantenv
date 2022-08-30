@@ -145,8 +145,6 @@
   - Update ``vagrant-host.rb``, reuse ``expand_host_path`` to file and shell provision functions.
 - Update ``chocolatey.config``.
   - Update virtualbox to *6.1.16*.
-- Update ``.pip.conf``
-  - Add extra-index-url: *artifactory-espoo1.ext.net.nokia.com*.
 - Update ``ansible.cfg``
   - Change *callback_enabled* to *callback_whitelist* plugins in default settings section.
 - Update ``tox.ini``

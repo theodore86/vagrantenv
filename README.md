@@ -32,7 +32,6 @@ Use your distribution package manager and install the following `mandatory` pack
 
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) `mandatory`
 - [Vagrant](https://www.vagrantup.com/downloads.html) `mandatory`
-- [SublimeText](http://docs.sublimetext.info/en/latest/getting_started/install.html) `optional`
 
 #### Windows OS
 * Install (as Administrator) the Package Manager [Chocolatey](https://chocolatey.org/install):
@@ -41,9 +40,6 @@ The following `mandatory` packages must be installed through Chocolatey:
 
 * [VirtualBox](https://chocolatey.org/packages/virtualbox) `mandatory`
 * [Vagrant](https://chocolatey.org/packages/vagrant) `mandatory`
-* [Cmder](https://chocolatey.org/packages/Cmder) or [Cygwin](https://chocolatey.org/packages/Cygwin) `optional`
-* [Python3](https://chocolatey.org/packages/python3) `optional`
-* [SublimeText](https://chocolatey.org/packages/SublimeText3) `optional`
 
 **There is no need to install the above packages manually**, use the automated steps as described [below](#windows-host-provisioning).
 
@@ -93,6 +89,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
   - github.com/nektos/act
   - golang.org/x/lint/golint
   - github.com/rhysd/actionlint
+  - github.com/mkouhei/gosh
 
 ### Python3
 - pip

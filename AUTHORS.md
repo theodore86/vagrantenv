@@ -1,3 +1,3 @@
 # Contributors
 
-* Theodore Georgomanolis <theodoros.georgomanolis@nokia.com>
+* Theodore Georgomanolis <tgeorgomanolis@gmail.com>
