@@ -1,4 +1,4 @@
-## [] - 2022-09-05
+## [2.19.1] - 2022-09-05
 ### Changed
 - Update README.md.
 - Update project documentation.
@@ -12,18 +12,25 @@
     - Change *ansbile_machine* with *ansible_architecture* fact variable.
   - Update ``ansible`` role.
     - Update ``paramiko==2.11.0`` and ``jmespath==1.0.1``.
+  - Update ``ruby`` role.
+    - Update *gem:* ansible module parameters, add ``norc`` option.
 - Update ``Vagrantfile``.
   - Update *local_ansible* provisioner to be executed after *shell and file* provisioner.
+- Update ``ansible.cfg``
+  - Update ``callback_whitelist`` to ``callback_enabled``.
+- Update ``vagrant.yaml``
+  - Add ``:shell:`` provisioner to invoke the ``ansible.sh`` bootstrap script.
 
 ### Added
 - Ansible as project requirements.
   - Add ``ansible.txt`` in *requirements.d* with version: *6.3.0*.
 - Ansible shell provisioner.
-  - Add ``ansible.sh`` shell provisioner for bootstraping the ansible CM tool.
+  - Add ``ansible.sh`` shell script for bootstraping the ansible (*CM*) tool.
 
 ### Removed
-- Delete obsolete service rules from vpn network in ``vagrant.yaml``.
-- Delete ``python2``, ``cmder`` from windows ``chocolatey.config``.
+- Delete obsolete service rules from vpn network *port_forward map* in ``vagrant.yaml``.
+- Delete ``python2``, and ``cmder`` references from windows ``chocolatey.config``.
+- Delete ``python-*`` (*python2*) and ``python3.8-dev`` system packages from ansible ``common/system`` role.
 
 ### Fixed
 - Ansible provisioner.
