@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+export KUBE_PS1_BINARY={{ kubeps1_binary | quote }}
+export KUBE_PS1_NS_ENABLE={{ kubeps1_ns_enabled | to_json }}
+export KUBE_PS1_PREFIX={{ kubeps1_prefix | quote }}
+export KUBE_PS1_SYMBOL_ENABLE={{ kubeps1_symbol_enabled | to_json }}
+export KUBE_PS1_SYMBOL_PADDING={{ kubeps1_symbol_padding | to_json }}
+export KUBE_PS1_SYMBOL_USE_IMG={{ kubeps1_symbol_use_img | to_json }}
+export KUBE_PS1_SEPARATOR={{ kubeps1_separator | quote }}
+export KUBE_PS1_DIVIDER={{ kubeps1_divider | quote }}
+export KUBE_PS1_SUFFIX={{ kubeps1_suffix | quote }}
+export KUBE_PS1_PREFIX_COLOR={{ kubeps1_prefix_color | quote }}
+export KUBE_PS1_SYMBOL_COLOR={{ kubeps1_symbol_color | quote }}
+export KUBE_PS1_CTX_COLOR={{ kubeps1_ctx_color | quote }}
+export KUBE_PS1_SUFFIX_COLOR={{ kubeps1_suffix_color | quote }}
+export KUBE_PS1_NS_COLOR={{ kubeps1_ns_color | quote }}
+export KUBE_PS1_BG_COLOR={{ kubeps1_bg_color | quote }}
+{% if (kubeps1_cluster_function is defined) and (kubeps1_cluster_function_name is defined) %}
+{{ kubeps1_cluster_function }}
+export KUBE_PS1_CLUSTER_FUNCTION={{ kubeps1_cluster_function_name }}
+{% endif %}
+{% if (kubeps1_namespace_function is defined) and (kube_namespace_function_name is defined) %}
+{{ kubeps1_namespace_function }}
+export KUBE_PS1_NAMESPACE_FUNCTION={{ kubeps1_namespace_function_name }}
+{% endif %}

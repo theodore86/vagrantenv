@@ -66,6 +66,8 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - k9s
 - kubectx
 - kubens
+- kubeshell
+- kubeps1
 
 ### Network Protocol Analyzers
 - tshark

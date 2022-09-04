@@ -1,0 +1,23 @@
+---
+kubeps1_version: '0.7.0'
+kubeps1_install_dir: '/usr/local/bin'
+
+# main settings
+kubeps1_binary: 'kubectl'
+kubeps1_ns_enabled: true
+kubeps1_prefix: '('
+kubeps1_symbol_enabled: true
+kubeps1_symbol_padding: false
+kubeps1_symbol_use_img: false
+kubeps1_separator: '|'
+kubeps1_divider: ':'
+kubeps1_suffix: ')'
+
+# color settings
+kubeps1_prefix_color: 'null'
+kubeps1_symbol_color: 'blue'
+kubeps1_ctx_color: 'red'
+kubeps1_suffix_color: 'null'
+kubeps1_ns_color: 'cyan'
+kubeps1_bg_color: 'null'
+...

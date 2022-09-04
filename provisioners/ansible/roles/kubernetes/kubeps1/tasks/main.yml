@@ -1,0 +1,34 @@
+---
+- name: 'Ensure checkout directory'
+  file:
+    path: '{{ k9s_checkout_dir }}'
+    state: 'directory'
+    mode: 0775
+
+- name: 'Checkout repository'
+  git:
+    repo: '{{ kubeps1_repository }}'
+    dest: '{{ kubeps1_checkout_dir }}'
+    version: 'v{{ kubeps1_version }}'
+    accept_hostkey: 'yes'
+    update: 'no'
+    force: 'yes'
+    clone: 'yes'
+
+- name: 'Copy script under source directory'
+  copy:
+    src: '{{ kubeps1_checkout_dir }}/kube-ps1.sh'
+    dest: '/etc/profile.d/kube-ps1.sh'
+    mode: 0644
+    remote_src: 'yes'
+  become: 'yes'
+
+- name: 'Setup prompt configuration'
+  template:
+    src: 'kube-ps1-settings.sh.j2'
+    dest: '/etc/profile.d/kube-ps1-settings.sh'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  become: 'yes'
+...
