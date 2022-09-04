@@ -138,4 +138,14 @@
       if [ -f ~/.fzf.bash ]; then
         . ~/.fzf.bash
       fi
+
+- name: 'Set Kube-PS1 (kubernetes) prompt'
+  blockinfile:
+    path: '{{ bash_profile_path }}'
+    marker: '# {mark} ANSIBLE MANAGED BLOCK Kube-PS1 prompt'
+    state: 'present'
+    block: |
+      if [ -f /etc/profile.d/kube-ps1.sh ]; then
+        export PS1="\$(kube_ps1)$PS1"
+      fi
 ...
