@@ -1,3 +1,34 @@
+## [] - 2022-09-05
+### Changed
+- Update README.md.
+- Update project documentation.
+  - Update ansible.md.
+- Update project dependencies.
+  - Updatre ``pylint==2.15.0``.
+- Update ``Gemfile/Gemfile.lock``.
+  - Update ``rubocop==1.36.0``.
+- Update ansible roles.
+  - Update ``hashicorp/vagrant`` role.
+    - Change *ansbile_machine* with *ansible_architecture* fact variable.
+  - Update ``ansible`` role.
+    - Update ``paramiko==2.11.0`` and ``jmespath==1.0.1``.
+- Update ``Vagrantfile``.
+  - Update *local_ansible* provisioner to be executed after *shell and file* provisioner.
+
+### Added
+- Ansible as project requirements.
+  - Add ``ansible.txt`` in *requirements.d* with version: *6.3.0*.
+- Ansible shell provisioner.
+  - Add ``ansible.sh`` shell provisioner for bootstraping the ansible CM tool.
+
+### Removed
+- Delete obsolete service rules from vpn network in ``vagrant.yaml``.
+- Delete ``python2``, ``cmder`` from windows ``chocolatey.config``.
+
+### Fixed
+- Ansible provisioner.
+  - Change ``kubernetes/k9s`` github repository address.
+
 ## [2.18.2] - 2022-08-20
 ### Changed
 - Update project dependencies.
