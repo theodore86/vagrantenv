@@ -1,0 +1,5 @@
+---
+kubeshell_package_name: 'kube-shell'
+kubeshell_package_version: '0.0.23'
+kubeshell_package_extra_args: '--user'
+...

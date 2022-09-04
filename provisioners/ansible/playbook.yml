@@ -20,6 +20,7 @@
     - { role: 'kubernetes/k9s', tags: 'k9s' }
     - { role: 'kubernetes/kubefwd', tags: 'kubefwd' }
     - { role: 'kubernetes/kubectx', tags: 'kubectx' }
+    - { role: 'kubernetes/kubeshell', tags: 'kubeshell' }
     - { role: 'hashicorp/vagrant', tags: 'vagrant' }
     - { role: 'hashicorp/terraform', tags: 'terraform' }
     - { role: 'hashicorp/vault', tags: 'hvault' }
