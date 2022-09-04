@@ -224,6 +224,7 @@ Supported options are:
             - [k9s](https://github.com/derailed/k9s) - Kubernetes CLI to manager your clusters.
             - [kubectx](https://github.com/ahmetb/kubectx) - Tool to switch between kubernetes contexts (clusters).
             - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
+            - [kubeshell](https://github.com/cloudnativelabs/kube-shell) - An integrated shell for working with Kubernetes CLI.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
             - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
             - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*).
