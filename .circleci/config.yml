@@ -32,4 +32,3 @@ workflows:
                 - 'main'
     jobs:
       - 'execute_tests'
-...

@@ -42,7 +42,7 @@ jobs:
       - name: 'Update circleCI with the latest image tag'
         run: |
           yq e '.jobs.execute_tests.docker[0].image' -e .circleci/config.yml && \
-          yq '.jobs.execute_tests.docker[0].image = "${{ env.DOCKERHUB_REPO }}):${{ steps.git_short_sha.outputs.short_sha }}"' \
+          yq '.jobs.execute_tests.docker[0].image = "${{ env.DOCKERHUB_REPO }}:${{ steps.git_short_sha.outputs.short_sha }}"' \
           -i .circleci/config.yml
 
       - name: 'Build and push docker image'

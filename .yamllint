@@ -14,8 +14,6 @@ rules:
   braces:
     min-spaces-inside: 1
     max-spaces-inside: 1
-  document-end:
-    level: warning
   empty-values:
     forbid-in-block-mappings: false
     forbid-in-flow-mappings: false
