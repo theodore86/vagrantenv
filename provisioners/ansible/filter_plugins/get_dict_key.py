@@ -3,7 +3,7 @@
 from ansible.errors import AnsibleFilterTypeError
 
 
-class FilterModule(object):
+class FilterModule:
     """ Jinja2 filter class """
 
     def filters(self):
@@ -19,9 +19,8 @@ def get_dict_key(_dict, value):
         for key, _value in _dict.items():
             if _value == value:
                 return key
-    except (AttributeError, TypeError):
+    except (AttributeError, TypeError) as exc:
         raise AnsibleFilterTypeError(
-            "{!r} is not of a dictionary type"
-            .format(_dict)
-        )
+            f"{_dict!r} is not of a dictionary type"
+        ) from exc
     return None

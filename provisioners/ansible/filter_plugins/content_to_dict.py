@@ -4,7 +4,7 @@ import os
 from ansible.errors import AnsibleFilterTypeError
 
 
-class FilterModule(object):
+class FilterModule:
     """ Jinja2 filter class """
 
     def filters(self):
@@ -22,13 +22,12 @@ def content_to_dict(content, linesep=os.linesep, wordsep=None, maxsplit=1):
             for line in content.split(linesep)
             for k, v in [line.strip().split(wordsep, maxsplit)]
         )
-    except AttributeError:
+    except AttributeError as exc:
         raise AnsibleFilterTypeError(
-            'content should be string got: {!r}'
-            .format(content)
-        )
-    except ValueError:
+            f'content should be string got: {content!r}'
+        ) from exc
+    except ValueError as exc:
         raise AnsibleFilterTypeError(
             'content is format is malformed'
-        )
+        ) from exc
     return _dict
