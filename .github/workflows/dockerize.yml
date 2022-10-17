@@ -36,12 +36,14 @@ jobs:
 
       - name: 'Setup yq processor'
         uses: 'chrisdickinson/setup-yq@v1.0.1'
+        with:
+          yq-version: 'v4.28.1'
 
       - name: 'Update circleCI with the latest image tag'
         run: |
-          sudo yq -i \
-          '.jobs.execute_tests.docker[0].image = "${{ env.DOCKERHUB_REPO }}):${{ steps.git_short_sha.outputs.short_sha }}"' \
-          .circleci/config.yml
+          yq e '.jobs.execute_tests.docker[0].image' -e .circleci/config.yml && \
+          yq '.jobs.execute_tests.docker[0].image = "${{ env.DOCKERHUB_REPO }}):${{ steps.git_short_sha.outputs.short_sha }}"' \
+          -i .circleci/config.yml
 
       - name: 'Build and push docker image'
         uses: 'docker/build-push-action@v3.0.0'
