@@ -58,4 +58,4 @@ ENV PATH="${BUNDLE_BIN}:${PATH}"
 
 RUN bundle config set without "development test"
 
-# CMD ["bash"]
+CMD ["bash"]
