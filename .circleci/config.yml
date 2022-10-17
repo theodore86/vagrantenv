@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   execute_tests:
     docker:
-      - image: theodore86/vagrantenv-ci:0f359b9
+      - image: theodore86/vagrantenv-ci):c5ee706
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
@@ -33,4 +33,3 @@ workflows:
                 - 'main'
     jobs:
       - 'execute_tests'
-...
