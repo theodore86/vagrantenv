@@ -27,7 +27,7 @@ RUN curl -OLs https://releases.hashicorp.com/vagrant/"${VAGRANT_VERSION}"/vagran
     dpkg -i vagrant_"${VAGRANT_VERSION}"_x86_64.deb && \
     rm vagrant_"${VAGRANT_VERSION}"_x86_64.deb
 
-ARG BUNDLER_VERSION="2.2.22"
+ARG BUNDLER_VERSION="2.3.23"
 
 RUN gem install bundler --version "${BUNDLER_VERSION}"
 
@@ -46,11 +46,11 @@ USER "${USERNAME}"
 ENV LANG="C.UTF-8" \
     PATH="/home/${USERNAME}/.local/bin:${PATH}"
 
-ARG PIP_VERSION="22.1.1" \
-    TOX_VERSION="3.25.0"
+ARG PIP_VERSION="22.3" \
+    TOX_VERSION="3.26.0"
 
-RUN python3 -m pip install --user --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
-    python3 -m pip install --user --no-cache-dir tox=="${TOX_VERSION}"
+RUN python3 -m pip install --user --no-compile --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
+    python3 -m pip install --user --no-compile --no-cache-dir tox=="${TOX_VERSION}"
 
 ENV BUNDLE_PATH="/home/${USERNAME}"
 ENV BUNDLE_BIN="${BUNDLE_PATH}/bin"
