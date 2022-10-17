@@ -22,7 +22,6 @@ workflows:
             branches:
               ignore:
                 - 'main'
-                - 'create-pull-request/patch'
   nightly:
     triggers:
       - schedule:
@@ -33,3 +32,4 @@ workflows:
                 - 'main'
     jobs:
       - 'execute_tests'
+...
