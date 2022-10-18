@@ -1,0 +1,7 @@
+---
+kubecolor_base_url: 'https://github.com/hidetatz/kubecolor/releases/download'
+kubecolor_os: '{{ ansible_system | title }}'
+kubecolor_tarball: 'kubecolor_{{ kubecolor_version }}_{{ kubecolor_os }}_{{ ansible_architecture }}.tar.gz'
+kubecolor_download_url: '{{ kubecolor_base_url }}/v{{ kubecolor_version }}/{{ kubecolor_tarball }}'
+kubecolor_checksum_url: '{{ kubecolor_base_url }}/v{{ kubecolor_version }}/checksums.txt'
+...

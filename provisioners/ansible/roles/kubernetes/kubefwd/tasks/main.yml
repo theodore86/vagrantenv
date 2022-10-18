@@ -11,6 +11,7 @@
   failed_when: false
   changed_when: false
   register: 'kubefwd_existing_version'
+  when: 'kubefwd_check_existing.stat.exists'
 
 - name: 'Retrieve checksums'
   set_fact:
@@ -72,10 +73,10 @@
     - 'kubefwd_check_existing.stat.exists'
     - 'kubefwd_existing_version.stdout != kubefwd_version'
 
-- name: 'Copy kubefwd to the installation directory'
+- name: 'Copy binary to installation directory'
   copy:
     src: '/tmp/kubefwd'
-    dest: '{{ kubens_install_dir }}/kubefwd'
+    dest: '{{ kubefwd_install_dir }}/kubefwd'
     owner: 'root'
     group: 'root'
     mode: 0755

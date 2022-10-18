@@ -28,6 +28,6 @@ def content_to_dict(content, linesep=os.linesep, wordsep=None, maxsplit=1):
         ) from exc
     except ValueError as exc:
         raise AnsibleFilterTypeError(
-            'content is format is malformed'
+            'content format is malformed'
         ) from exc
     return _dict

@@ -1,0 +1,15 @@
+---
+- name: 'Check installed kubecolor version'
+  shell: '{{ kubecolor_install_dir }}/kubecolor --kubecolor-version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'kubecolor_installed_version'
+
+- name: 'Verify installed kubecolor version'
+  assert:
+    that:
+      - 'kubecolor_version == kubecolor_installed_version.stdout'
+    fail_msg: 'kubecolor installation failed, v{{ kubecolor_version }} != {{ kubecolor_installed_version.stdout }}'
+    success_msg: 'Installed kubecolor version is: v{{ kubecolor_version }}'
+...

@@ -1,0 +1,4 @@
+---
+kubecolor_version: '0.0.20'
+kubecolor_install_dir: '/usr/local/bin'
+...
