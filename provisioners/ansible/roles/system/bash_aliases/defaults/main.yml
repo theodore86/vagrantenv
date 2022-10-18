@@ -23,4 +23,6 @@ bash_aliases:
     command: 'netstat -tulanp'
   - alias: 'ghistory'
     command: 'history | grep'
+  - alias: 'kubectl'
+    command: 'kubecolor'
 ...

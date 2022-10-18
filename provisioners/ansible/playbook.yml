@@ -22,6 +22,7 @@
     - { role: 'kubernetes/kubectx', tags: 'kubectx' }
     - { role: 'kubernetes/kubeshell', tags: 'kubeshell' }
     - { role: 'kubernetes/kubeps1', tags: 'kubeps1' }
+    - { role: 'kubernetes/kubecolor', tags: 'kubecolor' }
     - { role: 'hashicorp/vagrant', tags: 'vagrant' }
     - { role: 'hashicorp/terraform', tags: 'terraform' }
     - { role: 'hashicorp/vault', tags: 'hvault' }

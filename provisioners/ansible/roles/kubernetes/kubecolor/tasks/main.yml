@@ -1,0 +1,90 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ kubecolor_install_dir }}/kubecolor'
+  register: 'kubecolor_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ kubecolor_install_dir }}/kubecolor --kubecolor-version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'kubecolor_existing_version'
+  when: 'kubecolor_check_existing.stat.exists'
+
+- name: 'Retrieve checksums'
+  set_fact:
+    kubecolor_checksums: '{{ lookup("url", kubecolor_checksum_url) }}'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+
+- name: 'Convert checksums to dictionary'
+  set_fact:
+    kubecolor_checksum_dict: '{{ kubecolor_checksums | content_to_dict(",") }}'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+
+- name: 'Set checksum'
+  set_fact:
+    kubecolor_checksum: '{{ kubecolor_checksum_dict | get_dict_key(kubecolor_tarball) }}'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+
+- name: 'Download tarball'
+  get_url:
+    url: '{{ kubecolor_download_url }}'
+    dest: '/tmp/{{ kubecolor_tarball }}'
+    checksum: 'sha256:{{ kubecolor_checksum }}'
+  become: 'yes'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+
+- name: 'Extract tarball'
+  unarchive:
+    src: '/tmp/{{ kubecolor_tarball }}'
+    dest: '/tmp'
+    remote_src: 'yes'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ kubecolor_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ kubecolor_install_dir }}/kubecolor'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kubecolor_check_existing.stat.exists'
+    - 'kubecolor_existing_version.stdout != kubecolor_version'
+
+- name: 'Copy binary to installation directory'
+  copy:
+    src: '/tmp/kubecolor'
+    dest: '{{ kubecolor_install_dir }}/kubecolor'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubecolor_check_existing.stat.exists
+    or kubecolor_existing_version.stdout != kubecolor_version
+  notify:
+    - 'Check installed kubecolor version'
+    - 'Verify installed kubecolor version'
+...
