@@ -1,10 +1,45 @@
-## [2.19.1] - 2022-09-05
+## [2.22.1] - 2022-10-19
+
 ### Changed
+
+- Update README.md.
+- Update project documentation.
+  - Update access.md (network connectivity).
+- Update project dependencies.
+  - Update ``pylint==2.15.4``.
+  - Update ``yamllint==1.28.0``.
+  - Update ``ansible==6.5.0``.
+  - Update ``mkdocs==1.4.1``.
+- Update ``Dockerfile`` dependencies.
+- Update ``circleCI`` ``config.yml``.
+- Update ``dockerize.yml`` ``Github action``.
+- Update ``ansible`` filter plugin unittests.
+  - Update unittests to be python3 compatible.
+- Update ``ansible`` vagrant role.
+  - Add support fo older binary versions.
+- Update ``ansible`` GO role.
+  - Update GO to version ``1.19.2``.
+  - Update GO modules.
+    - Add *gopls* module.
+    - Add *dlv* (delve) module.
+    - Add *staticcheck* module.
+
+### Added
+
+- Ansible provisioner roles.
+  - ``kubernetes/kubeshell`` role.
+  - ``kubernetes/kubeps1`` role.
+  - ``kubernetes/kubecolor`` role.
+
+## [2.19.1] - 2022-09-05
+
+### Changed
+
 - Update README.md.
 - Update project documentation.
   - Update ansible.md.
 - Update project dependencies.
-  - Updatre ``pylint==2.15.0``.
+  - Update ``pylint==2.15.0``.
 - Update ``Gemfile/Gemfile.lock``.
   - Update ``rubocop==1.36.0``.
 - Update ansible roles.
@@ -22,22 +57,27 @@
   - Add ``:shell:`` provisioner to invoke the ``ansible.sh`` bootstrap script.
 
 ### Added
+
 - Ansible as project requirements.
   - Add ``ansible.txt`` in *requirements.d* with version: *6.3.0*.
 - Ansible shell provisioner.
   - Add ``ansible.sh`` shell script for bootstraping the ansible (*CM*) tool.
 
 ### Removed
+
 - Delete obsolete service rules from vpn network *port_forward map* in ``vagrant.yaml``.
 - Delete ``python2``, and ``cmder`` references from windows ``chocolatey.config``.
 - Delete ``python-*`` (*python2*) and ``python3.8-dev`` system packages from ansible ``common/system`` role.
 
 ### Fixed
+
 - Ansible provisioner.
   - Change ``kubernetes/k9s`` github repository address.
 
 ## [2.18.2] - 2022-08-20
+
 ### Changed
+
 - Update project dependencies.
   - Update ``mkdocs==1.3.1``.
   - Update ``pylint==2.14.5``.
@@ -55,6 +95,7 @@
   - Update ``rubocop==1.35.0``.
 
 ### Added
+
 - Hashicorp ansible role.
   - Terraform IaC binary.
 - Terragrunt (IaC) ansible role.
@@ -65,12 +106,15 @@
   - Add Github release on git tag push events.
 
 ### Fixed
+
 - Ansible provisioner.
   - Docker-compose (display) version output.
   - Docker SDK (display) version output.
 
 ## [2.14.0] - 2022-06-20
+
 ### Changed
+
 - Update README.md.
 - Update CONTRIBUTING.md.
 - Update LICENSE.
@@ -111,6 +155,7 @@
   - Add under ``tools/windows`` subfolder.
 
 ### Added
+
 - Add ``Dockerfile`` for project CI purposes.
 - Add ``hadolint`` linter ansible role.
 - Add ``helm`` package manager ansible role.
@@ -131,13 +176,16 @@
   - Add shell script ``build.sh`` under ``tools/docker``.
 
 ### Removed
+
 - Gitlab templates (*moved project to Github*).
 - Ansible provisioner.
   - Delete ``test_repos.yaml`` task file.
 - Ansible tasks and variable files.
 
 ## [2.0.4] - 2022-03-04
+
 ### Changed
+
 - Update README.md.
 - Update project documentation.
   - Update ``provisioners.md``.
@@ -193,11 +241,13 @@
   - Update *ansible-lint==5.3.2*.
 
 ### Fixed
+
 - Ansible provisioner
   - ``system.yaml``, update locales task file, requires superuser privileges.
   - ``tshark.yaml``, set *when* condition if tshark source code does not exist.
 
 ### Added
+
 - Ansible provisioner variable and task files.
   - Add *vagrant* task and variable files.
   - Add *hvault* task and variable files.
@@ -208,6 +258,7 @@
 
 ## [2.0.3] - 2021-07-27
 ### Changed
+
 - Update README.md.
 - Update project documentation.
   - Update ``network.md``.
@@ -272,6 +323,7 @@
 - Update ``.yamllint``, set configuration to override the default.
 
 ### Fixed
+
 - Ansible provisioner.
   - Fix ``docker.yml`` task failures.
   - Fix ``tshark.yaml`` task, handler, requires superuser privileges.
@@ -280,6 +332,7 @@
 - Fix lan network options, replace ``:hostupdate`` with ``:goodhosts`` plugin.
 
 ### Added
+
 - Add ``vagrant-goodhosts`` plugin version ``1.0.13``.
 - Add ``yamllint==1.26.0`` to ``tox.ini`` dependencies.
 - Add git ``.mailmap`` to project.
@@ -291,12 +344,15 @@
 - Add ``ruby.yaml`` variable file and task file for ruby ansible provisioning.
 
 ### Removed
+
 - Remove ``vagrant-hostupdater`` plugin.
 - Remove ``gitlint`` hook from ``.pre-commit-config.yaml`` hooks.
 - Remove python2 project dependencies in ``tox.ini``.
 
 ## [2.0.2] - 2021-03-18
+
 ### Changed
+
 - Update README.md.
 - Update ``vagrant.yaml``
   - Update local_ansible version to ``2.10.7``.
@@ -307,15 +363,19 @@
   - Remove system update task, called once in play ``pre_tasks``.
 
 ### Fixed
+
 - Docker SDK ansible task ``PIP_CONFIG_FILE`` variable value.
 
 ### Added
+
 - Add ansible provisioner connection plugin dependencies.
   - ``ansible_extras.yaml`` variable file.
   - ``ansible_extras.yaml`` task file.
 
 ## [2.0.1] - 2021-03-15
+
 ### Changed
+
 - Update README.md.
 - Update ``ansible.cfg``
   - Remove ``[ssh_connection]`` section.
@@ -326,15 +386,19 @@
   - Update main ``playbook.yaml`` - rename task filename to ``test_repos.yaml``.
 
 ### Added
+
 - Add ansible provisioner VIM task.
   - Add ``Jinja2-vim-plugin`` syntax xhighlighting.
 
 ### Fixed
+
 - Fix local_ansible provisioner failure in ``vagrant.yaml``.
   - Change ``:pip_install_cmd:`` (url) option value.
 
 ## [2.0.0] - 2021-02-26
+
 ### Changed
+
 - Update README.md.
 - Update ``.gitattributes``.
 - Update project documentation.
@@ -375,6 +439,7 @@
   - Update command option value for ``[testenv:docs]``.
 
 ### Added
+
 - Add `.ansiblie-lint` configuration file.
 - Add ansible provisioner, set it as main provisioner.
 - Add in project documentation.
@@ -384,11 +449,14 @@
   - Add ``access.md`` intranet access section.
 
 ### Removed
+
  - Delete all shell provisioner scripts.
  - Delete templates subfolder.
 
 ## [1.1.9] - 2021-01-14
+
 ### Changed
+
 - Update README.md
 - Update vagrant provision documentation.
 - Update ``vimrc.tml``.
@@ -454,10 +522,12 @@
   - Remove ``c.TerminalIPythonApp.ignore_old_config = False`` config option.
 
 ### Fixed
+
 - Fix ``compile-tshark.sh`` shell provisioner.
   - Remove double quotes when expanding ``SOURCE_CODE`` variable with wildcard.
 
 ### Added
+
 - Add ``provision.bat`` auto install script for required Windows OS packages.
 - Add ``_helpers.sh`` shell provisioner.
 - Add ruby module ``vagrant-utils.rb`` for helper functions.
@@ -475,6 +545,7 @@
 - Add ``issues.md`` to track vagrant known issues in documentation.
 
 ### Removed
+
 - Delete ``common.rb`` module.
 - Delete ``VAGRANT_API_VERSION`` constant variable in ``Vagrantfile``.
 - Delete ``.vagrantplugins``.
@@ -482,7 +553,9 @@
 - Delete ``rfvim.sh`` shell provisioner.
 
 ## [1.1.8] - 2020-09-11
+
 ### Changed
+
 - Update README.
 - Update ``.gitattributes``.
   - Add ``*.xml`` files as text files.
@@ -508,6 +581,7 @@
   - Add extra mandatory argument in ctshark/dtshark shell provisioner.
 
 ### Fixed
+
 - Fix ``shellcheck`` linter.
   - Correct warnings in ``compile-tshark.sh`` shell provisioner.
 - Fix ``compile-tshark.sh`` shell provisioner.
@@ -515,6 +589,7 @@
   - Correct tshark source code checking routine.
 
 ### Added
+
 - Add draw.io xml files - documentation images.
 - Add support for *tshark-3.x* version in ``compile-tshark.sh`` shell provisioner.
 
@@ -548,17 +623,21 @@
 - Remove ``chocolatey.config`` from *templates* folder.
 
 ### Fixed
+
 - Fix ``shellcheck`` linter.
   - Correct warnings in shell provisioners.
   - Ignore shellcheck *SC2086* warnings.
 
 ### Added
+
 - Add *tools* folder in project.
   - Add ``chocolatey.config``.
 - Add ``pip-install.sh`` shell provisioner.
 
 ## [1.1.6] - 2019-12-18
+
 ### Changed
+
 - Update README.
 - Update Cmder guide.
 - Update lsyncd template.
@@ -584,10 +663,12 @@
   - Add ``sshverify = False`` option.
 
 ### Fixed
+
 - Fix apt-get autoremove autoconfiguration.
 - Fix lsyncd username.
 
 ### Added
+
 - Add ``lib/plugins/vagrant-vbguest``.
 - Add shell script provisioner for rfvim plugin.
 - Add git-lfs package in manage-pkgs.sh.
@@ -634,6 +715,7 @@
 - Add shell script provisioner for docker installation.
 
 ## [1.1.4] - 2019-07-12
+
 ### Changed
 
 - Update README.
@@ -694,6 +776,7 @@
   - Mistypo in vpn and lan key values.
 
 ## [1.1.2] - 2019-05-29
+
 ### Changed
 
 - Update vagrant.yaml
@@ -706,6 +789,7 @@
   - Add ``dos2unix`` system package
 
 ## [1.1.1] - 2019-05-02
+
 ### Changed
 
 - Update gitconfig.tpl
@@ -715,6 +799,7 @@
   - Replace ipython template name.
 
 ## [1.1.0] - 2019-04-21
+
 ### Added
 
 - Integrate pre-commit framework.
@@ -759,5 +844,7 @@
 - Update provisioned packages in README.
 
 ## [1.0.0] - 2019-02-25
+
 ### Added
+
 - The first release of the Vagrant development & testing environment.
