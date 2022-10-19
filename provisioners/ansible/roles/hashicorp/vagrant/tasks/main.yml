@@ -1,4 +1,27 @@
 ---
+- name: 'Check if already installed'
+  shell: 'command -v vagrant'
+  args:
+    executable: '/bin/bash'
+  register: 'vagrant_installation'
+  changed_when: false
+  failed_when: false
+
+- name: 'Check existing version'
+  shell: 'vagrant --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: vagrant_check_version
+  when: 'vagrant_installation.rc == 0'
+
+- name: 'Define existing version'
+  set_fact:
+    vagrant_existing_version: '{{ vagrant_check_version | default("") | regex_search(version_re) }}'
+  vars:
+    version_re: '(?:\d{1,}\.){2}\d{1,}'
+  when: 'vagrant_installation.rc == 0'
+
 - name: 'Download version:{{ vagrant_version }}'
   get_url:
     url: '{{ vagrant_download_url }}'
@@ -6,21 +29,36 @@
     validate_certs: 'yes'
     force: 'no'
     mode: '0775'
+  when: >
+    'vagrant_installation.rc != 0'
+    or 'vagrant_existing_version != vagrant_version'
+
+- name: 'Remove older version: {{ vagrant_existing_version }}'
+  apt:
+    package: 'vagrant'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'vagrant_installation.rc == 0'
+    - 'vagrant_existing_version != vagrant_version'
 
 - name: 'Install {{ vagrant_package }} package'
   apt:
     deb: '{{ vagrant_download_dest }}'
     state: 'present'
   become: 'yes'
+  when: >
+    'vagrant_installation.rc != 0'
+    or 'vagrant_existing_version != vagrant_version'
 
 - name: 'Verify installation'
   shell: 'vagrant --version'
   args:
     executable: '/bin/bash'
   changed_when: false
-  register: 'vagrant_version'
+  register: 'vagrant_current_version'
 
 - name: 'Show version'
   debug:
-    var: 'vagrant_version.stdout'
+    var: 'vagrant_current_version.stdout'
 ...

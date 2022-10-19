@@ -2,7 +2,7 @@
 
 site_name: 'Vagrant Sandbox Documentation'
 site_author: 'Theodore Georgomanolis'
-site_description: 'Vagrant TestVM Project Documentation'
+site_description: 'Vagrant Sandbox Project Documentation'
 site_url: 'https://github.com/theodore86/vagrantenv'
 repo_url: 'https://github.com/theodore86/vagrantenv'
 edit_uri: 'https://github.com/theodore86/vagrantenv/tree/main/docs'

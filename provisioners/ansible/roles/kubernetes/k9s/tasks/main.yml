@@ -3,7 +3,7 @@
   import_role:
     name: 'go'
 
-- name: 'Check if is already installed'
+- name: 'Check if already installed'
   stat:
     path: '{{ k9s_install_dir }}/k9s'
   register: 'k9s_check_existing'

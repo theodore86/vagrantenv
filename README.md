@@ -72,7 +72,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - kubecolor
 
 ### Network Protocol Analyzers
-- tshark
+- tshark (from source code)
 
 ### Git
 - git-core
@@ -94,6 +94,9 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
   - golang.org/x/lint/golint
   - github.com/rhysd/actionlint
   - github.com/mkouhei/gosh
+  - golang.org/x/tools/gopls
+  - github.com/go-delve/delve/cmd/dlv
+  - honnef.co/go/tools/cmd/staticcheck
 
 ### Python3
 - pip
