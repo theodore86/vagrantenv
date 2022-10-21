@@ -18,13 +18,14 @@ Most popular are the [Bento boxes](https://vagrantcloud.com/bento). The Bento bo
     - [Ubuntu/Xenial64](https://app.vagrantup.com/generic/boxes/ubuntu1604)
     - [Ubuntu/Bionic64](https://app.vagrantup.com/generic/boxes/ubuntu1804)
     - [Ubuntu/Focal64](https://app.vagrantup.com/ubuntu/boxes/focal64)
+    - [Ubuntu/Jammy64](https://app.vagrantup.com/ubuntu/boxes/jammy64)
 
 In order to **update the base box** you need to set to ``true`` the value of the ``update`` key.<br>
 
 ```yaml
 :host:
     :update: false
-    :box: 'bento/ubuntu-18.04'
+    :box: 'bento/ubuntu-22.04'
 ```
 
 Moreover, if you want to **completely change the base box** you need to:
