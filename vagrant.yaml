@@ -30,7 +30,7 @@
 :host:
     :name: &hostname 'sandbox'
     :box_update: false
-    :box: 'bento/ubuntu-20.04'
+    :box: 'bento/ubuntu-22.04'
     :box_url: null
     :cpus: null
     :memory: null

@@ -51,7 +51,7 @@ The following `mandatory` packages must be installed through Chocolatey:
 ## Vagrant Box
 
 ### Base Box
-Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.vagrantup.com/ubuntu/boxes/focal64)
+Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.vagrantup.com/bento/boxes/ubuntu-22.04)
 
 ### Hashicorp
 - vagrant
@@ -110,6 +110,7 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 
 ### Linters
 - hadolint
+- golint
 
 ### User Workspace Settings
 - .vimrc
@@ -118,9 +119,6 @@ Based on Ubuntu `focal/20.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - .bash_aliases
 - ipython_config.py
 - .lsyncd.config.lua
-
-### Browsers
-- midori
 
 ### Others
 - lynx
