@@ -13,7 +13,8 @@
     state: 'present'
     version: '{{ ruby_bundler_version }}'
     norc: 'yes'
-    user_install: 'yes'
+    user_install: 'no'
+  become: 'yes'
   when: 'ruby_install_bundler | bool'
 
 - name: 'Install user configured gems'
