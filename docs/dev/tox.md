@@ -66,7 +66,7 @@ Put the basic information about your project and the test environments you want 
 project = Vagrantenv (Sandbox)
 minversion = 3.7.0
 skipsdist = true
-envlist = py3,linters
+envlist = pre-testenvs,linters,tests
 skip_missing_interpreters = true
 
 
@@ -80,19 +80,23 @@ setenv =
     VIRTUALENV_NO_DOWNLOAD = 1
     PIP_CONFIG_FILE = .pip.conf
 passenv =
-    USERPROFILE
     USER
     HOME
-    PRE_COMMIT_HOME
     TERM
+    BUNDLE_PATH
+    PRE_COMMIT_HOME
+    VAGRANT_HOME
+    SKIP
+    DEBUG
 sitepackages = False
 whitelist_externals =
-    find
+    bash
 deps = -r requirements.d/testenv.txt
 parallel_show_output = true
 commands =
-    - find . -type f -name "*.pyc" -delete
-    - find . -type d -name "__pycache__" -delete
+    - bash -c 'find {toxinidir} -type d -name "__pycache__" | xargs rm -rf'
+    - bash -c 'find {toxinidir} -type d -name ".pytest_cache" | xargs rm -rf'
+    - bash -c 'find {toxinidir}  -type d -name ".bundle" | xargs rm -rf'
     {envpython} -m pip check
 
 
@@ -101,6 +105,14 @@ description = Execute all project linters
 deps = -r requirements.d/linters.txt
 commands =
     {envpython} -m pre_commit run {posargs:--all-files --verbose}
+
+
+[testenv:tests]
+description = Execute project test automation
+depends = pre-testenvs
+deps = -r requirements.d/tests.txt
+commands =
+    {envpython} -m pytest {posargs:-s -v}
 
 
 [testenv:docs]
@@ -130,24 +142,29 @@ and watch things happening. When you run ``tox`` a second time you’ll note tha
 The main purpose of using ``tox`` in this project is to automate and encapsulate most of the test operations during the development of the project source code. The default ``tox`` test environment is the ``[testenv]``. This environment will be triggered when we are calling the ``tox`` command without any command line option. Despite of the ``[testenv]`` it is possible to override the global settings and create more virtual environments based on your project needs.
 
 Test environments are defined by:
+
 ```ini
 [testenv:NAME]
 commands = ...
 ```
+
 section. The ``NAME`` will be the name of the virtual environment. Defaults for each setting in this section are looked up in the:
+
 ```console
 [testenv]
 commands = ...
 ```
+
 ``testenv`` default section. Complete list of settings can be found at [tox configuration section](https://tox.readthedocs.io/en/latest/config.html)
 
 The supported test environments are:
 
 - ``[testenv]``
 
-Default test environment, will check the python dependencies in python3.<br>
+Default test environment, pre-checks and dependencies validation.<br>
 
 Just type:
+
 ```console
 tox
 ```
@@ -157,8 +174,17 @@ tox
 Will execute the [pre-commit](./hooks.md) framework in order to perform code validation, linting and formating.<br>
 
 Just type:
+
 ```console
 tox -e linters
+```
+
+- ``[testenv:tests]``
+
+Project test automation activities: ``unit`` or ``integration`` tests against project source code.
+
+```console
+tox -e tests
 ```
 
 - ``[testenv:docs]``
@@ -166,6 +192,7 @@ tox -e linters
 Project documentation using the [mkdocs](./mkdocs.md). It will spawn an http server in order to serve the documentation. This environment is useful whenever we want to extend the project documentation using the [Markdown Language](https://en.wikipedia.org/wiki/Markdown).<br>
 
 Just type:
+
 ```console
 tox -e docs
 ```
