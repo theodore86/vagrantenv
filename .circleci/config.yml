@@ -11,8 +11,8 @@ jobs:
     steps:
       - 'checkout'
       - run:
-          name: 'Run Continuous Integration tests'
-          command: 'tox'
+          name: 'Run Continuous Integration (linting, testing, ...)'
+          command: 'tox -p'
 workflows:
   on_commit:
     jobs:
