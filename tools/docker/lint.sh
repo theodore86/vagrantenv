@@ -12,10 +12,11 @@ source ${CWD}/../helpers/system.sh
 source ${CWD}/../helpers/log.sh
 
 IMAGE="${IMAGE:-theodore86/vagrantenv-ci}"
-TAG="${TAG:-0.1.5}"
+TAG="${TAG:-latest}"
 
 _linter() {
-    docker run --platform linux/amd64 \
+    docker run \
+    --platform "$(get_ostype)/$(uname -m)" \
     --rm \
     -w /app \
     -v "${PWD}:/app" \
