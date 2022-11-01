@@ -171,6 +171,11 @@ vagrant up or reload
 vagrant ssh
 ```
 
+## Retrieve Virtual Machine SSH config
+```console
+vagrant ssh-config
+```
+
 ## Project Structure
 ```bash
 vagrantenv

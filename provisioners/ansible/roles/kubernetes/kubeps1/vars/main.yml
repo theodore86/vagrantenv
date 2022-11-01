@@ -1,4 +1,4 @@
 ---
-kubeps1_repository: 'git@github.com:jonmosco/kube-ps1.git'
+kubeps1_repository: 'https://github.com/jonmosco/kube-ps1.git'
 kubeps1_checkout_dir: '/tmp/kubeps1'
 ...
