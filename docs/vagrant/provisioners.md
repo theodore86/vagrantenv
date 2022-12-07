@@ -233,8 +233,7 @@ Supported options are:
             - [awscli](https://pypi.org/project/awscli) - Universal command line environment for AWS.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
-        - This parameter can be *string or list* of tags.
-
+        - This parameter can be *string or list* of tag
 !!! info "More details on local ansible provisioner can be found at:"
       - [Ansible on Sandbox](../dev/ansible.md)
       - [Local Ansible Options](https://www.vagrantup.com/docs/provisioning/ansible_local)

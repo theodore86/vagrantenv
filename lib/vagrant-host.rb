@@ -91,6 +91,22 @@ module Host
         vm.provision name, opts
     end
 
+    def disks(vm, host)
+        return unless host.key?(:disks)
+
+        disks = host[:disks]
+        return unless disks.is_a?(Array)
+
+        disks.each_with_index do |disk, index|
+            next unless disk.key?(:type)
+
+            type = disk[:type].to_s.to_sym
+            opts = disk.fetch(:options, {})
+            opts[:name] ||= "storage-#{index}"
+            vm.disk type, opts
+        end
+    end
+
     def post_up_message(vm, host)
         return unless host.key?(:name)
 

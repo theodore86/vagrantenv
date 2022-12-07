@@ -20,6 +20,7 @@ nav:
                 - 'System': 'vagrant/system.md'
                 - 'Provisioners': 'vagrant/provisioners.md'
                 - 'Synced Folders': 'vagrant/shared.md'
+                - 'Disks': 'vagrant/disks.md'
                 - 'Plugins': 'vagrant/plugins.md'
                 - 'Debugging': 'vagrant/debugging.md'
                 - 'Workflow': 'vagrant/workflow.md'

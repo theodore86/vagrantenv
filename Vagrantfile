@@ -50,6 +50,9 @@ Vagrant.configure('2') do |config|
             VirtualBox.guest_property(vb, HOST)
         end
 
+        # -- Disks --#
+        Host.disks(node.vm, HOST)
+
         #-- Networking --#
         Host.networking(node.vm, HOST)
 

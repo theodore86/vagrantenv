@@ -9,8 +9,9 @@
       name: 'common/system'
     tags: 'always'
   roles:
-    - { role: 'system/bash_aliases', tags: 'bash_aliases' }
-    - { role: 'system/bash_profile', tags: 'bash_profile' }
+    - { role: 'system/bash/aliases', tags: 'bash_aliases' }
+    - { role: 'system/bash/profile', tags: 'bash_profile' }
+    - { role: 'system/disks', tags: 'resize_disk' }
     - { role: 'python/ipython', tags: 'ipython' }
     - { role: 'python/tox', tags: 'tox' }
     - { role: 'docker', tags: 'docker' }
