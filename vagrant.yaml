@@ -36,6 +36,11 @@
     :memory: null
     :boot_timeout: 60
     :gui: false
+    :disks:
+        - :type: 'disk'
+          :options:
+              :primary: true
+              :size: '80GB'
     :customize:
         - :command: 'modifyvm'
           :settings:
@@ -161,6 +166,5 @@
                 :extra_vars:
                     :gitconfig_user_name: 'Theodoros Georgomanolis'
                     :gitconfig_user_email: 'tgeorgomanolis@gmail.com'
-                :skip_tags:
-                    - 'repos'
+                :skip_tags: []
 ...

@@ -25,6 +25,7 @@ The most important configuration options are listed below:
 - ``config.vm.box_url``
 - ``config.vm.customize``
 - ``config.vm.define``
+- ``config.vm.disk``
 - ``config.vm.forward_port``
 - ``config.vm.guest``
 - ``config.vm.hostname``

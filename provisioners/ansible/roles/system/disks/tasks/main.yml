@@ -1,0 +1,28 @@
+---
+- name: 'Install disks dependencies'
+  apt:
+    name: '{{ disks_dependencies }}'
+    state: 'present'
+    force_apt_get: 'yes'
+    install_recommends: 'no'
+  become: 'yes'
+
+- name: 'Resize volume-group {{ disks_pvs }} to the maximum possible'
+  lvg:
+    vg: '{{ disks_vg_name }}'
+    pvs: '{{ disks_pvs }}'
+    pvresize: 'yes'
+    state: 'present'
+  become: 'yes'
+
+- name: >
+    Extend the logical volume to take all remaining space
+    of the PVs and resize the underlying filesystem.
+  lvol:
+    vg: '{{ disks_vg_name }}'
+    lv: '{{ disks_lv_name }}'
+    size: '100%PVS'
+    resizefs: 'yes'
+    state: 'present'
+  become: 'yes'
+...
