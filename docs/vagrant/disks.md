@@ -33,7 +33,7 @@ disk to the guest.
               :size: '40GB
 ```
 
-- If Vagrant is provisioned for the first time the [local ansible provisioner](../provisioners/#local-ansible-provisioner) will take care of</br> the logical volume and filesystem resizing.
+- If Vagrant is provisioned for the first time the [local ansible provisioner](../vagrant/provisioners.md#local-ansible-provisioner) will take care of the logical volume and filesystem resizing.
 - If Vagrant is **already provisioned** then you will need to execute:
 
 ```console
