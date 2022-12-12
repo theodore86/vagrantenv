@@ -7,6 +7,14 @@
     install_recommends: 'no'
   become: 'yes'
 
+- name: 'Resize {{ disks_pvs }} partition to the maximum available'
+  shell:
+    cmd: 'echo -e "d\n3\nn\n3\n\n\np\nw" | fdisk {{ disks_pv }}'
+  args:
+    executable: '/bin/bash'
+  changed_when: true
+  become: 'yes'
+
 - name: 'Resize volume-group {{ disks_pvs }} to the maximum possible'
   lvg:
     vg: '{{ disks_vg_name }}'

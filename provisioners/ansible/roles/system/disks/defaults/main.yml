@@ -1,6 +1,8 @@
 ---
 disks_dependencies:
   - 'lvm2'
+  - 'fdisk'
+disks_pv: '/dev/sda'
 disks_pvs: '/dev/sda3'
 disks_vg_name: 'ubuntu-vg'
 disks_lv_name: 'ubuntu-lv'
