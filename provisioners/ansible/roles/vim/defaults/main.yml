@@ -1,23 +1,46 @@
 ---
-vim_plugin_dir: '{{ ansible_env.HOME }}/.vim'
-rfvim_reinstall: false
-j2vim_reinstall: false
-j2vim:
+vim_plugins_dir: '{{ ansible_env.HOME }}/.vim'
+vim_plugins:
+  - filename: 'jinja.vim'
+    reinstall: &reinstall false
+    runtimepath:
+      - 'syntax'
+      - 'ftdetect'
+      - 'ftplugin'
+      - 'indent'
     git:
-        proto: 'https'
-        host: 'github.com'
-        user: 'Glench'
-        repo:
-            name: 'Vim-Jinja2-Syntax'
-            version: 'master'
-        directory: '/tmp'
-rfvim:
+      proto: &proto 'https'
+      host: &host 'github.com'
+      user: 'Glench'
+      repo:
+        name: 'Vim-Jinja2-Syntax'
+        version: &version 'master'
+      directory: &install_dir '{{ ansible_env.HOME }}/.vim_plugins'
+  - filename: 'robot.vim'
+    reinstall: *reinstall
+    runtimepath:
+      - 'after/syntax'
+      - 'ftdetect'
     git:
-        proto: 'https'
-        host: 'github.com'
-        user: 'mfukar'
-        repo:
-            name: 'robotframework-vim'
-            version: 'master'
-        directory: '/tmp'
+      proto: *proto
+      host: *host
+      user: 'mfukar'
+      repo:
+        name: 'robotframework-vim'
+        version: *version
+      directory: *install_dir
+  - filename: 'Jenkinsfile.vim'
+    reinstall: *reinstall
+    runtimepath:
+      - 'syntax'
+      - 'ftdetect'
+      - 'indent'
+    git:
+      proto: *proto
+      host: *host
+      user: 'martinda'
+      repo:
+        name: 'Jenkinsfile-vim-syntax'
+        version: *version
+      directory: *install_dir
 ...
