@@ -22,65 +22,51 @@
     force: 'yes'
     mode: 0644
 
-- name: 'Ensure {{ vim_plugin_dir }}'
+- name: 'Ensure {{ vim_plugins_dir }}'
   file:
-    path: '{{ vim_plugin_dir }}'
+    path: '{{ vim_plugins_dir }}'
     state: 'directory'
     owner: '{{ ansible_env.USER }}'
     group: '{{ ansible_env.USER }}'
     mode: 0755
 
-- name: 'Cleanup {{ j2vim.git.directory }}/{{ j2vim.git.repo.name }} directory'
+- name: 'Cleanup plugin checkout directory'
   file:
-    path: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}'
+    path: '{{ item.git.directory }}/{{ item.git.repo.name }}'
     state: 'absent'
-  when: 'j2vim_reinstall | bool'
+  loop: '{{ vim_plugins }}'
+  when: 'item.reinstall | bool'
 
-- name: 'Cleanup {{ rfvim.git.directory }}/{{ rfvim.git.repo.name }} directory'
+- name: 'Cleanup plugin repository files under: {{ vim_plugins_dir }}'
   file:
-    path: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}'
+    path: '{{ vim_plugins_dir }}/{{ item.1 }}/{{ item.0.filename }}'
     state: 'absent'
-  when: 'rfvim_reinstall | bool'
+  with_subelements:
+    - '{{ vim_plugins }}'
+    - 'runtimepath'
+  when: 'item.0.reinstall | bool'
 
-- name: 'Cleanup {{ j2vim.git.repo.name }} files under: {{ vim_plugin_dir }}'
+- name: 'Ensure plugin directory'
   file:
-    path: '{{ vim_plugin_dir }}/{{ item }}/jinja.vim'
-    state: 'absent'
-  loop:
-    - 'syntax'
-    - 'ftdetect'
-    - 'ftplugin'
-    - 'indent'
-  when: 'j2vim_reinstall | bool'
+    path: '{{ item.git.directory }}'
+    state: 'directory'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0755
+  loop: '{{ vim_plugins }}'
 
-- name: 'Cleanup {{ rfvim.git.repo.name }} files under: {{ vim_plugin_dir }}'
-  file:
-    path: '{{ vim_plugin_dir }}/{{ item }}/robot.vim'
-    state: 'absent'
-  loop:
-    - 'after/syntax'
-    - 'ftdetect'
-  when: 'rfvim_reinstall | bool'
-
-- name: 'Checkout {{ j2vim.git.repo.name }} plugin'
+- name: 'Checkout VIM plugins'
   git:
-    repo: '{{ j2vim.git.proto }}://{{ j2vim.git.host }}/{{ j2vim.git.user }}/{{ j2vim.git.repo.name }}.git'
-    dest: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}'
-    version: '{{ j2vim.git.repo.version }}'
+    repo: '{{ item.git.proto }}://{{ item.git.host }}/{{ item.git.user }}/{{ item.git.repo.name }}.git'
+    dest: '{{ item.git.directory }}/{{ item.git.repo.name }}'
+    version: '{{ item.git.repo.version }}'
     accept_hostkey: 'yes'
     update: 'no'
+  loop: '{{ vim_plugins }}'
 
-- name: 'Checkout {{ rfvim.git.repo.name }} plugin'
-  git:
-    repo: '{{ rfvim.git.proto }}://{{ rfvim.git.host }}/{{ rfvim.git.user }}/{{ rfvim.git.repo.name }}.git'
-    dest: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}'
-    version: '{{ rfvim.git.repo.version }}'
-    accept_hostkey: 'yes'
-    update: 'no'
-
-- name: 'Add {{ rfvim.git.repo.name }} highlighting for .resource file extension'
+- name: 'Add RF-VIM plugin highlighting for .resource files'
   lineinfile:
-    path: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}/ftdetect/robot.vim'
+    path: '{{ item.git.directory }}/{{ item.git.repo.name }}/ftdetect/{{ item.filename }}'
     regexp: '^au.*?\.robot.*?(?<!\.resource).*?robot$'
     line: 'au BufNewFile,BufRead *.robot,*.resource setlocal filetype=robot'
     state: 'present'
@@ -88,30 +74,18 @@
     owner: '{{ ansible_env.USER }}'
     group: '{{ ansible_env.USER }}'
     mode: 0644
+  loop: '{{ vim_plugins }}'
+  when: 'item.git.repo.name == "robotframework-vim"'
 
-- name: 'Copy {{ rfvim.git.repo.name }} plugin contents'
+- name: 'Copy each plugin contents to runtimepath'
   copy:
-    src: '{{ rfvim.git.directory }}/{{ rfvim.git.repo.name }}/{{ item }}/'
-    dest: '{{ vim_plugin_dir }}/{{ item }}/'
+    src: '{{ item.0.git.directory }}/{{ item.0.git.repo.name }}/{{ item.1 }}/'
+    dest: '{{ vim_plugins_dir }}/{{ item.1 }}/'
     force: 'yes'
     owner: '{{ ansible_env.USER }}'
     group: '{{ ansible_env.USER }}'
     mode: 'preserve'
-  loop:
-    - 'after/syntax'
-    - 'ftdetect'
-
-- name: 'Copy {{ j2vim.git.repo.name }} plugin contents'
-  copy:
-    src: '{{ j2vim.git.directory }}/{{ j2vim.git.repo.name }}/{{ item }}/'
-    dest: '{{ vim_plugin_dir }}/{{ item }}/'
-    force: 'yes'
-    owner: '{{ ansible_env.USER }}'
-    group: '{{ ansible_env.USER }}'
-    mode: 'preserve'
-  loop:
-    - 'syntax'
-    - 'ftdetect'
-    - 'ftplugin'
-    - 'indent'
+  with_subelements:
+    - '{{ vim_plugins }}'
+    - 'runtimepath'
 ...
