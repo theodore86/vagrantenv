@@ -12,8 +12,10 @@ source ${CWD}/log.sh
 source ${CWD}/system.sh
 
 _download_pacapt() {
+  is_program_installed curl \
+    || error "curl binary is not available, cannot install ${PACAPT}"
   sudo curl -LfsS ${PACAPT_URL} -o ${PACAPT_DOWNLOAD_DIR}/${PACAPT} 2>/dev/null \
-    || error "Fail to download ${program} from ${PACAPT_URL}"
+    || error "Fail to download ${PACAPT} from ${PACAPT_URL}"
 }
 
 
