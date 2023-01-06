@@ -14,7 +14,7 @@
   environment:
     PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
     PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
-  loop: '{{ tox_pip_dependencies }}'
+  loop: '{{ tox_dependencies }}'
 
 - name: 'Verify installation'
   shell: 'python3 -m tox --version'

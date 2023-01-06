@@ -146,9 +146,7 @@ Provisioner is customisable through ``:ansible:`` section in ``vagrant.yaml``, t
             :playbook: [*shared, *ansible_provisioner, 'playbook.yml']
             :inventory_path: [*shared, *ansible_provisioner, 'inventory.yml']
             :provisioning_path: [*shared, *ansible_provisioner]
-            :extra_vars:
-                :gitconfig_user_name: ''
-                :gitconfig_user_email: ''
+            :extra_vars: 'extra_vars.yml'
             :tags:
                 - 'bash_aliases'
                 - 'bash_profile'

@@ -54,4 +54,5 @@
     executable: '/bin/bash'
   loop: '{{ go_modules }}'
   changed_when: false
+  when: 'go_modules_enabled'
 ...

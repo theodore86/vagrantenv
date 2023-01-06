@@ -28,5 +28,5 @@
 
 - name: 'Show version'
   debug:
-    var: 'hvault_version.stdout'
+    var: 'hvault_version'
 ...

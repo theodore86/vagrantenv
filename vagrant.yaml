@@ -1,25 +1,24 @@
 ---
-
 # Vagrant minimum required version
-:min_required_version: '2.2.1'
+:min_required_version: "2.2.1"
 
 # Project directories
 :directories:
-    :shell_provisioner: &shell_provisioner 'provisioners/shell'
-    :ansible_provisioner: &ansible_provisioner 'provisioners/ansible'
+    :shell_provisioner: &shell_provisioner "provisioners/shell"
+    :ansible_provisioner: &ansible_provisioner "provisioners/ansible"
 
 # Required Vagrant plugins
 :plugins:
-    - :name: 'vagrant-vbguest'
-      :version: '0.30.0'
-    - :name: 'sahara'
-      :version: '0.0.17'
-    - :name: 'vagrant-proxyconf'
-      :version: '2.0.10'
-    - :name: 'vagrant-goodhosts'
-      :version: '1.1.4'
-    - :name: 'vagrant-netinfo'
-      :version: '0.0.4'
+    - :name: "vagrant-vbguest"
+      :version: "0.30.0"
+    - :name: "sahara"
+      :version: "0.0.17"
+    - :name: "vagrant-proxyconf"
+      :version: "2.0.10"
+    - :name: "vagrant-goodhosts"
+      :version: "1.1.4"
+    - :name: "vagrant-netinfo"
+      :version: "0.0.4"
 
 # Vagrant SSH settings
 :ssh:
@@ -28,35 +27,52 @@
 
 # Vagrant VM & plugins settings
 :host:
-    :name: &hostname 'sandbox'
+    :name: &hostname "sandbox"
     :box_update: false
-    :box: 'bento/ubuntu-22.04'
+    :box: "bento/ubuntu-22.04"
     :box_url: null
     :cpus: null
     :memory: null
     :boot_timeout: 60
     :gui: false
     :disks:
-        - :type: 'disk'
+        - :type: "disk"
           :options:
               :primary: true
-              :size: '80GB'
+              :size: "80GB"
     :customize:
-        - :command: 'modifyvm'
+        - :command: "modifyvm"
           :settings:
               # https://github.com/mitchellh/vagrant/issues/1807
-              - ['--natdnshostresolver1', 'on']
-              - ['--natdnsproxy1', 'on']
-              - ['--nictype1', 'virtio']
-              - ['--ioapic', 'on']
+              - ["--natdnshostresolver1", "on"]
+              - ["--natdnsproxy1", "on"]
+              - ["--nictype1", "virtio"]
+              - ["--ioapic", "on"]
         # https://gist.github.com/aboutte/f4adcbfc33cc7309791e0d21102c3d38
-        - :command: 'guestproperty'
+        - :command: "guestproperty"
           :actions:
-              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-interval', 10000]
-              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-min-adjust', 100]
-              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-on-restore', 1]
-              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-start', 1]
-              - :set: ['/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold', 1000]
+              - :set:
+                    [
+                        "/VirtualBox/GuestAdd/VBoxService/--timesync-interval",
+                        10000,
+                    ]
+              - :set:
+                    [
+                        "/VirtualBox/GuestAdd/VBoxService/--timesync-min-adjust",
+                        100,
+                    ]
+              - :set:
+                    [
+                        "/VirtualBox/GuestAdd/VBoxService/--timesync-set-on-restore",
+                        1,
+                    ]
+              - :set:
+                    ["/VirtualBox/GuestAdd/VBoxService/--timesync-set-start", 1]
+              - :set:
+                    [
+                        "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold",
+                        1000,
+                    ]
     # https://github.com/goodhosts/vagrant
     :goodhosts:
         :aliases: ["sandbox.local"]
@@ -75,7 +91,7 @@
     # https://github.com/tmatilai/vagrant-proxyconf
     :proxy:
         :http:
-            :address: &proxy_addr '10.10.10.1'
+            :address: &proxy_addr "10.10.10.1"
             :port: &proxy_port 8080
         :https:
             :address: *proxy_addr
@@ -84,8 +100,8 @@
         :system:
             :enabled: false
             :no_proxy:
-                - '127.0.0.1'
-                - 'localhost'
+                - "127.0.0.1"
+                - "localhost"
             :applications:
                 :apt:
                     :enabled: false
@@ -98,73 +114,89 @@
                     :skip: false
     :networks:
         - :vpn:
-              :type: 'forwarded_port'
+              :type: "forwarded_port"
               :disabled: true
               :options:
-                  - :id: 'mkdocs'
+                  - :id: "mkdocs"
                     :guest: 8000
-                    :protocol: &tcp 'tcp'
-                    :host_ip: &localhost '127.0.0.1'
+                    :protocol: &tcp "tcp"
+                    :host_ip: &localhost "127.0.0.1"
                     :host: 8000
                     :auto_correct: true
-                  - :id: 'vault'
+                  - :id: "vault"
                     :guest: 8200
                     :protocol: *tcp
                     :host_ip: *localhost
                     :host: 8200
                     :auto_correct: true
         - :lan:
-              :type: 'private_network'
+              :type: "private_network"
               :disabled: false
               :options:
-                  - :type: 'static'
-                    :ip: '192.168.56.2'
-                    :netmask: '255.255.255.252'
-                    :nic_type: 'virtio'
-                    :goodhosts: 'no_skip'
+                  - :type: "static"
+                    :ip: "192.168.56.2"
+                    :netmask: "255.255.255.252"
+                    :nic_type: "virtio"
+                    :goodhosts: "no_skip"
     :synced_folders:
-        - :src: '.'
-          :dest: '/vagrant'
-          :type: 'virtualbox'
+        - :src: "."
+          :dest: "/vagrant"
+          :type: "virtualbox"
           :options:
               :disabled: true
-        - :src: '.'
-          :dest: &shared '/shared'
-          :type: 'virtualbox'
+        - :src: "."
+          :dest: &shared "/shared"
+          :type: "virtualbox"
           :options:
               :create: true
-              :mount_options: ['dmode=774', 'fmode=664']
-              :id: 'sandbox-project'
-        - :src: '~/ws'
-          :dest: '/ws'
-          :type: 'virtualbox'
+              :mount_options: ["dmode=774", "fmode=664"]
+              :id: "sandbox-project"
+        - :src: "~/ws"
+          :dest: "/ws"
+          :type: "virtualbox"
           :options:
               :create: true
-              :mount_options: ['dmode=774', 'fmode=774']
-              :id: 'workspace'
+              :mount_options: ["dmode=774", "fmode=774"]
+              :id: "workspace"
     :provisioners:
         :shell:
-            - :name: 'ansible'
+            - :name: "ansible"
               :options:
-                  :type: 'shell'
-                  :path: [*shell_provisioner, 'ansible.sh']
+                  :type: "shell"
+                  :path: [*shell_provisioner, "ansible.sh"]
                   :binary: true
-                  :args: [*shared, 'requirements.d/ansible.txt']
+                  :args: [*shared, "requirements.d/ansible.txt"]
                   :privileged: true
                   :run: null
         :ansible:
             :name: *hostname
             :options:
-                :type: 'ansible_local'
+                :type: "ansible_local"
                 :install: false
                 :verbose: false
-                :compatibility_mode: '2.0'
-                :limit: 'all'
-                :playbook: [*shared, *ansible_provisioner, 'playbook.yml']
-                :inventory_path: [*shared, *ansible_provisioner, 'inventory.yml']
+                :compatibility_mode: "2.0"
+                :limit: "all"
+                :playbook: [*shared, *ansible_provisioner, "playbook.yml"]
+                :inventory_path:
+                    [*shared, *ansible_provisioner, "inventory.yml"]
                 :provisioning_path: [*shared, *ansible_provisioner]
-                :extra_vars:
-                    :gitconfig_user_name: 'Theodoros Georgomanolis'
-                    :gitconfig_user_email: 'tgeorgomanolis@gmail.com'
+                :extra_vars: "extra_vars.yml"
+                :tags:
+                    - "resize_disk"
+                    - "gitconfig"
+                    - "bash_aliases"
+                    - "fzf"
+                    - "bash_profile"
+                    - "vim"
+                    - "ruby"
+                    - "docker"
+                    - "kubectl"
+                    - "kubectx"
+                    - "kubefwd"
+                    - "helm"
+                    - "kind"
+                    - "k9s"
+                    - "kubecolor"
+                    - "groovy"
+                    - "vagrant"
                 :skip_tags: []
-...
