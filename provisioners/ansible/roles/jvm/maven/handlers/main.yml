@@ -1,16 +1,16 @@
 ---
-- name: 'Check installed version'
+- name: 'Check Maven installed version'
   command: '{{ mvn_install_dir }}/bin/mvn --version'
   changed_when: false
   register: 'mvn_installed_version'
 
-- name: 'Set installed version'
+- name: 'Set Maven installed version'
   set_fact:
     mvn_existing_version: '{{ mvn_installed_version.stdout | regex_search(version_re, "\1") | first }}'
   vars:
     version_re: '^Apache Maven ((?:\d{1,}\.){2}\d{1,})'
 
-- name: 'Verify installed version'
+- name: 'Verify Maven installed version'
   assert:
     that:
       - 'mvn_existing_version == mvn_version'

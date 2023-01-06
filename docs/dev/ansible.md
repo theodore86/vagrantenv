@@ -35,7 +35,7 @@ All the required ansible files and directories resides under: ``provisioners/ans
 ```console
 .
 ├── ansible.cfg -- The main ansible configuration file
-├── extra_vars.yml -- Override any variable from any role
+├── extra_vars.yml -- Override any variable from any role, used mainly for role versioning.
 ├── filter_plugins (d) -- Custom jinja2 ansible filters (written in python)
 ├── inventory.yml -- Set it to localhost
 ├── playbook.yml -- Entrypoint for all roles
@@ -50,6 +50,7 @@ You can manually repeat all tasks or an subset of tasks (using [tags](https://do
 ```bash
 ansible-playbook -i inventory.yml playbook.yml # execute all provisioning tasks
 ansible-playbook -i inventory.yml playbook.yml --tags vim # repeat only the vim related tasks
+ansible-playbook -i inventory.yml -e "@extra_vars.yml" playbook.yml # override default variables, e.g. update binaries.
 ```
 
 !!! info "Provisioning path"

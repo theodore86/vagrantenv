@@ -35,9 +35,9 @@
     - { role: 'ruby', tags: 'ruby' }
     - { role: 'ansible', tags: 'ansible' }
     - { role: 'lsyncd', tags: 'lsyncd' }
-    - { role: 'gitconfig', tags: 'gitconfig' }
+    - { role: 'git/config', tags: 'gitconfig' }
+    - { role: 'git/clone', tags: 'gitclone' }
     - { role: 'vim', tags: 'vim' }
-    - { role: 'repos', tags: 'repos' }
     - { role: 'fzf', tags: 'fzf' }
     - { role: 'yq', tags: 'yq' }
     - { role: 'terragrunt', tags: 'terragrunt' }

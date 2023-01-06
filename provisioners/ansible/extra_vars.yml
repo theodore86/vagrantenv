@@ -1,7 +1,20 @@
 ---
-gitconfig_user_name: ''
-gitconfig_email: ''
-
-tshark_version: '3.4.2'
-tshark_source: 'wireshark-org-master-ba-3.4.tar.gz'
-...
+fzf_version: 0.35.1
+gitconfig_user_email: tgeorgomanolis@gmail.com
+gitconfig_user_name: Theodoros Georgomanolis
+go_checksum: c9c08f783325c4cf840a94333159cc937f05f75d36a8b307951d5bd959cf2ab8
+go_version: 1.19.4
+hadolint_version: 2.12.0
+helm_version: 3.10.3
+hvault_version: 1.10.0
+k9s_version: 0.26.7
+kind_version: 0.17.0
+kubecolor_version: 0.0.25
+kubectl_version: 1.25.0
+kubectx_version: 0.9.4
+kubefwd_version: 1.22.4
+kubeps1_version: 0.8.0
+tf_version: 1.3.6
+tgrunt_version: 0.40.0
+vagrant_version: 2.2.19
+yq_version: 4.30.6

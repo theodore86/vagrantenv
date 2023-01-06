@@ -1,5 +1,5 @@
 ---
-tox_pip_dependencies:
+tox_dependencies:
   - name: 'tox'
     version: '3.25.0'
 ...

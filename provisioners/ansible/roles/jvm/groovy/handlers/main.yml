@@ -1,16 +1,16 @@
 ---
-- name: 'Check installed version'
-  command: 'groovy --version'
+- name: 'Check Groovy installed version'
+  command: '{{ groovy_install_dir }}/bin/groovy --version'
   changed_when: false
   register: 'groovy_installed_version'
 
-- name: 'Set installed version'
+- name: 'Set Groovy installed version'
   set_fact:
     groovy_existing_version: '{{ groovy_installed_version.stdout | regex_search(version_re, "\1") | first }}'
   vars:
     version_re: '^Groovy Version: ((?:\d{1,}\.){2}\d{1,})'
 
-- name: 'Verify installed version'
+- name: 'Verify Groovy installed version'
   assert:
     that:
       - 'groovy_existing_version == groovy_version'
