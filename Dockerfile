@@ -48,7 +48,7 @@ ENV LANG="C.UTF-8" \
     PATH="/home/${USERNAME}/.local/bin:${PATH}"
 
 ARG PIP_VERSION="22.3" \
-    TOX_VERSION="3.26.0"
+    TOX_VERSION="4.2.6"
 
 RUN python3 -m pip install --user --no-compile --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
     python3 -m pip install --user --no-compile --no-cache-dir tox=="${TOX_VERSION}"

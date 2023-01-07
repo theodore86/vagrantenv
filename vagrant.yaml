@@ -199,4 +199,5 @@
                     - "kubecolor"
                     - "groovy"
                     - "vagrant"
+                    - "hadolint"
                 :skip_tags: []
