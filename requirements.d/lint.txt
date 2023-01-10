@@ -1,6 +1,6 @@
 # Requirements for base linting tools
 
-yamllint==1.28.0
+yamllint==1.29.0
 typing-extensions==4.4.0
 pylint==2.15.10
 shellcheck-py==0.9.0.2
