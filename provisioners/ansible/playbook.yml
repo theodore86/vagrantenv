@@ -4,10 +4,10 @@
   hosts: 'all'
   connection: 'local'
   pre_tasks:
-  - name: 'Install prerequisites'
-    import_role:
-      name: 'common/system'
-    tags: 'always'
+    - name: 'Install prerequisites'
+      import_role:
+        name: 'common/system'
+      tags: 'always'
   roles:
     - { role: 'system/bash/aliases', tags: 'bash_aliases' }
     - { role: 'system/bash/profile', tags: 'bash_profile' }
