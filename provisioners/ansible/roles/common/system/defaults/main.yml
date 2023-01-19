@@ -21,6 +21,7 @@ system_required_packages:
   - 'unzip'
   - 'ack-grep'
   - 'python3-tk'
+  - 'python3-venv'
   - 'deborphan'
   - 'tree'
   - 'lynx'
