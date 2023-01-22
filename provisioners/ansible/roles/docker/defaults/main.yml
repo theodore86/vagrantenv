@@ -10,8 +10,15 @@ docker_config:
   registry-mirrors: '{{ docker_registries_mirror }}'
   features:
     buildkit: true
+  builder:
+    gc:
+      enabled: true
+      policy:
+        - keepStorage: 10GB
+          filter:
+            - unused-for=168h
 docker_sdk_install: true
-docker_sdk_version: '5.0.3'
+docker_sdk_version: '6.0.1'
 docker_sdk_container_name: 'hello-world'
 docker_sdk_container_image: '{{ docker_sdk_container_name }}:latest'
 docker_compose_install: true

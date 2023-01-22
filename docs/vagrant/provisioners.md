@@ -203,7 +203,6 @@ Supported options are:
             - [bash_aliases](https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/) - Tasks to setup user workspace ```.bash_aliases```.
             - [bash_profile](https://linuxize.com/post/bashrc-vs-bash-profile/) - Tasks to setup the user ```.bash_profile```.
             - [lsyncd](https://axkibe.github.io/lsyncd) -  Lsyncd daemon tasks. Synchronizes local directories with remote targets.
-            - [ipython](https://ipython.org/ipython-doc/stable/config/index.html) - IPython interactive interpreter tasks.
             - [gitconfig](https://git-scm.com/docs/git-config) - Configuration tasks related to gitconfig.
             - [tox](https://tox.readthedocs.io/en/latest) - Tasks for installation of the python ``Tox`` automation tool.
             - [vim](https://vimconfig.com) - Configuration tasks related to VIM editor.

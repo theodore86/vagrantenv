@@ -12,7 +12,6 @@
     - { role: 'system/bash/aliases', tags: 'bash_aliases' }
     - { role: 'system/bash/profile', tags: 'bash_profile' }
     - { role: 'system/disks', tags: 'resize_disk' }
-    - { role: 'python/ipython', tags: 'ipython' }
     - { role: 'python/tox', tags: 'tox' }
     - { role: 'docker', tags: 'docker' }
     - { role: 'kubernetes/kind', tags: 'kind' }
