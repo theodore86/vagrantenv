@@ -4,6 +4,7 @@
 # SandBox for Testing and Developing as a code
 
 Provisioning of the sandbox using the Hashicorp Vagrant automation tool (IaC).
+
 Fully managed and configured through [Ansible roles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html).
 
 ## What is Vagrant
@@ -79,6 +80,7 @@ Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - kubeshell
 - kubeps1
 - kubecolor
+- kubeshark
 
 ### Network Protocol Analyzers
 

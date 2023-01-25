@@ -1,0 +1,114 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ kubeshark_install_dir }}/kubeshark'
+  register: 'kubeshark_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ kubeshark_install_dir }}/kubeshark version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'kubeshark_existing_version'
+  when: 'kubeshark_check_existing.stat.exists'
+
+- name: 'Set existing version per data stream'
+  set_fact:
+    _kubeshark_installed_version: >
+        {{ kubeshark_existing_version.stderr if kubeshark_existing_version.stderr else kubeshark_existing_version.stdout }}
+  when: 'kubeshark_check_existing.stat.exists'
+
+- name: 'Set existing version'
+  set_fact:
+    kubeshark_installed_version: '{{ _kubeshark_installed_version | default("") | regex_search(version_re, "\1") | first }}'
+  vars:
+    version_re: '{{ kubeshark_version_regex }}'
+  when: 'kubeshark_check_existing.stat.exists'
+
+- name: 'Retrieve binary checksum'
+  set_fact:
+    kubeshark_pre_checksum: '{{ lookup("url", kubeshark_checksum_download_url) }}'
+  when: >
+    not kubeshark_check_existing.stat.exists
+    or kubeshark_installed_version != kubeshark_version
+
+- name: 'Convert checksum to dictionary'
+  set_fact:
+    kubeshark_checksum_dict: '{{ kubeshark_pre_checksum | content_to_dict }}'
+  when: >
+    not kubeshark_check_existing.stat.exists
+    or kubeshark_installed_version != kubeshark_version
+
+- name: 'Set binary checksum value'
+  set_fact:
+    kubeshark_checksum: '{{ kubeshark_checksum_dict | get_dict_key(kubeshark_binary) }}'
+  when: >
+    not kubeshark_check_existing.stat.exists
+    or kubeshark_installed_version != kubeshark_version
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ kubeshark_download_url }}'
+    dest: '/tmp/kubeshark'
+    checksum: 'sha256:{{ kubeshark_checksum }}'
+  become: 'yes'
+  when: >
+    not kubeshark_check_existing.stat.exists
+    or kubeshark_installed_version != kubeshark_version
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ kubeshark_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ kubeshark_install_dir }}/kubeshark'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kubeshark_check_existing.stat.exists'
+    - 'kubeshark_installed_version != kubeshark_version'
+
+- name: 'Copy binary to installation directory'
+  copy:
+    src: '/tmp/kubeshark'
+    dest: '{{ kubeshark_install_dir }}/kubeshark'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubeshark_check_existing.stat.exists
+    or kubeshark_installed_version != kubeshark_version
+  notify:
+    - 'Check installed kubeshark version'
+    - 'Set installed kubeshark version per data stream'
+    - 'Set installed kubeshark version'
+    - 'Verify installed kubeshark version'
+
+- name: 'Ensure $HOME/kubeshark directory exists'
+  file:
+    path: '{{ ansible_env.HOME }}/.kubeshark'
+    state: directory
+    mode: 0755
+  when:
+    - kubeshark_config | bool
+    - kubeshark_config_options.keys() | length > 0
+
+- name: 'Copy kubeshark configuration options'
+  copy:
+    content: '{{ kubeshark_config_options | to_nice_yaml }}'
+    dest: '{{ ansible_env.HOME }}/.kubeshark/config.yaml'
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0644
+  when:
+    - kubeshark_config | bool
+    - kubeshark_config_options.keys() | length > 0
+...

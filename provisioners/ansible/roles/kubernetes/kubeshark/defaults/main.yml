@@ -1,0 +1,9 @@
+---
+kubeshark_version: '38.3'
+kubeshark_install_dir: '/usr/local/bin'
+kubeshark_config: true
+kubeshark_config_options:
+    tap:
+        proxy:
+            host: '0.0.0.0'
+...
