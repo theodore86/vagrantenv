@@ -21,6 +21,6 @@
   assert:
     that:
       - 'kubeshark_version == kubeshark_re_version'
-    fail_msg: 'Kubeshark installation failed, {{ kubeshark_version }} != {{ kubeshark_re_version  }}'
+    fail_msg: 'Kubeshark installation failed, {{ kubeshark_version }} != {{ kubeshark_re_version }}'
     success_msg: 'Installed kubeshark version is: {{ kubeshark_re_version }}'
 ...
