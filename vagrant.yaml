@@ -200,4 +200,5 @@
                     - "groovy"
                     - "vagrant"
                     - "hadolint"
+                    - "kubeshark"
                 :skip_tags: []

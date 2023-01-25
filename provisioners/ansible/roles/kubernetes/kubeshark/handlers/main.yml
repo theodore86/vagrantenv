@@ -1,0 +1,26 @@
+---
+- name: 'Check installed kubeshark version'
+  shell: '{{ kubeshark_install_dir }}/kubeshark version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'kubeshark_installed_version'
+
+- name: 'Set installed kubeshark version per data stream'
+  set_fact:
+    _kubeshark_re_version: >
+        {{ kubeshark_installed_version.stderr if kubeshark_installed_version.stderr else kubeshark_installed_version.stdout }}
+
+- name: 'Set installed kubeshark version'
+  set_fact:
+    kubeshark_re_version: '{{ _kubeshark_re_version | default("") | regex_search(version_re, "\1") | first }}'
+  vars:
+    version_re: '{{ kubeshark_version_regex }}'
+
+- name: 'Verify installed kubeshark version'
+  assert:
+    that:
+      - 'kubeshark_version == kubeshark_re_version'
+    fail_msg: 'Kubeshark installation failed, {{ kubeshark_version }} != {{ kubeshark_re_version  }}'
+    success_msg: 'Installed kubeshark version is: {{ kubeshark_re_version }}'
+...

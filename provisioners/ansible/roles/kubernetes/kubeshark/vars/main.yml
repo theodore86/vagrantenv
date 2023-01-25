@@ -1,0 +1,11 @@
+---
+kubeshark_arch: 'amd64'
+kubeshark_os: '{{ ansible_system | lower }}'
+kubeshark_base_download_url: 'https://github.com/kubeshark/kubeshark/releases/download'
+kubeshark_binary_name: '{{ "kubeshark" if kubeshark_version is version("37.0", ">=") else "mizu" }}'
+kubeshark_binary: '{{ kubeshark_binary_name }}_{{ kubeshark_os }}_{{ kubeshark_arch }}'
+kubeshark_download_url: '{{ kubeshark_base_download_url }}/{{ kubeshark_version }}/{{ kubeshark_binary }}'
+kubeshark_checksum: '{{ kubeshark_binary }}.sha256'
+kubeshark_checksum_download_url: '{{ kubeshark_base_download_url }}/{{ kubeshark_version }}/{{ kubeshark_checksum }}'
+kubeshark_version_regex: '^(?:Version:)?.*?((\d{1,}\.\d{1,}))'
+...
