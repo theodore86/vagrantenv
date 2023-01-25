@@ -8,7 +8,7 @@
 
 - name: 'Set installed kubeshark version per data stream'
   set_fact:
-    _kubeshark_re_version: >
+    _kubeshark_re_version: |-
         {{ kubeshark_installed_version.stderr if kubeshark_installed_version.stderr else kubeshark_installed_version.stdout }}
 
 - name: 'Set installed kubeshark version'

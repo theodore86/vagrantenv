@@ -15,7 +15,7 @@
 
 - name: 'Set existing version per data stream'
   set_fact:
-    _kubeshark_installed_version: >
+    _kubeshark_installed_version: |-
         {{ kubeshark_existing_version.stderr if kubeshark_existing_version.stderr else kubeshark_existing_version.stdout }}
   when: 'kubeshark_check_existing.stat.exists'
 
