@@ -7,21 +7,46 @@ jobs:
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
-    resource_class: 'medium'
+    resource_class: "medium"
     steps:
-      - 'checkout'
+      - "checkout"
       - run:
-          name: 'Run Continuous Integration (linting, testing, ...)'
-          command: 'tox -p'
+          name: "Run Continuous Integration (linting, testing, ...)"
+          command: "tox -p"
+  provision_sandbox:
+    machine:
+      image: ubuntu-2004:current
+    resource_class: large
+    steps:
+      - "checkout"
+      - run:
+          name: "Provision sandbox host"
+          command: |
+            chmod +x tools/linux/provision.sh
+            ./tools/linux/provision.sh
+      - run:
+          name: "Install plugins"
+          command: "vagrant up --provider=virtualbox"
+      - run:
+          name: "Provision sandbox"
+          command: "vagrant up --provider=virtualbox"
+
 workflows:
   on_commit:
     jobs:
       - execute_tests:
-          context: 'docker-hub-creds'
+          context: "docker-hub-creds"
           filters:
             branches:
               ignore:
-                - 'main'
+                - "main"
+      - provision_sandbox:
+          requires:
+            - "execute_tests"
+          filters:
+            branches:
+              ignore:
+                - "main"
   nightly:
     triggers:
       - schedule:
@@ -29,6 +54,6 @@ workflows:
           filters:
             branches:
               only:
-                - 'main'
+                - "main"
     jobs:
-      - 'execute_tests'
+      - "execute_tests"
