@@ -31,31 +31,31 @@
     kubeshark_pre_checksum: '{{ lookup("url", kubeshark_checksum_download_url) }}'
   when: >
     not kubeshark_check_existing.stat.exists
-    or kubeshark_installed_version != kubeshark_version
+    or kubeshark_installed_version is not version(kubeshark_version, "=")
 
 - name: 'Convert checksum to dictionary'
   set_fact:
     kubeshark_checksum_dict: '{{ kubeshark_pre_checksum | content_to_dict }}'
   when: >
     not kubeshark_check_existing.stat.exists
-    or kubeshark_installed_version != kubeshark_version
+    or kubeshark_installed_version is not version(kubeshark_version, "=")
 
 - name: 'Set binary checksum value'
   set_fact:
     kubeshark_checksum: '{{ kubeshark_checksum_dict | get_dict_key(kubeshark_binary) }}'
   when: >
     not kubeshark_check_existing.stat.exists
-    or kubeshark_installed_version != kubeshark_version
+    or kubeshark_installed_version is not version(kubeshark_version, "=")
 
 - name: 'Download binary'
   get_url:
     url: '{{ kubeshark_download_url }}'
-    dest: '/tmp/kubeshark'
+    dest: '/tmp/kubeshark-{{ kubeshark_version }}'
     checksum: 'sha256:{{ kubeshark_checksum }}'
   become: 'yes'
   when: >
     not kubeshark_check_existing.stat.exists
-    or kubeshark_installed_version != kubeshark_version
+    or kubeshark_installed_version is not version(kubeshark_version, "=")
 
 - name: 'Ensure install directory exists'
   file:
@@ -73,11 +73,11 @@
   become: 'yes'
   when:
     - 'kubeshark_check_existing.stat.exists'
-    - 'kubeshark_installed_version != kubeshark_version'
+    - 'kubeshark_installed_version is not version(kubeshark_version, "=")'
 
 - name: 'Copy binary to installation directory'
   copy:
-    src: '/tmp/kubeshark'
+    src: '/tmp/kubeshark-{{ kubeshark_version }}'
     dest: '{{ kubeshark_install_dir }}/kubeshark'
     owner: 'root'
     group: 'root'
@@ -85,7 +85,7 @@
   become: 'yes'
   when: >
     not kubeshark_check_existing.stat.exists
-    or kubeshark_installed_version != kubeshark_version
+    or kubeshark_installed_version is not version(kubeshark_version, "=")
   notify:
     - 'Check installed kubeshark version'
     - 'Set installed kubeshark version per data stream'
