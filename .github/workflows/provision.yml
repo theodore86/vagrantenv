@@ -1,5 +1,5 @@
 ---
-name: Provisioning Sandbox
+name: Sandbox Provisioning
 
 on:
   pull_request:
