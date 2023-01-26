@@ -5,9 +5,9 @@ on:
   pull_request:
     paths:
       - Vagrantfile
-      - provisioners/*
+      - provisioners/**
       - vagrant.yaml
-      - lib/*
+      - lib/**
       - .github/workflows/provision.yaml
       - requirements.d/ansible.txt
   schedule:
