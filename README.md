@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=svg&circle-token=bc7666e0b5736f67b6a4fdda6f244782d2062375)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
+[![Sandbox](https://github.com/theodore86/vagrantenv/actions/workflows/provision.yml/badge.svg)](https://github.com/theodore86/vagrantenv/actions/workflows/provision.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # SandBox for Testing and Developing as a code
@@ -116,10 +117,7 @@ Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 
 ### Python3
 
-- pip
-- tox
-- ansible
-  - paramiko
+- Python ``3.10``
 
 ### VIM Plugins
 
