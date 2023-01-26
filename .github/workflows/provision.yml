@@ -1,0 +1,41 @@
+---
+name: Provisioning Sandbox
+
+on:
+  pull_request:
+    paths:
+      - Vagrantfile
+      - provisioners/*
+      - vagrant.yaml
+      - lib/*
+      - .github/workflows/provision.yaml
+      - requirements.d/ansible.txt
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  sandbox_provisioning:
+    runs-on: macos-10.15
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v3.3.0"
+
+      - name: "Cache Vagrant boxes"
+        uses: "actions/cache@v3.2.3"
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
+
+      - name: "Show Vagrant version"
+        run: |
+          vagrant --version
+
+      - name: "Installation of Vagrant plugins"
+        run: |
+          vagrant up
+
+      - name: "Provision of the Vagrant (sandbox)"
+        run: |
+          vagrant up --provider=virtualbox
