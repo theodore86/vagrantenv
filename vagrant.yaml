@@ -10,13 +10,13 @@
 # Required Vagrant plugins
 :plugins:
     - :name: "vagrant-vbguest"
-      :version: "0.30.0"
+      :version: "0.31.0"
     - :name: "sahara"
       :version: "0.0.17"
     - :name: "vagrant-proxyconf"
       :version: "2.0.10"
     - :name: "vagrant-goodhosts"
-      :version: "1.1.4"
+      :version: "1.1.5"
     - :name: "vagrant-netinfo"
       :version: "0.0.4"
 

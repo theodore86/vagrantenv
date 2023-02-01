@@ -1,5 +1,7 @@
 ---
-vagrant_package: 'vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb'
+vagrant_architecture: '{{ "amd64" if vagrant_version is version("2.3.0", ">=") else ansible_architecture }}'
+vagrant_updated_version: '{{ vagrant_version + "-1" if vagrant_version is version("2.3.0", ">=") else vagrant_version }}'
+vagrant_package: 'vagrant_{{ vagrant_updated_version }}_{{ vagrant_architecture }}.deb'
 vagrant_download_url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/{{ vagrant_package }}'
 vagrant_download_dest: '/tmp/{{ vagrant_package }}'
 ...

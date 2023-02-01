@@ -22,11 +22,18 @@ RUN curl -OLs https://github.com/hadolint/hadolint/releases/download/v"${HADOLIN
     mv hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
     chmod a+x /usr/local/bin/hadolint
 
-ARG VAGRANT_VERSION="2.2.19"
+ARG VAGRANT_VERSION="2.3.4"
 
-RUN curl -OLs https://releases.hashicorp.com/vagrant/"${VAGRANT_VERSION}"/vagrant_"${VAGRANT_VERSION}"_x86_64.deb && \
-    dpkg -i vagrant_"${VAGRANT_VERSION}"_x86_64.deb && \
-    rm vagrant_"${VAGRANT_VERSION}"_x86_64.deb
+RUN if dpkg --compare-versions "${VAGRANT_VERSION}" ge 2.3.0; then \
+    VERSION="${VAGRANT_VERSION}-1"; \
+    ARCH=amd64; \
+    else \
+    VERSION="${VAGRANT_VERSION}"; \
+    ARCH=x86_64; \
+    fi && \
+    curl -OLs https://releases.hashicorp.com/vagrant/"${VAGRANT_VERSION}"/vagrant_"${VERSION}"_"${ARCH}".deb && \
+    dpkg -i vagrant_"${VERSION}"_"${ARCH}".deb && \
+    rm vagrant_"${VERSION}"_"${ARCH}".deb
 
 ARG BUNDLER_VERSION="2.3.23"
 
