@@ -2,6 +2,6 @@
 
 yamllint==1.29.0
 typing-extensions==4.4.0
-pylint==2.16.0
+pylint==2.16.1
 shellcheck-py==0.9.0.2
 ansible-lint[community]==5.4.0
