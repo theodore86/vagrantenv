@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   execute_tests:
     docker:
-      - image: theodore86/vagrantenv-ci:0196a72
+      - image: theodore86/vagrantenv-ci:f2dc753
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
