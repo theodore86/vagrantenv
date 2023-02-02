@@ -1,0 +1,23 @@
+name: Pre-commit hooks auto-update
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  pre-commit-hooks-auto-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v3.0.2"
+      - uses: "actions/setup-python@v4.5.0"
+      - uses: "browniebroke/pre-commit-autoupdate-action@v1.0.0"
+      - uses: peter-evans/create-pull-request@v4
+        with:
+          branch: update/pre-commit-hooks
+          title: Update pre-commit hooks
+          commit-message: "Update pre-commit hooks"
+          labels: |
+            pre-commit
+            github action
+          body: |
+            - Update versions of pre-commit hooks to the latest version
