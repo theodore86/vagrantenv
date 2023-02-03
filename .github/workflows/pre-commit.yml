@@ -5,21 +5,45 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+env:
+  PYTHON_VERSION: "3.11"
+  PIP_VERSION: "23.0"
+  PRECOMMIT_VERSION: "3.0.4"
+
 jobs:
   pre-commit-hooks-auto-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v3.0.2"
-      - uses: "actions/setup-python@v4.5.0"
-      - uses: "browniebroke/pre-commit-autoupdate-action@v1.0.0"
+      - name: "Checkout code"
+        uses: "actions/checkout@v3.0.2"
+
+      - name: "Setup Python"
+        uses: "actions/setup-python@v4.5.0"
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: "Install Pre-commit framework"
+        run: |
+          pip3 install -U pip==${{ env.PIP_VERSION }}
+          pip3 install pre-commit==${{ env.PRECOMMIT_VERSION }}
+
+      - name: "Update Pre-commit hooks"
+        run: |
+          pre-commit autoupdate
+
+      - name: "Validate Pre-commit configuration"
+        run: |
+          pre-commit validate-config .pre-commit-config.yaml
+
       - uses: peter-evans/create-pull-request@v4
         with:
           branch: update/pre-commit-hooks
-          title: Update pre-commit hooks
-          commit-message: "Update pre-commit hooks"
+          title: Update Pre-commit hooks
+          commit-message: "Update Pre-commit hooks"
           labels: |
             pre-commit
             github action
           body: |
-            - Update versions of pre-commit hooks to the latest version
-...
+            - Update versions of Pre-commit hooks to the latest version
+          add-paths: |
+            .pre-commit-config.yaml
