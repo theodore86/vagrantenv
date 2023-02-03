@@ -1,3 +1,4 @@
+---
 name: Pre-commit hooks auto-update
 
 on:
@@ -21,3 +22,4 @@ jobs:
             github action
           body: |
             - Update versions of pre-commit hooks to the latest version
+...
