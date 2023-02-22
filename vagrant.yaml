@@ -112,6 +112,9 @@
                 :docker:
                     :enabled: false
                     :skip: false
+                :npm:
+                    :enabled: false
+                    :skip: false
     :networks:
         - :vpn:
               :type: "forwarded_port"
