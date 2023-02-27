@@ -1,0 +1,13 @@
+---
+helm_dashboard_arch: '{{ ansible_architecture }}'
+helm_dashboard_os: '{{ ansible_system }}'
+helm_dashboard_base_binary_url: 'https://github.com/komodorio/helm-dashboard/releases/download/v{{ helm_dashboard_version }}'
+helm_dashboard_binary_name: 'helm-dashboard'
+helm_dashboard_tarball:
+    "{{ helm_dashboard_binary_name }}_{{ helm_dashboard_version }}_\
+    {{ helm_dashboard_os }}_{{ helm_dashboard_arch }}.tar.gz"
+helm_dashboard_tarball_url: '{{ helm_dashboard_base_binary_url }}/{{ helm_dashboard_tarball }}'
+helm_dashboard_checksum_url:
+    "{{ helm_dashboard_base_binary_url }}/{{ helm_dashboard_binary_name }}_\
+     {{ helm_dashboard_version }}_checksums.txt"
+...

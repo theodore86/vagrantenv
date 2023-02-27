@@ -6,6 +6,7 @@ go_checksum: c9c08f783325c4cf840a94333159cc937f05f75d36a8b307951d5bd959cf2ab8
 go_version: 1.19.4
 hadolint_version: 2.12.0
 helm_version: 3.10.3
+helm_dashboard_version: 1.1.1
 hvault_version: 1.10.0
 k9s_version: 0.26.7
 kind_version: 0.17.0
