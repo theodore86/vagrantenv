@@ -33,7 +33,7 @@
     :box_url: null
     :cpus: null
     :memory: null
-    :boot_timeout: 60
+    :boot_timeout: 120
     :gui: false
     :disks:
         - :type: "disk"
@@ -197,6 +197,7 @@
                     - "kubectx"
                     - "kubefwd"
                     - "helm"
+                    - "helm_dash"
                     - "kind"
                     - "k9s"
                     - "kubecolor"

@@ -216,6 +216,7 @@ Supported options are:
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
             - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [helm](https://helm.sh/) - The package manager for Kubernetes.
+            - [helm-dashboard](https://github.com/komodorio/helm-dashboard) - UI-driven way to view the installed Helm charts.
             - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter.
             - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language.
             - [k9s](https://github.com/derailed/k9s) - Kubernetes CLI to manager your clusters.

@@ -74,6 +74,7 @@ Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - docker-compose
 - kubectl
 - helm
+- helm-dashboard
 - kind
 - k9s
 - kubectx

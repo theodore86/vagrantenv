@@ -1,0 +1,80 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ helm_dashboard_install_dir }}/{{ helm_dashboard_binary_name }}'
+  register: 'helm_dashboard_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ helm_dashboard_install_dir }}/{{ helm_dashboard_binary_name }} --version"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'helm_dashboard_installed_version'
+  when: 'helm_dashboard_check_existing.stat.exists'
+
+- name: 'Retrieve binary checksum'
+  set_fact:
+    helm_dashboard_checksum_data: '{{ lookup("url", helm_dashboard_checksum_url) }}'
+  when: >
+    not helm_dashboard_check_existing.stat.exists
+    or helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")
+
+- name: 'Convert checksum to dictionary'
+  set_fact:
+    helm_dashboard_checksum_dict: '{{ helm_dashboard_checksum_data | content_to_dict(",") }}'
+  when: >
+    not helm_dashboard_check_existing.stat.exists
+    or helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")
+
+- name: 'Set binary checksum value'
+  set_fact:
+    helm_dashboard_checksum: '{{ helm_dashboard_checksum_dict | get_dict_key(helm_dashboard_tarball) }}'
+  when: >
+    not helm_dashboard_check_existing.stat.exists
+    or helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")
+
+- name: 'Ensure install directory exists'
+  file:
+    path: '{{ helm_dashboard_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Remove any installed binary'
+  file:
+    path: '{{ helm_dashboard_install_dir }}/{{ helm_dashboard_binary_name }}'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'helm_dashboard_check_existing.stat.exists'
+    - 'helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")'
+
+- name: 'Download tarball'
+  get_url:
+    url: '{{ helm_dashboard_tarball_url }}'
+    dest: '/tmp/{{ helm_dashboard_tarball }}'
+    checksum: 'sha256:{{ helm_dashboard_checksum }}'
+  become: 'yes'
+  when: >
+    not helm_dashboard_check_existing.stat.exists
+    or helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")
+
+- name: 'Extract tarball'
+  unarchive:
+    src: '/tmp/{{ helm_dashboard_tarball }}'
+    dest: '{{ helm_dashboard_install_dir }}'
+    remote_src: 'yes'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  notify:
+    - 'Check installed {{ helm_dashboard_binary_name }} version'
+    - 'Verify installed {{ helm_dashboard_binary_name }} version'
+  when: >
+    not helm_dashboard_check_existing.stat.exists
+    or helm_dashboard_installed_version.stdout is not version(helm_dashboard_version, "=")
+...

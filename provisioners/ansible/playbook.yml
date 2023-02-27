@@ -17,6 +17,7 @@
     - { role: 'kubernetes/kind', tags: 'kind' }
     - { role: 'kubernetes/kubectl', tags: 'kubectl' }
     - { role: 'kubernetes/helm', tags: 'helm' }
+    - { role: 'kubernetes/helm_dashboard', tags: 'helm_dash' }
     - { role: 'kubernetes/k9s', tags: 'k9s' }
     - { role: 'kubernetes/kubefwd', tags: 'kubefwd' }
     - { role: 'kubernetes/kubectx', tags: 'kubectx' }

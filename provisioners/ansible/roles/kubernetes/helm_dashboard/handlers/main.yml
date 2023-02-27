@@ -1,0 +1,16 @@
+---
+- name: 'Check installed {{ helm_dashboard_binary_name }} version'
+  shell: '{{ helm_dashboard_install_dir }}/{{ helm_dashboard_binary_name }} --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  register: 'helm_dashboard_installed_version'
+
+- name: 'Verify installed {{ helm_dashboard_binary_name }} version'
+  assert:
+    that:
+      - 'helm_dashboard_installed_version.stdout is version(helm_dashboard_version, "=")'
+    fail_msg: "{{ helm_dashboard_binary_name }} installation failed, \
+               v{{ helm_dashboard_version }} != {{ helm_dashboard_installed_version.stdout }}"
+    success_msg: 'Installed {{ helm_dashboard_binary_name }} version is: v{{ helm_dashboard_version }}'
+...
