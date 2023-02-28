@@ -4,19 +4,17 @@ SET DIR=%~dp0%
 
 echo Ensure that your cmd.exe runs as Administrator
 echo .
-echo If you are behind proxy SET HTTP(S)_PROXY settings
+echo If you are behind proxy SET HTTP(S)_PROXY or http(s)_proxy settings
 echo .
 pause
-
-echo Downloading install.ps1 (chocolatey installation script)
-echo .
-pause
-%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "((new-object net.webclient).DownloadFile('https://chocolatey.org/install.ps1','%DIR%install.ps1'))" || goto :error
 
 echo Running chocolatey installer (install.ps1)
 echo .
 pause
-%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& '%DIR%install.ps1' %*" || goto :error
+@powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command^
+  "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"^
+  || goto :error
+SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
 echo Installing project dependencies using chocolatey
 echo .
