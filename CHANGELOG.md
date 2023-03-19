@@ -1,3 +1,86 @@
+## [2.32.0] - 2023-03-19
+
+### Changed
+
+- Update README.md.
+- Update project documentation.
+- Update project dependencies.
+  - Update ``rubocop==1.48.1``.
+  - Update ``pre-commit==3.2.0``.
+  - Update ``pytest==7.2.2``.
+  - Update ``pylint==2.17.0``.
+  - Update ``ansible==7.3.0``.
+  - Update ``typing-extensions==4.5.0``.
+  - Update ``yamllint==1.29.0``.
+  - Update ``shellcheck==0.9.0.2``.
+  - Update ``mkdocs==1.4.2``.
+- Update ``provision.bat`` windows script.
+  - Add ``goto`` error handling.
+- Update ``vagrant.yaml``
+  - Add support of ``npm`` package manager proxy.
+  - Update vagrant plugins version.
+    - ``vagrant-vbguest==0.31.0``.
+    - ``vagrant-goodhosts==1.1.5``.
+  - Update image version to ``bento/22.04`` (Jammy).
+  - Update ansible tags.
+  - Add config to add extra disks to VM.
+- Update ``Dockerfile``
+  - Update vagrant to version ``2.3.4``.
+  - Update tox to version ``4.2.6``.
+- Update ``linux/provision.sh``
+  - Update vagrant to version ``2.3.4``.
+- Update ansible roles.
+  - Update vagrant role version to ``2.3.4``.
+  - Update docker role.
+    - Add image GC support.
+  - Update gitconfig role.
+    - Add support of ``credentials.helper=store``.
+    - Move role under git super role.
+  - Update vim role (*refactor*), add Jenkinsfile vim plugin.
+  - Update kubeps1 role.
+    - Update git repository url.
+  - Update ruby role.
+    - Change ruby dependency ``ruby-full`` to ``ruby-dev``.
+    - Ruby handler version to ``2.3.23``.
+- Update ``tox.ini``
+  - Update ``whitelist`` to ``allowlist_externals`` options.
+- Update ``Vagrantfile``
+  - Update file to include disks method.
+- Update ``lib/vagrant-host.rb``
+  - Add new extra methods for extra disk management.
+- Update ``chocolatey.config``.
+  - Add ``vscode/1.72.2``.
+  - Update python to ``3.11.0``.
+- Update ``docker/lint.sh`` script.
+  - Add support of automaticalyl detection of platform architecture and OS.
+
+### Added
+
+- Ansible provisioner roles.
+  - ``kubernetes/helm-dashboard`` role.
+  - ``kubernetes/kubeshark`` role.
+  - ``system/disks`` role.
+    - Resize the partition when PV is resized using fdisk.
+- Add support for primary disk resizing.
+
+### Removed
+
+- Delete ``sublimetext3`` from ``chocolatey.cfg``.
+- Delete ``python/ipython`` role from ansible roles.
+- Delete ``midori`` browser from ``common/system`` role packages.
+
+### Fixed
+
+- Ansible provisioner roles.
+  - Fix mvn and groovy role handler names to be unique to avoid collisions.
+  - Fix groovy handler when absolute path to binary is not defined.
+  - Fix ``become`` option from ``no`` to ``yes`` for ruby bundler.
+  - Fix ``user_install`` option from ``yes`` to ``no`` to avoid issues with *Gem* path.
+- ``pacapt.sh`` helper script.
+  - Raise error when ``curl`` is not available on the target host.
+- ``vagrant.yaml`` networking
+  - Fix instantiation error when ip address range for the *host-network* only adapter is not in ``192.168.56.0/21`` range.
+
 ## [2.22.1] - 2022-10-19
 
 ### Changed
