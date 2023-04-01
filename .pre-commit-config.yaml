@@ -19,7 +19,7 @@ repos:
             types: ['file', 'text']
           - id: check-executables-have-shebangs
     - repo: https://github.com/Lucas-C/pre-commit-hooks
-      rev: v1.4.2
+      rev: v1.5.1
       hooks:
           - id: forbid-tabs
     - repo: https://github.com/jumanjihouse/pre-commit-hooks
