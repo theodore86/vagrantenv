@@ -1,0 +1,4 @@
+---
+kubetail_version: '1.6.17'
+kubetail_install_dir: '/usr/local/bin'
+...
