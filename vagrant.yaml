@@ -196,6 +196,7 @@
                     - "kubectl"
                     - "kubectx"
                     - "kubefwd"
+                    - "kubetail"
                     - "helm"
                     - "helm_dash"
                     - "kind"

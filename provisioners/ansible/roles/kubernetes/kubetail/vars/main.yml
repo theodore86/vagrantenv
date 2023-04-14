@@ -1,0 +1,4 @@
+---
+kubetail_zip_folder: '{{ kubetail_version }}.zip'
+kubetail_download_url: 'https://github.com/johanhaleby/kubetail/archive/refs/tags/{{ kubetail_zip_folder }}'
+...

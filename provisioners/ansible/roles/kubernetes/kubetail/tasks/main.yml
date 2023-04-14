@@ -1,0 +1,80 @@
+---
+- name: 'Check if is already installed'
+  stat:
+    path: '{{ kubetail_install_dir }}/kubetail'
+  register: 'kubetail_check_existing'
+
+- name: 'Check existing version'
+  shell: "{{ kubetail_install_dir }}/kubetail --version 2>/dev/null"
+  args:
+    executable: '/bin/bash'
+  failed_when: false
+  changed_when: false
+  register: 'kubetail_existing_version'
+  when: 'kubetail_check_existing.stat.exists'
+
+- name: 'Ensure installation directory exists'
+  file:
+    path: '{{ kubetail_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Remove current installed version'
+  file:
+    path: '{{ kubetail_install_dir }}/kubetail'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kubetail_check_existing.stat.exists'
+    - 'kubetail_existing_version.stdout != kubetail_version'
+
+- name: 'Unarchive zip folder'
+  unarchive:
+    src: '{{ kubetail_download_url }}'
+    dest: '/tmp'
+    mode: 0755
+    remote_src: 'yes'
+  become: 'yes'
+  when: >
+    not kubetail_check_existing.stat.exists
+    or kubetail_existing_version.stdout != kubetail_version
+
+- name: 'Copy script to installation directory'
+  copy:
+    src: '/tmp/kubetail-{{ kubetail_version }}/kubetail'
+    dest: '{{ kubetail_install_dir }}/kubetail'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+  become: 'yes'
+  when: >
+    not kubetail_check_existing.stat.exists
+    or kubetail_existing_version.stdout != kubetail_version
+  notify:
+    - 'Check installed kubetail version'
+    - 'Verify installed kubetail version'
+
+- name: 'Remove bash completion script'
+  file:
+    path: '/etc/profile.d/kubetail.sh'
+    state: 'absent'
+  become: 'yes'
+  when:
+    - 'kubetail_check_existing.stat.exists'
+    - 'kubetail_existing_version.stdout != kubetail_version'
+
+- name: 'Enable bash completion'
+  copy:
+    src: '/tmp/kubetail-{{ kubetail_version }}/completion/kubetail.bash'
+    dest: '/etc/profile.d/kubetail.sh'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  become: 'yes'
+  when: >
+    not kubetail_check_existing.stat.exists
+    or kubetail_existing_version.stdout != kubetail_version
+...

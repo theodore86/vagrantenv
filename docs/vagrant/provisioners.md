@@ -226,6 +226,7 @@ Supported options are:
             - [kubeps1](https://github.com/jonmosco/kube-ps1) - Kubernetes prompt for bash and zsh.
             - [kubecolor](https://github.com/hidetatz/kubecolor) - Colorize your kubectl output.
             - [kubeshark](https://kubeshark.co/pcap-or-it-didnt-happen) - API Traffic Viewer for Kubernetes.
+            - [kubetail](https://github.com/johanhaleby/kubetail) - Bash script that enables you to aggregate (tail/follow) logs from multiple pods into one stream.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
             - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
             - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*).
