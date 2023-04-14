@@ -150,4 +150,28 @@
     - 'docker_group is defined'
     - 'docker_sdk_install | bool'
   ignore_errors: true
+
+- name: 'Create Docker cli-plugins directory'
+  file:
+    path: '{{ ansible_env.HOME }}/.docker/cli-plugins'
+    state: 'directory'
+    mode: 0775
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+  become: 'yes'
+  when: 'docker_buildx_install | bool'
+
+- name: 'Get Docker buildx plugin'
+  get_url:
+    url: '{{ docker_buildx_download_url }}'
+    dest: '{{ ansible_env.HOME }}/.docker/cli-plugins/docker_buildx'
+    mode: '0550'
+  when: 'docker_buildx_install | bool'
+
+- name: 'Verify Docker buildx installation'
+  shell: 'docker buildx --version'
+  args:
+    executable: '/bin/bash'
+  changed_when: false
+  when: 'docker_buildx_install | bool'
 ...

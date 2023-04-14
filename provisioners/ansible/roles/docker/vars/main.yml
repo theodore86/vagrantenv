@@ -14,5 +14,7 @@ docker_dependencies:
   - 'software-properties-common'
 
 docker_download_url: 'https://download.docker.com/{{ ansible_system|lower }}/{{ ansible_distribution|lower }}'
-docker_apt_repository: 'deb [arch=amd64] {{ docker_download_url }} {{ ansible_distribution_release }} stable'
+docker_buildx_download_url: "https://github.com/docker/buildx/releases/download/v{{ docker_buildx_version }}/\
+                             buildx-v{{ docker_buildx_version }}.{{ docker_os }}-{{ docker_arch }}"
+docker_apt_repository: 'deb [arch={{ docker_arch }}] {{ docker_download_url }} {{ ansible_distribution_release }} stable'
 ...
