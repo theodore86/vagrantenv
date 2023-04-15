@@ -1,3 +1,4 @@
+![Current Tag](https://img.shields.io/github/v/tag/theodore86/vagrantenv)
 [![CircleCI](https://circleci.com/gh/theodore86/vagrantenv/tree/main.svg?style=shield)](https://circleci.com/gh/theodore86/vagrantenv/tree/main)
 [![Sandbox](https://github.com/theodore86/vagrantenv/actions/workflows/provision.yml/badge.svg)](https://github.com/theodore86/vagrantenv/actions/workflows/provision.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
