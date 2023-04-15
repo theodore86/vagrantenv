@@ -10,8 +10,6 @@ docker_config:
   dns: '{{ docker_dns_servers }}'
   insecure-registries: '{{ docker_insecure_registries }}'
   registry-mirrors: '{{ docker_registries_mirror }}'
-  features:
-    buildkit: true
   builder:
     gc:
       enabled: true

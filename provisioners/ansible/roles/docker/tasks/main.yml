@@ -164,12 +164,12 @@
 - name: 'Get Docker buildx plugin'
   get_url:
     url: '{{ docker_buildx_download_url }}'
-    dest: '{{ ansible_env.HOME }}/.docker/cli-plugins/docker_buildx'
+    dest: '{{ ansible_env.HOME }}/.docker/cli-plugins/docker-buildx'
     mode: '0550'
   when: 'docker_buildx_install | bool'
 
 - name: 'Verify Docker buildx installation'
-  shell: 'docker buildx --version'
+  shell: 'docker buildx version'
   args:
     executable: '/bin/bash'
   changed_when: false
