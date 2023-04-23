@@ -19,6 +19,20 @@ and controlled by an single consistent workflow to help maximize the productivit
 Vagrant has a concept of `providers` which map to the virtualisation engine and its API.
 The most popular and well-supported provider is Virtualbox; plugins exist for `libvirt`, `kvm`, `lxc`, `vmware` and more
 
+## Features
+
+- Declarative approach through *YAML* configuration format.
+- Extensible through Vagrant plugins (*host*) and Ansible roles (*guest*).
+- Flexible networking setup:
+  - *NAT/PAT*
+  - *Multiple network adapters*
+  - *DNS setup*
+  - *Host/Guest Time sync*
+  - *System or Application proxy*
+- Resizing of virtual disk(s) size, addition or removal of it/them.
+- Support of *Linux & Windows* host OS.
+  - Support of *MacOS* with Intel processors only.
+
 ## Requirements
 
 ### Intel VT-x virtualization
