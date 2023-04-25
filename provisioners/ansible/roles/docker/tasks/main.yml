@@ -157,7 +157,7 @@
     state: 'directory'
     mode: 0775
     owner: '{{ ansible_env.USER }}'
-    group: '{{ ansible_env.USER }}'
+    group: '{{ docker_group if docker_group is defined else ansible_env.USER }}'
   become: 'yes'
   when: 'docker_buildx_install | bool'
 
