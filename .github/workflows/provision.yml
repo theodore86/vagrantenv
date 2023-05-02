@@ -20,6 +20,11 @@ jobs:
       - name: "Checkout source code"
         uses: "actions/checkout@v3.3.0"
 
+      - name: "Install prerequisites"
+        run: |
+          brew install --cask virtualbox@6.1.12
+          brew install --cask vagrant@2.3.4
+
       - name: "Cache Vagrant boxes"
         uses: "actions/cache@v3.2.3"
         with:
@@ -28,9 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vagrant-
 
-      - name: "Vagrant base box update"
+      - name: "Show Vagrant version"
         run: |
-          vagrant box update
+          vagrant --version
 
       - name: "Installation of Vagrant plugins"
         run: |
@@ -40,6 +45,6 @@ jobs:
         run: |
           vagrant up --provider=virtualbox
 
-      - name: "Destroy the Vagrant (sandbox)"
+      - name: "Destroy Vagrant (sandbox)"
         run: |
           vagrant destroy -f
