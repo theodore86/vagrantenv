@@ -15,15 +15,10 @@ on:
 
 jobs:
   sandbox_provisioning:
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
       - name: "Checkout source code"
         uses: "actions/checkout@v3.3.0"
-
-      - name: "Install prerequisites"
-        run: |
-          brew install --cask virtualbox@6.1.12
-          brew install --cask vagrant@2.3.4
 
       - name: "Cache Vagrant boxes"
         uses: "actions/cache@v3.2.3"
@@ -33,9 +28,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vagrant-
 
-      - name: "Show Vagrant version"
+      - name: "Vagrant base box update"
         run: |
-          vagrant --version
+          vagrant box update
 
       - name: "Installation of Vagrant plugins"
         run: |
@@ -44,3 +39,7 @@ jobs:
       - name: "Provision of the Vagrant (sandbox)"
         run: |
           vagrant up --provider=virtualbox
+
+      - name: "Destroy the Vagrant (sandbox)"
+        run: |
+          vagrant destroy -f
