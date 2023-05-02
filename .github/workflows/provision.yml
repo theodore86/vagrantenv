@@ -20,6 +20,11 @@ jobs:
       - name: "Checkout source code"
         uses: "actions/checkout@v3.3.0"
 
+      - name: "Install prerequisites"
+        run: |
+          brew install --cask virtualbox
+          brew install --cask vagrant
+
       - name: "Cache Vagrant boxes"
         uses: "actions/cache@v3.2.3"
         with:
