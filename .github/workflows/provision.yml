@@ -22,8 +22,8 @@ jobs:
 
       - name: "Install prerequisites"
         run: |
-          brew install --cask virtualbox
-          brew install --cask vagrant
+          brew install --cask virtualbox@6.1.16
+          brew install --cask vagrant@2.3.4
 
       - name: "Cache Vagrant boxes"
         uses: "actions/cache@v3.2.3"
