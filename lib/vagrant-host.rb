@@ -30,7 +30,7 @@ module Host
                     options[:path] = Utils.expand_host_path(path)
                 end
             end
-            vm.provision shell[:name], shell[:options]
+            vm.provision shell[:name], **shell[:options]
         end
     end
 
@@ -68,7 +68,7 @@ module Host
             next unless data.key?(:options)
 
             options = data[:options]
-            options.each { |opts| vm.network data[:type], opts }
+            options.each { |opts| vm.network data[:type], **opts }
         end
     end
 
@@ -88,7 +88,7 @@ module Host
                 opts[path] = filepath
             end
         end
-        vm.provision name, opts
+        vm.provision name, **opts
     end
 
     def disks(vm, host)
@@ -103,7 +103,7 @@ module Host
             type = disk[:type].to_s.to_sym
             opts = disk.fetch(:options, {})
             opts[:name] ||= "storage-#{index}"
-            vm.disk type, opts
+            vm.disk type, **opts
         end
     end
 

@@ -25,7 +25,12 @@ module Utils
 
     def load_config(config_file)
         raise_msg "Configuration file #{config_file} not found!" unless File.exist?(config_file)
-        return YAML.load_file(config_file)
+        begin
+            config = YAML.load_file(config_file, aliases: true)
+        rescue ArgumentError
+            config = YAML.load_file(config_file)
+        end
+        return config
     end
 
     def cpus
