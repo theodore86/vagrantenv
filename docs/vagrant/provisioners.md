@@ -198,7 +198,7 @@ Supported options are:
         - This parameter can be a path to *a JSON or YAML file*, or a hash.
     - ``:tags:`` Only plays, roles and tasks tagged with this value will be executed:
         - This parameter can be *string or list* of tags.
-        - The following tasks are automatically triggered during the guest machine build process:
+        - The below tags (*if selected*) will automatically install the respective tools:
 
             - [bash_aliases](https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/) - Tasks to setup user workspace ```.bash_aliases```.
             - [bash_profile](https://linuxize.com/post/bashrc-vs-bash-profile/) - Tasks to setup the user ```.bash_profile```.
@@ -212,25 +212,27 @@ Supported options are:
             - [vagrant](https://www.vagrantup.com/) - The Hashicorp Vagrant command line tool.
             - [hvault](https://www.vaultproject.io/docs/what-is-vault) - The Hashicorp Vault client, secrets management tool.
             - [terraform](https://www.terraform.io/) - The Hashicorp IaC command line tool
+            - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*).
             - [go](https://go.dev/) - Go programming language.
             - [kind](https://kind.sigs.k8s.io/) - Running local Kubernetes clusters inside Docker container "nodes".
-            - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [helm](https://helm.sh/) - The package manager for Kubernetes.
-            - [helm-dashboard](https://github.com/komodorio/helm-dashboard) - UI-driven way to view the installed Helm charts.
+            - [helm_dash](https://github.com/komodorio/helm-dashboard) - UI-driven way to view the installed Helm charts.
             - [hadolint](https://github.com/hadolint/hadolint) - Haskell Dockerfile linter.
-            - [groovy](https://groovy-lang.org/) - The optional-typed Apache Groovy language.
             - [k9s](https://github.com/derailed/k9s) - Kubernetes CLI to manager your clusters.
+            - [kubectl](https://kubernetes.io/docs/tasks/tools/) - The Kubernetes command line tool.
             - [kubectx](https://github.com/ahmetb/kubectx) - Tool to switch between kubernetes contexts (clusters).
             - [kubefwd](https://github.com/txn2/kubefwd) - Kubernetes port forwarding for local development.
             - [kubeshell](https://github.com/cloudnativelabs/kube-shell) - An integrated shell for working with Kubernetes CLI.
             - [kubeps1](https://github.com/jonmosco/kube-ps1) - Kubernetes prompt for bash and zsh.
             - [kubecolor](https://github.com/hidetatz/kubecolor) - Colorize your kubectl output.
             - [kubeshark](https://kubeshark.co/pcap-or-it-didnt-happen) - API Traffic Viewer for Kubernetes.
-            - [kubetail](https://github.com/johanhaleby/kubetail) - Bash script that enables you to aggregate (tail/follow) logs from multiple pods into one stream.
+            - [kubetail](https://github.com/johanhaleby/kubetail) - Bash script enables you to aggregate (tail/follow) logs from multiple pods into one stream.
             - [fzf](https://github.com/junegunn/fzf) - Command line fuzzy finder.
             - [yq](https://github.com/mikefarah/yq) - A lightweight and portable command-line YAML, JSON and XML processor.
-            - [terragrunt](https://terragrunt.gruntwork.io/) - A thin wrapper around terraform (*orchestrator for terraform modules*).
             - [awscli](https://pypi.org/project/awscli) - Universal command line environment for AWS.
+            - [allure](https://docs.qameta.io/allure) - Allure Framework is a flexible lightweight multi-language test report tool.
+            - [maven](https://maven.apache.org) - Maven can manage a project's build, reporting and documentation from a central piece of information.
+            - [groovy](https://groovy-lang.org) - The optional-typed Apache Groovy language.
 
     - ``:skip_tags:`` Only plays, roles and tasks that *do not match* these values will be executed.
         - This parameter can be *string or list* of tags.

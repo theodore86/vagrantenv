@@ -59,4 +59,6 @@ gitconfig:
     prune: 'true'
   credential:
     helper: 'store'
+  log:
+    date: 'iso'
 ...

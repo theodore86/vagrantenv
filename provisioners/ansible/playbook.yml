@@ -15,10 +15,10 @@
     - { role: 'python/tox', tags: 'tox' }
     - { role: 'docker', tags: 'docker' }
     - { role: 'kubernetes/kind', tags: 'kind' }
-    - { role: 'kubernetes/kubectl', tags: 'kubectl' }
     - { role: 'kubernetes/helm', tags: 'helm' }
     - { role: 'kubernetes/helm_dashboard', tags: 'helm_dash' }
     - { role: 'kubernetes/k9s', tags: 'k9s' }
+    - { role: 'kubernetes/kubectl', tags: 'kubectl' }
     - { role: 'kubernetes/kubefwd', tags: 'kubefwd' }
     - { role: 'kubernetes/kubectx', tags: 'kubectx' }
     - { role: 'kubernetes/kubeshell', tags: 'kubeshell' }
@@ -29,8 +29,10 @@
     - { role: 'hashicorp/vagrant', tags: 'vagrant' }
     - { role: 'hashicorp/terraform', tags: 'terraform' }
     - { role: 'hashicorp/vault', tags: 'hvault' }
+    - { role: 'terragrunt', tags: 'terragrunt' }
     - { role: 'jvm/groovy', tags: 'groovy' }
     - { role: 'jvm/maven', tags: 'maven' }
+    - { role: 'jvm/allure', tags: 'allure' }
     - { role: 'tshark', tags: 'tshark' }
     - { role: 'hadolint', tags: 'hadolint' }
     - { role: 'go', tags: 'go' }
@@ -42,6 +44,5 @@
     - { role: 'vim', tags: 'vim' }
     - { role: 'fzf', tags: 'fzf' }
     - { role: 'yq', tags: 'yq' }
-    - { role: 'terragrunt', tags: 'terragrunt' }
     - { role: 'aws/cli/v2', tags: 'aws' }
 ...

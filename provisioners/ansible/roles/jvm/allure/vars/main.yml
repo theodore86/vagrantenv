@@ -1,0 +1,7 @@
+---
+allure_binary_name: "allure-commandline-{{ allure_version }}.zip"
+allure_checksum_name: "allure-commandline-{{ allure_version }}.zip.sha256"
+allure_base_url: "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/{{ allure_version }}"
+allure_binary_url: "{{ allure_base_url }}/{{ allure_binary_name }}"
+allure_checksum_url: "sha256:{{ allure_base_url }}/{{ allure_checksum_name }}"
+...

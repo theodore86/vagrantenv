@@ -1,0 +1,70 @@
+---
+- name: 'Import openjdk role (dependency)'
+  import_role:
+    name: 'jvm/openjdk'
+
+- name: 'Get installed version'
+  command: 'allure --version'
+  changed_when: false
+  failed_when: false
+  register: 'allure_installed_version'
+
+- name: 'Set existing version'
+  set_fact:
+    _allure_version: '{{ allure_installed_version.stdout }}'
+  when: 'allure_installed_version.rc == 0'
+
+- name: 'Download binary'
+  get_url:
+    url: '{{ allure_binary_url }}'
+    dest: '/tmp/allure-{{ allure_version }}.zip'
+    checksum: '{{ allure_checksum_url }}'
+  when: >
+    allure_installed_version.rc != 0
+    or allure_version != _allure_version
+
+- name: 'Ensure installation directory exists'
+  file:
+    path: '{{ allure_install_dir }}'
+    state: 'directory'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+
+- name: 'Extract binary to temporary directory'
+  unarchive:
+    src: '/tmp/allure-{{ allure_version }}.zip'
+    dest: '/tmp'
+    mode: 0755
+  when: >
+    allure_installed_version.rc != 0
+    or allure_version != _allure_version
+
+- name: 'Remove installed distribution'
+  file:
+    path: '{{ allure_install_dir }}'
+    state: 'absent'
+  become: 'yes'
+  when: >
+    allure_installed_version.rc != 0
+    or allure_version != _allure_version
+
+- name: 'Copy executables to installation directory'
+  copy:
+    src: '/tmp/allure-{{ allure_version }}/'
+    dest: '{{ allure_install_dir }}'
+    directory_mode: 'yes'
+    remote_src: 'yes'
+    mode: 0755
+    owner: 'root'
+    group: 'root'
+  become: 'yes'
+  when: >
+    allure_installed_version.rc != 0
+    or allure_version != _allure_version
+  notify:
+    - 'Check allure installed version'
+    - 'Set allure installed version'
+    - 'Verify allure installed version'
+...
