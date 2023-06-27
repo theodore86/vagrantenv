@@ -5,13 +5,14 @@
 
 - name: 'Install Kube-shell (kubernetes integrated shell)'
   pip:
-    name: '{{ kubeshell_package_name }}'
-    version: '{{ kubeshell_package_version | default("omit") }}'
+    name: '{{ item.name | default(item) }}'
+    version: '{{ item.version | default("omit") }}'
     chdir: ' {{ ansible_env.HOME }}'
-    extra_args: '{{ kubeshell_package_extra_args | default("omit") }}'
-    state: 'present'
+    extra_args: '--user'
+    state: '{{ item.state | default("present") }}'
     executable: '{{ pip_executable }}'
   environment:
     PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
     PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  loop: '{{ kubeshell_dependencies }}'
 ...

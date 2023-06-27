@@ -1,0 +1,17 @@
+---
+- name: 'Check allure installed version'
+  command: '{{ allure_install_dir }}/bin/allure --version'
+  changed_when: false
+  register: 'allure_installed_version'
+
+- name: 'Set allure installed version'
+  set_fact:
+    _allure_version: '{{ allure_installed_version.stdout }}'
+
+- name: 'Verify allure installed version'
+  assert:
+    that:
+      - '_allure_version == allure_version'
+    fail_msg: 'allure installation failed, {{ allure_version }} != {{ _allure_version }}'
+    success_msg: 'Install allure with version: {{ _allure_version }}'
+...
