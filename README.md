@@ -115,6 +115,7 @@ Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 - openjdk
 - groovy
 - maven
+- allure
 
 ### Ruby
 

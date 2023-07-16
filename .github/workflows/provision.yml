@@ -32,6 +32,18 @@ jobs:
         run: |
           vagrant --version
 
+      - name: 'Setup yq processor'
+        uses: 'chrisdickinson/setup-yq@v1.0.1'
+        with:
+          yq-version: 'v4.28.1'
+
+      - name: 'Update vagrant.yaml ansible tags with all the existing in playbook'
+        run: |
+          tags=$(yq ".[].roles[].tags" provisioners/ansible/playbook.yml)
+          tags=$("'${tags//[[:space:]]/"','"}'")
+          tags="[${tags}]"
+          yq '.":host".":provisioners".":ansible".":options".":tags" = env(tags)' vagrant.yaml
+
       - name: "Installation of Vagrant plugins"
         run: |
           vagrant up
