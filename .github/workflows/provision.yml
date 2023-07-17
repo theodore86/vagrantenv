@@ -8,7 +8,7 @@ on:
       - provisioners/**
       - vagrant.yaml
       - lib/**
-      - .github/workflows/provision.yaml
+      - .github/workflows/provision.yml
       - requirements.d/ansible.txt
   schedule:
     - cron: "0 0 * * *"
@@ -37,12 +37,12 @@ jobs:
         with:
           yq-version: 'v4.28.1'
 
-      - name: 'Update vagrant.yaml ansible tags with all the existing in playbook'
+      - name: 'Update vagrant.yaml with all existing provisioner tags'
         run: |
-          tags=$(yq ".[].roles[].tags" provisioners/ansible/playbook.yml)
-          tags="'${tags//[[:space:]]/"','"}'"
-          tags="[${tags}]"
-          yq '.":host".":provisioners".":ansible".":options".":tags" = env(tags)' -i vagrant.yaml
+          TAGS=$(yq ".[].roles[].tags" provisioners/ansible/playbook.yml)
+          TAGS="'${TAGS//[[:space:]]/"','"}'"
+          export TAGS="[${TAGS}]"
+          yq '.":host".":provisioners".":ansible".":options".":tags" = env(TAGS)' -i vagrant.yaml
 
       - name: "Installation of Vagrant plugins"
         run: |
