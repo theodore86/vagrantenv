@@ -76,7 +76,7 @@
     mvn_installed_version.rc != 0
     or mvn_version != mvn_current_version
   notify:
-    - 'Check installed version'
-    - 'Set installed version'
-    - 'Verify installed version'
+    - 'Check maven installed version'
+    - 'Set maven installed version'
+    - 'Verify maven installed version'
 ...
