@@ -16,7 +16,7 @@ source ${CWD}/../helpers/pacapt.sh
 source ${CWD}/../helpers/string.sh
 
 
-VAGRANT_VERSION='2.3.6'
+VAGRANT_VERSION='2.3.7'
 VAGRANT_VIRTUALBOX_VERSION='virtualbox'
 VAGRANT_TMP_DIR='/tmp/downloads'
 VAGRANT_TMP_DEB="${VAGRANT_TMP_DIR}/vagrant_${VAGRANT_VERSION}.deb"
