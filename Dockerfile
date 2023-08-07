@@ -16,13 +16,13 @@ RUN apt-get update && \
     python3-dev && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-ARG HADOLINT_VERSION="2.10.0"
+ARG HADOLINT_VERSION="2.12.0"
 
 RUN curl -OLs https://github.com/hadolint/hadolint/releases/download/v"${HADOLINT_VERSION}"/hadolint-Linux-x86_64 && \
     mv hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
     chmod a+x /usr/local/bin/hadolint
 
-ARG VAGRANT_VERSION="2.3.6"
+ARG VAGRANT_VERSION="2.3.7"
 
 RUN if dpkg --compare-versions "${VAGRANT_VERSION}" ge 2.3.0; then \
     VERSION="${VAGRANT_VERSION}-1"; \
@@ -35,7 +35,7 @@ RUN if dpkg --compare-versions "${VAGRANT_VERSION}" ge 2.3.0; then \
     dpkg -i vagrant_"${VERSION}"_"${ARCH}".deb && \
     rm vagrant_"${VERSION}"_"${ARCH}".deb
 
-ARG BUNDLER_VERSION="2.3.23"
+ARG BUNDLER_VERSION="2.4.18"
 
 RUN gem install bundler --version "${BUNDLER_VERSION}"
 
@@ -54,8 +54,8 @@ USER "${USERNAME}"
 ENV LANG="C.UTF-8" \
     PATH="/home/${USERNAME}/.local/bin:${PATH}"
 
-ARG PIP_VERSION="22.3" \
-    TOX_VERSION="4.2.6"
+ARG PIP_VERSION="23.2.1" \
+    TOX_VERSION="4.6.4"
 
 RUN python3 -m pip install --user --no-compile --no-cache-dir --upgrade pip=="${PIP_VERSION}" && \
     python3 -m pip install --user --no-compile --no-cache-dir tox=="${TOX_VERSION}"
