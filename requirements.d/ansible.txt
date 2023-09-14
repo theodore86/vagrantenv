@@ -1,3 +1,3 @@
 # Requirements for bootstrapping ansible through shell provisioner
 
-ansible==7.6.0
+ansible==7.7.0
