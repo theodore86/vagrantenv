@@ -1,5 +1,15 @@
 @echo off
 
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo You need administrative privileges to install chocolatey.
+    echo .
+    echo Please run this script as an administrator.
+    echo .
+    pause
+    exit /b %errorlevel%
+)
+
 SET DIR=%~dp0%
 
 echo Ensure that your cmd.exe runs as Administrator
