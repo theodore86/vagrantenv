@@ -122,15 +122,9 @@
               :options:
                   - :id: "mkdocs"
                     :guest: 8000
-                    :protocol: &tcp "tcp"
-                    :host_ip: &localhost "127.0.0.1"
+                    :protocol: "tcp"
+                    :host_ip: "127.0.0.1"
                     :host: 8000
-                    :auto_correct: true
-                  - :id: "vault"
-                    :guest: 8200
-                    :protocol: *tcp
-                    :host_ip: *localhost
-                    :host: 8200
                     :auto_correct: true
         - :lan:
               :type: "private_network"
