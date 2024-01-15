@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'rubocop', '1.59.0', require: false
+gem 'rubocop', '1.60.0', require: false
