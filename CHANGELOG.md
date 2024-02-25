@@ -1,3 +1,40 @@
+## [2.37.0] - 2024-02-26
+
+### Changed
+
+- Update project dependencies.
+  - Update ``yamllint==1.35.1``.
+  - Update ``pylint==3.0.3``.
+  - Update ``pre-commit==3.6.2``.
+  - Update ``pytest==8.0.1``.
+  - Update ``ansible==7.7.0``.
+  - Update ``mkdocs==1.5.3``.
+  - Update ``typing-extensions==4.9.0``.
+  - Update ``shellcheck==0.9.0.6``.
+- Update ``Gemfile/Gemfile.lock``.
+  - Update ``rubocop==1.60.2``.
+- Update ``linux/provision.sh``
+  - Update vagrant to version ``2.4.0``.
+- Update ``Dockerfile``
+  - Update vagrant to version ``2.4.0``.
+  - Update tox to version ``4.6.4``.
+- Update ``chocolatey.config``.
+  - Update ``vscode/1.83.0``.
+  - Update ``virtualbox/7.0.10``.
+- Update ``provision.bat`` windows script.
+  - Add error handling when not admin privileges.
+
+### Added
+- Ansible provisioner roles.
+  - ``docker/docker buildx`` role.
+  - ``kubernetes/kubetail`` role.
+  - ``jvm/allure`` role.
+- Update ``vagrant.yaml``
+  -
+### Removed
+- Update ``vagrant.yaml``
+  - Delete port forwarding rule (``vault``).
+
 ## [2.32.0] - 2023-03-19
 
 ### Changed
