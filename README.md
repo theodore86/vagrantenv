@@ -135,7 +135,7 @@ Based on Ubuntu `jammy/22.04` box from: [HashiCorp's Vagrant Cloud](https://app.
 
 ### Python3
 
-- Python ``3.10``
+- Python ``3.11``
 
 ### VIM Plugins
 

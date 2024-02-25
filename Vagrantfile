@@ -36,6 +36,7 @@ Vagrant.configure('2') do |config|
     config.vm.define HOST[:name] do |node|
         #-- Box Settings --#
         node.vm.box = HOST[:box]
+        node.vm.box_version = HOST[:box_version]
         node.vm.box_url = HOST[:box_url]
         node.vm.box_check_update = HOST[:box_update]
         node.vm.hostname = HOST[:name]

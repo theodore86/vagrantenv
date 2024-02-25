@@ -12,8 +12,9 @@
 - name: 'Upgrade, if required'
   pip:
     name: 'pip'
+    version: '{{ pip_version }}'
+    extra_args: '--break-system-packages'
     chdir: '{{ ansible_env.HOME }}'
-    state: 'latest'
     executable: '{{ pip_executable }}'
   become: 'yes'
   environment:

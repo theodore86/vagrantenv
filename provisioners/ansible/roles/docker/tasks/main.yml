@@ -93,7 +93,7 @@
 - name: 'Install PyYAML'
   pip:
     name: 'pyyaml=={{ docker_compose_pyyaml_version }}'
-    extra_args: '--user --no-build-isolation'
+    extra_args: '--break-system-packages --user --no-build-isolation'
     state: 'present'
     executable: '{{ pip_executable }}'
   environment:
@@ -104,7 +104,7 @@
 - name: 'Install Docker Compose'
   pip:
     name: 'docker-compose=={{ docker_compose_version }}'
-    extra_args: '--user'
+    extra_args: '--break-system-packages --user'
     state: 'present'
     executable: '{{ pip_executable }}'
   environment:
@@ -129,7 +129,7 @@
   pip:
     name: 'docker=={{ docker_sdk_version }}'
     chdir: '{{ ansible_env.HOME }}'
-    extra_args: '--user'
+    extra_args: '--break-system-packages --user'
     state: 'present'
     executable: '{{ pip_executable }}'
   environment:
