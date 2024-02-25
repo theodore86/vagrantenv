@@ -9,7 +9,7 @@
     name: '{{ item.name | default(item) }}'
     version: '{{ item.version | default("omit") }}'
     chdir: '{{ ansible_env.HOME }}'
-    extra_args: '--user'
+    extra_args: '--break-system-packages --user'
     state: '{{ item.state | default("present") }}'
     executable: '{{ pip_executable }}'
   environment:

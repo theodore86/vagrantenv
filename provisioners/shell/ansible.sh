@@ -25,7 +25,7 @@ _install_python3() {
 
 _install_ansible() {
     local requirements="$1"
-    pip3 install --upgrade -r "$requirements"
+    pip3 install --break-system-packages --upgrade -r "$requirements"
     ansible --version
 }
 

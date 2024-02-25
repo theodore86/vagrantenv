@@ -2,7 +2,7 @@
 ansible_extras_install: true
 ansible_extras_pip_packages:
   - name: 'paramiko'
-    version: '2.11.0'
+    version: '3.4.0'
   - name: 'jmespath'
     version: '1.0.1'
 ansible_extras_system_packages:
