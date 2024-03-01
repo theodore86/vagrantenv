@@ -15,7 +15,7 @@ kubectl_version: 1.25.0
 kubectx_version: 0.9.4
 kubefwd_version: 1.22.4
 kubeps1_version: 0.8.0
-kubeshark_version: 41.6
+kubeshark_version: 52.1.63
 kubetail_version: 1.6.17
 tf_version: 1.3.6
 tgrunt_version: 0.40.0
