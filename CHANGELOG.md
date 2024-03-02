@@ -1,3 +1,19 @@
+## [2.37.1] - 2024-03-02
+
+### Changed
+
+- Update project dependencies.
+  - Update ``pytest==8.0.2``.
+  - Update ``pylint==3.1.0``.
+  - Update ``typing-extensions==4.10.0``.
+- Update ``Gemfile/Gemfile.lock``.
+  - Update ``rubocop==1.61.0``.
+
+### Fixed
+
+- Ansible provisioner roles.
+  - ``kubernetens/kubeshark`` role.
+
 ## [2.37.0] - 2024-02-26
 
 ### Changed
