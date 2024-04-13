@@ -90,6 +90,17 @@
     name: 'python/pip'
   when: 'docker_sdk_install | bool'
 
+- name: 'Install PyYAML'
+  pip:
+    name: 'pyyaml=={{ docker_compose_pyyaml_version }}'
+    extra_args: '--user --no-build-isolation'
+    state: 'present'
+    executable: '{{ pip_executable }}'
+  environment:
+    PIP_CONFIG_FILE: '{{ ansible_env.HOME }}/pip.conf'
+    PYTHONWARNINGS: 'ignore:Unverified HTTPS request'
+  when: 'docker_compose_install | bool'
+
 - name: 'Install Docker Compose'
   pip:
     name: 'docker-compose=={{ docker_compose_version }}'
