@@ -1,6 +1,6 @@
 # Requirements for [testenv:docs] virtualenv
 
 jinja2==3.0.3
-mkdocs==1.6.0
+mkdocs==1.6.1
 pymdown-extensions==9.1
 Pygments==2.11.2
