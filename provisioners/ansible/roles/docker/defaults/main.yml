@@ -25,5 +25,5 @@ docker_compose_install: true
 docker_compose_pyyaml_version: '5.4.1'
 docker_compose_version: '1.29.2'
 docker_buildx_install: true
-docker_buildx_version: '0.10.4'
+docker_buildx_version: '0.15.0'
 ...
