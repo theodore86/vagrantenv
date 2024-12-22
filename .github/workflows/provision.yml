@@ -15,10 +15,14 @@ on:
 
 jobs:
   sandbox_provisioning:
-    runs-on: macos-12
+    runs-on: ubuntu-22.04
     steps:
       - name: "Checkout source code"
         uses: "actions/checkout@v3.3.0"
+
+      - name: 'Install Virtualbox, Vagrant'
+        run:
+          bash tools/linux/provision.sh
 
       - name: 'Cache Vagrant boxes'
         uses: 'actions/cache@v3'
