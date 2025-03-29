@@ -22,7 +22,7 @@ RUN curl -OLs https://github.com/hadolint/hadolint/releases/download/v"${HADOLIN
     mv hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
     chmod a+x /usr/local/bin/hadolint
 
-ARG VAGRANT_VERSION="2.4.0"
+ARG VAGRANT_VERSION="2.4.3"
 
 RUN if dpkg --compare-versions "${VAGRANT_VERSION}" ge 2.3.0; then \
     VERSION="${VAGRANT_VERSION}-1"; \
