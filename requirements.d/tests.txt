@@ -1,4 +1,4 @@
 # Requirements for [testenv:tests] virtualenv
 
-pytest==8.3.3
+pytest==8.3.5
 -r ansible.txt
