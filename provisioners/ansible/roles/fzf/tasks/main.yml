@@ -3,7 +3,7 @@
   git:
     repo: '{{ fzf_repository_url }}'
     dest: '{{ fzf_install_dir }}'
-    version: '{{ fzf_version }}'
+    version: 'v{{ fzf_version }}'
     accept_hostkey: 'yes'
     update: 'yes'
     remote: 'origin'
