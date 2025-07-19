@@ -2,7 +2,7 @@
 
 -r ansible.txt
 yamllint==1.36.0
-typing-extensions==4.13.2
+typing-extensions==4.14.1
 pylint==3.3.7
 shellcheck-py==0.10.0.1
 ansible-lint==5.4.0
