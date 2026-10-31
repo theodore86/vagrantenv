@@ -35,7 +35,7 @@ RUN if dpkg --compare-versions "${VAGRANT_VERSION}" ge 2.3.0; then \
     dpkg -i vagrant_"${VERSION}"_"${ARCH}".deb && \
     rm vagrant_"${VERSION}"_"${ARCH}".deb
 
-ARG BUNDLER_VERSION="4.0.23"
+ARG BUNDLER_VERSION="2.5.23"
 
 RUN gem install bundler --version "${BUNDLER_VERSION}"
 
